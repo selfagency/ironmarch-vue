@@ -1,0 +1,13 @@
+{
+  "deepscan.enable": true,
+  "cSpell.ignoreWords": [
+    "dont",
+    "getify",
+    "lodash",
+    "need",
+    "serviceworker",
+    "underscore",
+    "webextensions",
+    "you"
+  ]
+}
