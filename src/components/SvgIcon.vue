@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'svg-icon',
+  name: 'SvgIcon',
 
   props: {
     name: {

@@ -1,41 +1,25 @@
 // import vue + vue plugins
 import Vue from 'vue'
-import VueEvents from 'vue-events'
-import VueMeta from 'vue-meta'
-import VueSkipTo from 'vue-skip-to'
-import VueViewports from 'vue-viewports'
 
 // import application
 import App from './App.vue'
+import filters from './app/filters'
+import globals from './app/globals'
 import i18n from './i18n'
+import plugins from './app/plugins'
 import router from './router'
 import store from './store'
+import utils from './app/utils'
 import './registerServiceWorker'
 
-// import global components
-import InlineSvg from 'vue-inline-svg'
-import SvgIcon from './components/SvgIcon.vue'
-
-// import data
-import breakpoints from './data/breakpoints.json'
-
-// register global utils
-window.debug = process.env.NODE_ENV !== 'production'
-if (window.debug) window.Console = require('consola')
-
-// register global components
-Vue.component('SvgIcon', SvgIcon)
-Vue.component('InlineSvg', InlineSvg)
-
-// register plugins
-// if (window.debug) Vue.use(require('vue-axe'))
-Vue.use(VueEvents)
-Vue.use(VueMeta)
-Vue.use(VueSkipTo)
-Vue.use(VueViewports, breakpoints)
-
 // config
+window.debug = process.env.NODE_ENV !== 'production'
 Vue.config.productionTip = false
+
+globals(Vue) // register globals
+filters(Vue) // register filters
+plugins(Vue) // register plugins
+utils(Vue) // register utils
 
 // register application
 new Vue({
