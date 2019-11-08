@@ -1,14 +1,14 @@
 <template>
   <main v-if="msg">
     <div class="meta">
-      <h1 v-if="msg.thread.content" class="title">{{ msg.thread.content }}</h1>
+      <h1 v-if="msg.thread && msg.thread.content" class="title">{{ msg.thread.content }}</h1>
       <div v-if="msg.author">
         <strong>From</strong>
         <router-link :to="{ name: 'user', params: { id: msg.authorId } }">
           {{ msg.author.name }}
         </router-link>
       </div>
-      <div v-if="msg.thread.recipient">
+      <div v-if="msg.thread && msg.thread.recipient">
         <strong>To</strong>
         <router-link :to="{ name: 'user', params: { id: msg.thread.recipientId } }">
           {{ msg.thread.recipient.name }}
