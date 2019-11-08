@@ -54,8 +54,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      const posts = document.getElementById('search-posts')
-      posts.setAttribute('checked', true)
+      this.selected = 'posts'
     })
   },
   methods: {
