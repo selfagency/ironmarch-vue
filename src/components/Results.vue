@@ -8,7 +8,7 @@
       <p>No results to display.</p>
     </div>
 
-    <div v-if="results.length >= params.limit" class="more" role="none">
+    <div v-if="results.length && isMore" class="more" role="none">
       <button @click="more">
         More results
       </button>
@@ -31,7 +31,7 @@ export default {
     Users
   },
   computed: {
-    ...mapState('search', ['method', 'results', 'params'])
+    ...mapState('search', ['method', 'results', 'params', 'isMore'])
   },
   methods: {
     ...mapActions('search', ['more'])

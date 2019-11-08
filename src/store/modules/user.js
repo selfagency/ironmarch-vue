@@ -4,16 +4,25 @@ import get from '../../app/api'
 
 const namespaced = true
 
-const state = {
-  profile: {},
-  msgs: [],
-  posts: [],
-  statuses: [],
-  offsets: {
-    msgs: 0,
-    posts: 0
+class Model {
+  constructor() {
+    this.method = 'user'
+    this.profile = {}
+    this.msgs = []
+    this.posts = []
+    this.statuses = []
+    this.offsets = {
+      msgs: 0,
+      posts: 0
+    }
+    this.isMore = {
+      msgs: true,
+      posts: true
+    }
   }
 }
+
+const state = new Model()
 
 const mutations = {
   CONTENT_ADD(state, { method, content }) {
@@ -27,14 +36,7 @@ const mutations = {
     state.offsets[`${method}s`] = state.offsets[`${method}s`] + limit
   },
   RESET_USER(state) {
-    state.msgs = []
-    state.offsets = {
-      msgs: 0,
-      posts: 0
-    }
-    state.posts = []
-    state.profile = {}
-    state.statuses = []
+    Object.assign(state, new Model())
   }
 }
 

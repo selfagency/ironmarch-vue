@@ -2,16 +2,21 @@ import get from '../../app/api'
 
 const namespaced = true
 
-const state = {
-  method: 'post',
-  params: {
-    terms: null,
-    user: null,
-    limit: 25,
-    offset: 0
-  },
-  results: []
+class Model {
+  constructor() {
+    this.method = 'post'
+    this.params = {
+      terms: null,
+      user: null,
+      limit: 20,
+      offset: 0
+    }
+    this.results = []
+    this.isMore = true
+  }
 }
+
+const state = new Model()
 
 const mutations = {
   SEARCH_METHOD(state, method) {
@@ -24,13 +29,16 @@ const mutations = {
     if (result && result.length) state.results.push(...result)
   },
   RESULTS_DEL(state) {
-    state.results = []
+    Object.assign(state, new Model())
   },
   OFFSET(state) {
     state.params.offset = state.params.offset + state.params.limit
   },
   OFFSET_DEL(state) {
     state.params.offset = 0
+  },
+  NO_MORE(state) {
+    state.isMore = false
   }
 }
 
@@ -61,9 +69,10 @@ const actions = {
   async more({ commit, state, dispatch }) {
     try {
       dispatch('loading', null, { root: true })
-      commit('OFFSET')
+      dispatch('offset')
       const result = await get(state.method, state.params)
       commit('RESULTS_ADD', result)
+      if (!result || result.length < 10) dispatch('noMore')
       dispatch('loading', null, { root: true })
     } catch (err) {
       Console.error(err)
@@ -79,6 +88,9 @@ const actions = {
   },
   offsetReset({ commit }) {
     commit('OFFSET_DEL')
+  },
+  noMore({ commit }) {
+    commit('NO_MORE')
   }
 }
 
