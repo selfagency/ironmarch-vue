@@ -7,7 +7,9 @@
         <th>Content</th>
       </tr>
       <tr v-for="(status, key) in statuses" :key="key">
-        <td valign="top"><small>{{ status.date | dateConv }}</small></td>
+        <td valign="top">
+          <small>{{ status.date | dateConv }}</small>
+        </td>
         <td valign="top" v-html="status.content"></td>
       </tr>
     </table>

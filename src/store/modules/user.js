@@ -83,7 +83,7 @@ const actions = {
       dispatch('offset', { method, limit })
       dispatch('loading', null, { root: true })
 
-      const content = await get(method, { user: params.id, limit, offset: state.offsets[`${method}s`] })
+      const content = await get(method, { user: params.user, limit, offset: state.offsets[`${method}s`] })
 
       dispatch('addContent', { method, content })
       dispatch('loading', null, { root: true })
