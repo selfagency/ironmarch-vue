@@ -51,7 +51,6 @@ export default {
 
 <style lang="stylus">
 @import '../node_modules/milligram/dist/milligram.css'
-@import '../node_modules/vue2-animate/dist/vue2-animate.min.css'
 
 #app
   position relative
