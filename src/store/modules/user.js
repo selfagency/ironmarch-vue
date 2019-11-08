@@ -1,8 +1,6 @@
 import queryString from 'query-string'
 
 import get from '../../app/api'
-import fullcontact from '../../app/services/fullcontact'
-import ipstack from '../../app/services/ipstack'
 
 const namespaced = true
 
@@ -10,6 +8,7 @@ const state = {
   profile: {},
   msgs: [],
   posts: [],
+  statuses: [],
   offsets: {
     msgs: 0,
     posts: 0
@@ -43,7 +42,7 @@ const mutations = {
 const actions = {
   async getUser({ dispatch, state, rootState }, { params }) {
     try {
-      let content, posts, msgs, lookup, geo
+      let content, posts, msgs
       const hash = this._vm.$utils.hash(`user?${queryString.stringify(params)}`),
         limit = 10
 
@@ -61,14 +60,11 @@ const actions = {
           get('post', { user: params.id, limit, offset: state.offsets['posts'] }),
           get('msg', { user: params.id, limit, offset: state.offsets['msgs'] })
         ])
-        ;[lookup, geo] = await Promise.all([fullcontact({ email: content.email }), ipstack({ ip: content.ip })])
-        // geo = await ipstack({ ip: content.ip })
 
         content.hash = hash
-        content.lookup = lookup
-        content.geo = geo
         dispatch('addContent', { method: 'post', content: posts })
         dispatch('addContent', { method: 'msg', content: msgs })
+        dispatch('addContent', { method: 'statuse', content: content.statuses })
         dispatch('setProfile', { method: 'user', content })
         dispatch('content/addContent', { method: 'user', content }, { root: true })
       }
