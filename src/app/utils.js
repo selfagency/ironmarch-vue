@@ -2,7 +2,7 @@ import md5 from 'md5-hash'
 import mediumZoom from 'medium-zoom'
 
 const utils = Vue => {
-  if (window.debug) window.Console = require('consola')
+  window.Console = require('consola')
 
   Vue.prototype.$utils = {
     hash: md5,
