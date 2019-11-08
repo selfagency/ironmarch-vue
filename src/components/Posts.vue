@@ -9,7 +9,8 @@
       <tr v-for="(post, key) in posts" v-show="post.content" :key="key">
         <td valign="top">
           <router-link :to="{ name: 'user', params: { id: post.authorId } }">
-            <strong>{{ post.author.name }}</strong>
+            <strong v-if="post.author">{{ post.author.name }}</strong>
+            <strong v-else>{{ post.authorId }}</strong>
           </router-link>
           <br />
           <small>{{ post.date | dateConv }}</small>
