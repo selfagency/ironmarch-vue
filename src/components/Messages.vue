@@ -1,5 +1,5 @@
 <template>
-  <section v-if="msgs.length" id="messages">
+  <section v-if="msgs.length && Object.values(msgs[0]).length" id="messages">
     <h2>Messages</h2>
     <table>
       <tr>
@@ -27,7 +27,7 @@
           </div>
         </td>
         <td valign="top">
-          <div if="msg.thread.content">
+          <div v-if="msg.thread">
             <strong v-html="msg.thread.content"></strong>
           </div>
           <div class="content">

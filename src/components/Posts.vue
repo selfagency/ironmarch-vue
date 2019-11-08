@@ -1,5 +1,5 @@
 <template>
-  <section v-if="posts.length" id="posts">
+  <section v-if="posts.length && Object.values(posts[0]).length" id="posts">
     <h2>Posts</h2>
     <table>
       <tr>

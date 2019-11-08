@@ -17,7 +17,7 @@ const state = {
 
 const mutations = {
   CONTENT_ADD(state, { method, content }) {
-    state[`${method}s`].push(...content)
+    content.length ? state[`${method}s`].push(...content) : state[`${method}s`].push(content)
   },
   SET_PROFILE(state, { content }) {
     state.profile = content
@@ -40,11 +40,11 @@ const mutations = {
 
 const actions = {
   async getUser({ dispatch, state, rootState }, { params }) {
-    try {
-      let content, posts, msgs
-      const hash = this._vm.$utils.hash(`user?${queryString.stringify(params)}`),
-        limit = 10
+    let content, posts, msgs
+    const hash = this._vm.$utils.hash(`user?${queryString.stringify(params)}`),
+      limit = 10
 
+    try {
       dispatch('loading', null, { root: true })
       dispatch('resetUser')
 
@@ -58,20 +58,22 @@ const actions = {
           get('post', { user: params.id, limit, offset: state.offsets['posts'] }),
           get('msg', { user: params.id, limit, offset: state.offsets['msgs'] })
         ])
-
+      }
+    } catch (err) {
+      if (Object.values(err.response).length) {
+        dispatch('loading', null, { root: true })
+        dispatch('error', err.message, { root: true })
+      }
+    } finally {
+      if (Object.values(content).length) {
         content.hash = hash
-        dispatch('addContent', { method: 'post', content: posts })
-        dispatch('addContent', { method: 'msg', content: msgs })
+        dispatch('setProfile', { method: 'user', content: content })
         dispatch('addContent', { method: 'statuse', content: content.statuses })
-        dispatch('setProfile', { method: 'user', content })
         dispatch('content/addContent', { method: 'user', content: [content] }, { root: true })
       }
-
+      if (posts) dispatch('addContent', { method: 'post', content: posts })
+      if (msgs) dispatch('addContent', { method: 'msg', content: msgs })
       dispatch('loading', null, { root: true })
-    } catch (err) {
-      Console.error(err)
-      dispatch('loading', null, { root: true })
-      dispatch('error', err.message, { root: true })
     }
   },
   async getMore({ dispatch, state }, { method, params }) {

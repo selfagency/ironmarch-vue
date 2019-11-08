@@ -13,7 +13,7 @@ const state = {
 
 const mutations = {
   CONTENT_ADD(state, { method, content }) {
-    state[`${method}s`].push(...content)
+    content.length ? state[`${method}s`].push(...content) : state[`${method}s`].push(content)
   },
   CURRENT_SET(state, content) {
     state.current = content

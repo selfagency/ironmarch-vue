@@ -1,5 +1,5 @@
 <template>
-  <section v-if="user" id="meta" class="row">
+  <section v-if="user && Object.values(user).length" id="meta" class="row">
     <div class="column column-75">
       <div v-if="user.lookup">
         <div v-if="user.lookup.contactInfo"><strong>Real Name:</strong> {{ user.lookup.contactInfo.fullName }}</div>
