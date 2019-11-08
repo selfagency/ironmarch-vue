@@ -4,18 +4,20 @@ import get from '../../app/api'
 
 const namespaced = true
 
-const model = {
-  profile: {},
-  msgs: [],
-  posts: [],
-  statuses: [],
-  offsets: {
-    msgs: 0,
-    posts: 0
-  },
-  isMore: {
-    msgs: true,
-    posts: true
+const model = () => {
+  return {
+    profile: {},
+    msgs: [],
+    posts: [],
+    statuses: [],
+    offsets: {
+      msgs: 0,
+      posts: 0
+    },
+    isMore: {
+      msgs: true,
+      posts: true
+    }
   }
 }
 

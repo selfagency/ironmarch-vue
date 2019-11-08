@@ -2,25 +2,25 @@ import get from '../../app/api'
 
 const namespaced = true
 
-const model = {
-  method: 'post',
-  params: {
-    terms: null,
-    user: null,
-    limit: 25,
-    offset: 0
-  },
-  results: [],
-  isMore: true
+const model = () => {
+  return {
+    method: null,
+    params: {
+      terms: null,
+      user: null,
+      limit: 25,
+      offset: 0
+    },
+    results: [],
+    isMore: true
+  }
 }
 
-const state = Object.assign({}, model)
+const state = Object.assign({}, model())
 
 const mutations = {
   SEARCH_METHOD(state, method) {
-    Console.log(method)
     state.method = method
-    Console.log(state.method)
   },
   SEARCH_TERMS(state, terms) {
     state.params.terms = terms
@@ -29,13 +29,12 @@ const mutations = {
     if (result && result.length) state.results.push(...result)
   },
   RESULTS_DEL(state) {
-    Object.assign(state, model)
+    const method = state.method
+    Object.assign(state, model())
+    state.method = method
   },
   OFFSET(state) {
     state.params.offset = state.params.offset + state.params.limit
-  },
-  OFFSET_DEL(state) {
-    state.params.offset = 0
   },
   NO_MORE(state) {
     state.isMore = false
@@ -48,7 +47,6 @@ const actions = {
       event.preventDefault()
       dispatch('loading', null, { root: true })
       dispatch('deleteResults')
-      dispatch('offsetReset')
       const result = await get(state.method, state.params)
       commit('RESULTS_ADD', result)
       dispatch('loading', null, { root: true })
@@ -73,11 +71,10 @@ const actions = {
     }
   },
   setMethod({ commit, dispatch }, m) {
-    commit('SEARCH_METHOD', m.substring(0, m.length - 1))
     dispatch('deleteResults')
-    dispatch('offsetReset')
+    commit('SEARCH_METHOD', m.substring(0, m.length - 1))
   },
-  terms({ commit }, t) {
+  setTerms({ commit }, t) {
     commit('SEARCH_TERMS', t)
   },
   deleteResults({ commit }) {
@@ -85,9 +82,6 @@ const actions = {
   },
   offset({ commit }) {
     commit('OFFSET')
-  },
-  offsetReset({ commit }) {
-    commit('OFFSET_DEL')
   },
   noMore({ commit }) {
     commit('NO_MORE')

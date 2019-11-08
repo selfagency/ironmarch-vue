@@ -16,6 +16,7 @@
         <div v-for="(search, key) in searches" :key="key" class="column column-25" role="none">
           <input
             :id="`search-${search}`"
+            v-model="selected"
             type="radio"
             name="method"
             :value="search"
@@ -36,30 +37,29 @@ export default {
   name: 'SearchBar',
   data() {
     return {
-      searches: ['posts', 'messages', 'users']
+      searches: ['posts', 'messages', 'users'],
+      selected: null
     }
   },
   computed: {
-    ...mapState('search/method', ['messages', 'posts', 'users']),
+    ...mapState('search', ['params']),
     terms: {
       get() {
-        return this.$store.state.search.params.terms
+        return this.params.terms
       },
       set(t) {
-        this.$store.dispatch('search/terms', t)
+        this.$store.dispatch('search/setTerms', t)
       }
     }
   },
   mounted() {
     this.$nextTick(() => {
-      setTimeout(() => {
-        const posts = document.getElementById('search-posts')
-        posts.setAttribute('checked', true)
-      }, 300)
+      const posts = document.getElementById('search-posts')
+      posts.setAttribute('checked', true)
     })
   },
   methods: {
-    ...mapActions('search', ['setMethod', 'search'])
+    ...mapActions('search', ['setMethod', 'search', 'deleteResults'])
   }
 }
 </script>
