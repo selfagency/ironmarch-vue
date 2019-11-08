@@ -1,20 +1,22 @@
 import vueDebounce from 'vue-debounce'
-import VueEvents from 'vue-events'
-import VueMeta from 'vue-meta'
-import VueSkipTo from 'vue-skip-to'
-import VueViewports from 'vue-viewports'
+// import VueEvents from 'vue-events'
+// import VueMeta from 'vue-meta'
+import VueScrollTo from 'vue-scrollto'
+// import VueSkipTo from 'vue-skip-to'
+// import VueViewports from 'vue-viewports'
 
-import breakpoints from '../data/breakpoints.json'
+// import breakpoints from '../data/breakpoints.json'
 
 const plugins = Vue => {
   // if (window.debug) Vue.use(require('vue-axe'))
   Vue.use(vueDebounce, {
     listenTo: ['input', 'keyup']
   })
-  Vue.use(VueEvents)
-  Vue.use(VueMeta)
-  Vue.use(VueSkipTo)
-  Vue.use(VueViewports, breakpoints)
+  // Vue.use(VueEvents)
+  // Vue.use(VueMeta)
+  Vue.use(VueScrollTo)
+  // Vue.use(VueSkipTo)
+  // Vue.use(VueViewports, breakpoints)
 }
 
 export default plugins

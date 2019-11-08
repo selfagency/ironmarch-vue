@@ -1,4 +1,4 @@
-import get from '../../api'
+import get from '../../app/api'
 
 const namespaced = true
 
@@ -18,10 +18,10 @@ const mutations = {
     state.method = method
   },
   SEARCH_TERMS(state, terms) {
-    state.method.users ? (state.params.user = terms) : (state.params.terms = terms)
+    state.params.terms = terms
   },
   RESULTS_ADD(state, result) {
-    state.results = state.results.concat(result)
+    state.results.push(...result)
   },
   RESULTS_DEL(state) {
     state.results = []
@@ -46,23 +46,29 @@ const actions = {
   async search({ commit, state, dispatch }, event) {
     try {
       event.preventDefault()
+      dispatch('loading', null, { root: true })
       dispatch('deleteResults')
       dispatch('offsetReset')
       const result = await get(state.method, state.params)
       commit('RESULTS_ADD', result)
+      dispatch('loading', null, { root: true })
     } catch (err) {
       Console.error(err)
-      commit('../ERROR', err.message)
+      dispatch('loading', null, { root: true })
+      dispatch('error', err.message, { root: true })
     }
   },
   async more({ commit, state, dispatch }) {
     try {
+      dispatch('loading', null, { root: true })
       commit('OFFSET')
       const result = await get(state.method, state.params)
       commit('RESULTS_ADD', result)
+      dispatch('loading', null, { root: true })
     } catch (err) {
       Console.error(err)
-      commit('../ERROR', err.message)
+      dispatch('loading', null, { root: true })
+      dispatch('error', err.message, { root: true })
     }
   },
   deleteResults({ commit }) {

@@ -20,7 +20,7 @@ module.exports = {
     'security',
     'standard',
     'vue',
-    // "vue-a11y",
+    // 'vue-a11y',
     'fp',
     '@getify/proper-arrows',
     'unicorn'
@@ -28,7 +28,7 @@ module.exports = {
   extends: [
     'plugin:jest/recommended',
     'plugin:security/recommended',
-    // "plugin:vue-a11y/base"
+    // 'plugin:vue-a11y/base',
     '@vue/prettier',
     'plugin:vue/recommended',
     'plugin:you-dont-need-lodash-underscore/compatible'
@@ -90,6 +90,7 @@ module.exports = {
     'vue/html-self-closing': ['off'],
     'vue/max-attributes-per-line': ['off'],
     'vue/no-v-html': ['off'],
+    'vue/singleline-html-element-content-newline': ['off'],
     'wrap-iife': ['error', 'inside']
   }
 }

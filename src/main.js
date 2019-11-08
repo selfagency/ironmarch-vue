@@ -5,12 +5,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import filters from './app/filters'
 import globals from './app/globals'
-import i18n from './i18n'
+// import i18n from './app/i18n'
 import plugins from './app/plugins'
-import router from './router'
+import router from './app/router'
 import store from './store'
 import utils from './app/utils'
-import './registerServiceWorker'
+import './app/serviceWorker'
 
 // config
 window.debug = process.env.NODE_ENV !== 'production'
@@ -25,6 +25,6 @@ utils(Vue) // register utils
 new Vue({
   router,
   store,
-  i18n,
+  // i18n,
   render: h => h(App)
 }).$mount('#app')
