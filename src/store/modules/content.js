@@ -46,8 +46,9 @@ const actions = {
       dispatch('error', err.message, { root: true })
     }
   },
-  addContent({ commit }, method, content) {
-    commit('CONTENT_ADD', method, content)
+  addContent({ commit, dispatch }, method, content) {
+    if (method === 'message') method = 'msg'
+    if (content) commit('CONTENT_ADD', method, content)
   },
   setCurrent({ commit }, content) {
     commit('CURRENT_SET', content)

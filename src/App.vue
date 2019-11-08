@@ -24,7 +24,27 @@ export default {
     AppFooter
   },
   computed: {
-    ...mapState(['loading', 'error'])
+    ...mapState(['loading', 'error']),
+    footerOffset() {
+      const footer = document.getElementsByTagName('footer')[0]
+      return footer.offsetHeight
+    }
+  },
+  watch: {
+    $route() {
+      this.$store.dispatch('errorReset')
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      setTimeout(() => {
+        const main = document.getElementsByTagName('main')[0]
+        const footer = document.getElementsByTagName('footer')[0]
+
+        main.style.marginBottom = `${this.footerOffset}px`
+        footer.style.visibility = 'visible'
+      }, 500)
+    })
   }
 }
 </script>
@@ -34,10 +54,17 @@ export default {
 @import '../node_modules/vue2-animate/dist/vue2-animate.min.css'
 
 #app
+  position relative
   margin 0 auto
   padding 2em
   max-width 1160px
   font-family Avenir, Arial, Helvetica, sans-serif
+
+main
+  min-height 80vh
+
+footer
+  visibility hidden
 
 #loading, #error
   position fixed
@@ -49,4 +76,5 @@ export default {
   align-items center
   width 100vw
   height 100vh
+  pointer-events none
 </style>

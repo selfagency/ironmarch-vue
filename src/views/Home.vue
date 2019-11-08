@@ -1,8 +1,8 @@
 <template>
-  <section id="home">
+  <main id="home">
     <search-bar></search-bar>
     <results></results>
-  </section>
+  </main>
 </template>
 
 <script>

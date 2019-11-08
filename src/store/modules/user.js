@@ -17,7 +17,6 @@ const state = {
 
 const mutations = {
   CONTENT_ADD(state, { method, content }) {
-    if (method === 'message') method = 'msg'
     state[`${method}s`].push(...content)
   },
   SET_PROFILE(state, { content }) {
@@ -92,8 +91,15 @@ const actions = {
       dispatch('error', err.message, { root: true })
     }
   },
-  addContent({ commit }, method, content) {
-    commit('CONTENT_ADD', method, content)
+  addContent({ commit, dispatch }, method, content) {
+    if (method === 'message') method = 'msg'
+    if (method === 'user') {
+      content && (content.length || Object.values(content).length)
+        ? commit('CONTENT_ADD', method, content)
+        : dispatch('error', new Error('Not found'), { root: true })
+    } else {
+      commit('CONTENT_ADD', method, content)
+    }
   },
   setProfile({ commit }, content) {
     commit('SET_PROFILE', content)

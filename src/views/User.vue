@@ -1,6 +1,6 @@
 <template>
-  <main>
-    <div v-if="profile" class="container">
+  <main id="user" v-if="Object.values(profile).length">
+    <div class="container">
       <h1>{{ profile.name }}</h1>
       <profile :user="profile"></profile>
       <div class="user-nav">
