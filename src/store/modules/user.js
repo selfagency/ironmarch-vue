@@ -49,12 +49,11 @@ const actions = {
       dispatch('loading', null, { root: true })
       dispatch('resetUser')
 
-      content =
-        rootState.content.users.filter(item => {
-          return item.hash === hash
-        })[0] || null
+      content = rootState.content.users.filter(item => {
+        return item.hash === hash
+      })
 
-      if (!content) {
+      if (!content.length) {
         ;[content, posts, msgs] = await Promise.all([
           get('user', params),
           get('post', { user: params.id, limit, offset: state.offsets['posts'] }),
