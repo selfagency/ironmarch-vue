@@ -17,7 +17,9 @@ const get = async (method, params) => {
   try {
     if (method === 'message') method = 'msg'
     if (params.user === null) delete params.user
+
     const data = await api(method, params)
+
     return data
   } catch (err) {
     Console.error(err)

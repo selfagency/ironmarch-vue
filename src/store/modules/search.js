@@ -16,7 +16,7 @@ const model = () => {
   }
 }
 
-const state = Object.assign({}, model())
+const state = () => model()
 
 const mutations = {
   SEARCH_METHOD(state, method) {

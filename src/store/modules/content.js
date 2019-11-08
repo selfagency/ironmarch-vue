@@ -13,7 +13,7 @@ const model = () => {
   }
 }
 
-const state = Object.assign({}, model())
+const state = () => model()
 
 const mutations = {
   CONTENT_ADD(state, { method, content }) {

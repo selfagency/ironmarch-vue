@@ -21,7 +21,7 @@ const model = () => {
   }
 }
 
-const state = Object.assign({}, model)
+const state = () => model()
 
 const mutations = {
   CONTENT_ADD(state, { method, content }) {
@@ -35,7 +35,7 @@ const mutations = {
     state.offsets[`${method}s`] = state.offsets[`${method}s`] + limit
   },
   RESET_USER(state) {
-    Object.assign(state, model)
+    Object.assign(state, model())
   }
 }
 
@@ -51,9 +51,9 @@ const actions = {
 
       content = rootState.content.users.filter(item => {
         return item.hash === hash
-      })
+      })[0]
 
-      if (!content.length) {
+      if (!content) {
         ;[content, posts, msgs] = await Promise.all([
           get('user', params),
           get('post', { user: params.id, limit, offset: state.offsets['posts'] }),
@@ -61,10 +61,9 @@ const actions = {
         ])
       }
     } catch (err) {
-      if (Object.values(err.response).length) {
-        dispatch('loading', null, { root: true })
-        dispatch('error', err.message, { root: true })
-      }
+      Console.error(err)
+      dispatch('loading', null, { root: true })
+      dispatch('error', err.message, { root: true })
     } finally {
       if (Object.values(content).length) {
         content.hash = hash
