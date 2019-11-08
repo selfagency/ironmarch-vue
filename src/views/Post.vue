@@ -1,5 +1,5 @@
 <template>
-  <main id="post" v-if="post">
+  <main v-if="post" id="post">
     <div class="meta">
       <div v-if="post.author">
         <router-link :to="{ name: 'user', params: { id: post.author.id } }">

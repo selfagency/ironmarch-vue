@@ -1,5 +1,5 @@
 <template>
-  <main id="user" v-if="Object.values(profile).length">
+  <main v-if="Object.values(profile).length" id="user">
     <div class="container">
       <h1>{{ profile.name }}</h1>
       <profile :user="profile"></profile>

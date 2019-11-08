@@ -1,5 +1,5 @@
 <template>
-  <main id="message" v-if="msg">
+  <main v-if="msg" id="message">
     <div class="meta">
       <h1 v-if="msg.thread && msg.thread.content" class="title">{{ msg.thread.content }}</h1>
       <div v-if="msg.author">
