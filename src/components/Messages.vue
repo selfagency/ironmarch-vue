@@ -43,7 +43,7 @@
       </tr>
     </table>
 
-    <div v-if="!search && msgs.length >= 10" class="more" role="none">
+    <div v-if="!search && msgs.length && isMore.msgs" class="more" role="none">
       <button @click="getMore({ method: 'msg', params: { user: profile.id } })">
         More messages
       </button>
@@ -69,7 +69,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('user', ['profile'])
+    ...mapState('user', ['profile', 'isMore'])
   },
   methods: {
     ...mapActions('user', ['getMore'])

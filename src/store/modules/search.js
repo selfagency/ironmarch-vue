@@ -2,25 +2,25 @@ import get from '../../app/api'
 
 const namespaced = true
 
-class Model {
-  constructor() {
-    this.method = 'post'
-    this.params = {
-      terms: null,
-      user: null,
-      limit: 20,
-      offset: 0
-    }
-    this.results = []
-    this.isMore = true
-  }
+const model = {
+  method: 'post',
+  params: {
+    terms: null,
+    user: null,
+    limit: 25,
+    offset: 0
+  },
+  results: [],
+  isMore: true
 }
 
-const state = new Model()
+const state = Object.assign({}, model)
 
 const mutations = {
   SEARCH_METHOD(state, method) {
+    Console.log(method)
     state.method = method
+    Console.log(state.method)
   },
   SEARCH_TERMS(state, terms) {
     state.params.terms = terms
@@ -29,7 +29,7 @@ const mutations = {
     if (result && result.length) state.results.push(...result)
   },
   RESULTS_DEL(state) {
-    Object.assign(state, new Model())
+    Object.assign(state, model)
   },
   OFFSET(state) {
     state.params.offset = state.params.offset + state.params.limit
@@ -43,14 +43,6 @@ const mutations = {
 }
 
 const actions = {
-  method({ commit, dispatch }, m) {
-    commit('SEARCH_METHOD', m.substring(0, m.length - 1))
-    dispatch('deleteResults')
-    dispatch('offsetReset')
-  },
-  terms({ commit }, t) {
-    commit('SEARCH_TERMS', t)
-  },
   async search({ commit, state, dispatch }, event) {
     try {
       event.preventDefault()
@@ -79,6 +71,14 @@ const actions = {
       dispatch('loading', null, { root: true })
       dispatch('error', err.message, { root: true })
     }
+  },
+  setMethod({ commit, dispatch }, m) {
+    commit('SEARCH_METHOD', m.substring(0, m.length - 1))
+    dispatch('deleteResults')
+    dispatch('offsetReset')
+  },
+  terms({ commit }, t) {
+    commit('SEARCH_TERMS', t)
   },
   deleteResults({ commit }) {
     commit('RESULTS_DEL')

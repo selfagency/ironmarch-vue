@@ -31,7 +31,7 @@
       </tr>
     </table>
 
-    <div v-if="!search && posts.length >= 10" class="more" role="none">
+    <div v-if="!search && posts.length && isMore.posts" class="more" role="none">
       <button @click="getMore({ method: 'post', params: { user: profile.id } })">
         More posts
       </button>
@@ -57,7 +57,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('user', ['profile'])
+    ...mapState('user', ['profile', 'isMore'])
   },
   methods: {
     ...mapActions('user', ['getMore'])

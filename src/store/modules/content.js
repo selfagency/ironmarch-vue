@@ -4,12 +4,14 @@ import get from '../../app/api'
 
 const namespaced = true
 
-const state = {
+const model = {
   current: {},
   messages: [],
   posts: [],
   users: []
 }
+
+const state = Object.assign({}, model)
 
 const mutations = {
   CONTENT_ADD(state, { method, content }) {

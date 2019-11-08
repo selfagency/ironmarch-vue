@@ -20,7 +20,7 @@
             name="method"
             :value="search"
             :aria-label="search"
-            @input="method(search)"
+            @input="setMethod(search)"
           />
           <label class="label-inline" :for="`search-${search}`">{{ search | capitalize }}</label>
         </div>
@@ -51,11 +51,15 @@ export default {
     }
   },
   mounted() {
-    const posts = document.getElementById('search-posts')
-    posts.setAttribute('checked', true)
+    this.$nextTick(() => {
+      setTimeout(() => {
+        const posts = document.getElementById('search-posts')
+        posts.setAttribute('checked', true)
+      }, 300)
+    })
   },
   methods: {
-    ...mapActions('search', ['method', 'search'])
+    ...mapActions('search', ['setMethod', 'search'])
   }
 }
 </script>
