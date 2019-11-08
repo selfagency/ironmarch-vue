@@ -21,7 +21,7 @@ const mutations = {
     state.params.terms = terms
   },
   RESULTS_ADD(state, result) {
-    result.length ? state.results.push(...result) : state.results.push({})
+    if (result && result.length) state.results.push(...result)
   },
   RESULTS_DEL(state) {
     state.results = []
