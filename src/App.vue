@@ -24,27 +24,12 @@ export default {
     AppFooter
   },
   computed: {
-    ...mapState(['loading', 'error']),
-    footerOffset() {
-      const footer = document.getElementsByTagName('footer')[0]
-      return footer.offsetHeight
-    }
+    ...mapState(['loading', 'error'])
   },
   watch: {
     $route() {
       this.$store.dispatch('errorReset')
     }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      setTimeout(() => {
-        const main = document.getElementsByTagName('main')[0]
-        const footer = document.getElementsByTagName('footer')[0]
-
-        main.style.marginBottom = `${this.footerOffset}px`
-        footer.style.visibility = 'visible'
-      }, 500)
-    })
   }
 }
 </script>
@@ -61,9 +46,6 @@ export default {
 
 main
   min-height 80vh
-
-footer
-  visibility hidden
 
 #loading, #error
   position fixed
