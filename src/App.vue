@@ -45,7 +45,7 @@ export default {
   font-family Avenir, Arial, Helvetica, sans-serif
 
 main
-  min-height 80vh
+  min-height 50vh
 
 #loading, #error
   position fixed
