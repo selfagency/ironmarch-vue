@@ -36,7 +36,7 @@ const actions = {
         return item.hash === hash
       })[0]
 
-      if (!Object.values(content).length) {
+      if (!content) {
         content = await get(method, params)
         content.hash = hash
         dispatch('addContent', { method, content })
