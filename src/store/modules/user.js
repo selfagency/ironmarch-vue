@@ -65,7 +65,7 @@ const actions = {
         dispatch('addContent', { method: 'msg', content: msgs })
         dispatch('addContent', { method: 'statuse', content: content.statuses })
         dispatch('setProfile', { method: 'user', content })
-        dispatch('content/addContent', { method: 'user', content }, { root: true })
+        dispatch('content/addContent', { method: 'user', content: [content] }, { root: true })
       }
 
       dispatch('loading', null, { root: true })
