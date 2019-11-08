@@ -1,5 +1,5 @@
 <template>
-  <main v-if="results && Object.values(results[0]).length" id="results">
+  <main v-if="results && results.length" id="results">
     <posts v-if="method === 'post'" :posts="results" :search="true"></posts>
     <messages v-if="method === 'message'" :msgs="results" :search="true"></messages>
     <users v-if="method === 'user'" :users="results"></users>
