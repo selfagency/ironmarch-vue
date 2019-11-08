@@ -29,9 +29,11 @@ const mutations = {
     if (result && result.length) state.results.push(...result)
   },
   RESULTS_DEL(state) {
-    const method = state.method
+    const method = state.method,
+      terms = state.params.terms
     Object.assign(state, model())
     state.method = method
+    state.params.terms = terms
   },
   OFFSET(state) {
     state.params.offset = state.params.offset + state.params.limit
