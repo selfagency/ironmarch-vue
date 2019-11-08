@@ -4,7 +4,7 @@ const namespaced = true
 
 const model = () => {
   return {
-    method: null,
+    method: 'post',
     params: {
       terms: null,
       user: null,
