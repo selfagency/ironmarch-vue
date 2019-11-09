@@ -1,9 +1,6 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <div v-if="error" id="error">
-      {{ error }}
-    </div>
     <div v-if="loading" id="loading">
       <loader :color="`#9b4dca`"></loader>
     </div>
@@ -24,12 +21,19 @@ export default {
     AppFooter
   },
   computed: {
-    ...mapState(['loading', 'error'])
+    ...mapState(['loading'])
   },
   watch: {
     $route() {
       this.$store.dispatch('errorReset')
     }
+  },
+  created() {
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type === 'ERROR') {
+        this.$toasted.show(state.error, { type: 'error' })
+      }
+    })
   }
 }
 </script>
@@ -47,7 +51,7 @@ export default {
 main
   min-height 50vh
 
-#loading, #error
+#loading
   position fixed
   top 0
   left 0

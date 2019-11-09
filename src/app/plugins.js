@@ -2,6 +2,7 @@ import vueDebounce from 'vue-debounce'
 // import VueEvents from 'vue-events'
 // import VueMeta from 'vue-meta'
 import VueScrollTo from 'vue-scrollto'
+import Toasted from 'vue-toasted'
 // import VueSkipTo from 'vue-skip-to'
 // import VueViewports from 'vue-viewports'
 
@@ -16,6 +17,10 @@ const plugins = Vue => {
   // Vue.use(VueMeta)
   Vue.use(VueScrollTo)
   // Vue.use(VueSkipTo)
+  Vue.use(Toasted, {
+    position: 'bottom-right',
+    duration: '5000'
+  })
   // Vue.use(VueViewports, breakpoints)
 }
 

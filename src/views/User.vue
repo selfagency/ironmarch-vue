@@ -7,12 +7,12 @@
         <ul>
           <li v-if="statuses.length" role="link" @click="$scrollTo('#statuses')">Statuses</li>
           <li v-if="posts.length" role="link" @click="$scrollTo('#posts')">Posts</li>
-          <li v-if="msgs.length" role="link" @click="$scrollTo('#messages')">Messages</li>
+          <li v-if="messages.length" role="link" @click="$scrollTo('#messages')">Messages</li>
         </ul>
       </div>
-      <statuses :statuses="statuses"></statuses>
-      <posts :posts="posts"></posts>
-      <messages :msgs="msgs"></messages>
+      <statuses :statuses="statuses.data"></statuses>
+      <posts :posts="posts.data" :is-more="posts.isMore"></posts>
+      <messages :msgs="messages.data" :is-more="messages.isMore"></messages>
     </div>
   </main>
 </template>
@@ -34,7 +34,7 @@ export default {
     Statuses
   },
   computed: {
-    ...mapState('user', ['profile', 'msgs', 'posts', 'statuses', 'offsets'])
+    ...mapState('user', ['profile', 'messages', 'posts', 'statuses'])
   },
   watch: {
     $route(to) {

@@ -7,16 +7,18 @@ const namespaced = true
 const model = () => {
   return {
     profile: {},
-    msgs: [],
-    posts: [],
-    statuses: [],
-    offsets: {
-      msgs: 0,
-      posts: 0
+    messages: {
+      data: [],
+      offset: 0,
+      isMore: true
     },
-    isMore: {
-      msgs: true,
-      posts: true
+    posts: {
+      data: [],
+      offset: 0,
+      isMore: true
+    },
+    statuses: {
+      data: []
     }
   }
 }
@@ -25,17 +27,20 @@ const state = () => model()
 
 const mutations = {
   CONTENT_ADD(state, { method, content }) {
-    content.length ? state[`${method}s`].push(...content) : state[`${method}s`].push(content)
+    content.length ? state[`${method}s`].data.push(...content) : state[`${method}s`].data.push(content)
   },
   SET_PROFILE(state, { content }) {
     state.profile = content
   },
   OFFSET(state, { method, limit }) {
-    if (method === 'message') method = 'msg'
-    state.offsets[`${method}s`] = state.offsets[`${method}s`] + limit
+    Console.log(method)
+    state[`${method}s`].offset = state[`${method}s`].offset + limit
   },
   RESET_USER(state) {
     Object.assign(state, model())
+  },
+  NO_MORE(state, { method }) {
+    state[`${method}s`].isMore = false
   }
 }
 
@@ -56,8 +61,8 @@ const actions = {
       if (!content) {
         ;[content, posts, msgs] = await Promise.all([
           get('user', params),
-          get('post', { user: params.id, limit, offset: state.offsets['posts'] }),
-          get('msg', { user: params.id, limit, offset: state.offsets['msgs'] })
+          get('post', { user: params.id, limit, offset: state['posts'].offset }),
+          get('msg', { user: params.id, limit, offset: state['messages'].offset })
         ])
       }
     } catch (err) {
@@ -72,7 +77,7 @@ const actions = {
         dispatch('content/addContent', { method: 'user', content: [content] }, { root: true })
       }
       if (posts) dispatch('addContent', { method: 'post', content: posts })
-      if (msgs) dispatch('addContent', { method: 'msg', content: msgs })
+      if (msgs) dispatch('addContent', { method: 'message', content: msgs })
       dispatch('loading', null, { root: true })
     }
   },
@@ -83,9 +88,10 @@ const actions = {
       dispatch('offset', { method, limit })
       dispatch('loading', null, { root: true })
 
-      const content = await get(method, { user: params.user, limit, offset: state.offsets[`${method}s`] })
+      const content = await get(method, { user: params.user, limit, offset: state[`${method}s`].offset })
 
-      dispatch('addContent', { method, content })
+      content ? dispatch('addContent', { method, content }) : dispatch('noMore', { method })
+
       dispatch('loading', null, { root: true })
     } catch (err) {
       Console.error(err)
@@ -94,7 +100,6 @@ const actions = {
     }
   },
   addContent({ commit, dispatch }, method, content) {
-    if (method === 'message') method = 'msg'
     if (method === 'user') {
       content && (content.length || Object.values(content).length)
         ? commit('CONTENT_ADD', method, content)
@@ -111,6 +116,9 @@ const actions = {
   },
   resetUser({ commit }, method) {
     commit('RESET_USER', method)
+  },
+  noMore({ commit }, method) {
+    commit('NO_MORE', method)
   }
 }
 

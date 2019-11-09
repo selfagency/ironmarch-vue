@@ -43,8 +43,8 @@
       </tr>
     </table>
 
-    <div v-if="!search && msgs.length && isMore.msgs" class="more" role="none">
-      <button @click="getMore({ method: 'msg', params: { user: profile.id } })">
+    <div v-if="!search && isMore" class="more" role="none">
+      <button @click="getMore({ method: 'message', params: { user: profile.id } })">
         More messages
       </button>
     </div>
@@ -61,6 +61,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isMore: {
+      type: Boolean,
+      default: false
+    },
     msgs: {
       type: Array,
       default() {
@@ -69,7 +73,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('user', ['profile', 'isMore'])
+    ...mapState('user', ['profile'])
   },
   methods: {
     ...mapActions('user', ['getMore'])
