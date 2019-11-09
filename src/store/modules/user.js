@@ -33,7 +33,6 @@ const mutations = {
     state.profile = content
   },
   OFFSET(state, { method, limit }) {
-    Console.log(method)
     state[`${method}s`].offset = state[`${method}s`].offset + limit
   },
   RESET_USER(state) {

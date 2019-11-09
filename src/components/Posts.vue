@@ -32,7 +32,7 @@
     </table>
 
     <div v-if="!search && isMore" class="more" role="none">
-      <button @click="getMore({ method: 'post', params: { user: profile.id } })">
+      <button @click="getMore({ method: 'post', params: { user: user.id } })">
         More posts
       </button>
     </div>
@@ -45,6 +45,12 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'Posts',
   props: {
+    user: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
     search: {
       type: Boolean,
       default: false
@@ -59,9 +65,6 @@ export default {
         return []
       }
     }
-  },
-  computed: {
-    ...mapState('user', ['profile'])
   },
   methods: {
     ...mapActions('user', ['getMore'])

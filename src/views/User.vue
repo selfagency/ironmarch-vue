@@ -11,8 +11,8 @@
         </ul>
       </div>
       <statuses :statuses="statuses.data"></statuses>
-      <posts :posts="posts.data" :is-more="posts.isMore"></posts>
-      <messages :msgs="messages.data" :is-more="messages.isMore"></messages>
+      <posts :posts="posts.data" :is-more="posts.isMore" :user="profile"></posts>
+      <messages :msgs="messages.data" :is-more="messages.isMore" :user="profile"></messages>
     </div>
   </main>
 </template>
