@@ -5,9 +5,9 @@
       <profile :user="profile"></profile>
       <div class="user-nav">
         <ul>
-          <li v-if="statuses.length" role="link" @click="$scrollTo('#statuses')">Statuses</li>
-          <li v-if="posts.length" role="link" @click="$scrollTo('#posts')">Posts</li>
-          <li v-if="messages.length" role="link" @click="$scrollTo('#messages')">Messages</li>
+          <li v-if="statuses.data.length" role="link" @click="$scrollTo('#statuses')">Statuses</li>
+          <li v-if="posts.data.length" role="link" @click="$scrollTo('#posts')">Posts</li>
+          <li v-if="messages.data.length" role="link" @click="$scrollTo('#messages')">Messages</li>
         </ul>
       </div>
       <statuses :statuses="statuses.data"></statuses>
