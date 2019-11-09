@@ -23,15 +23,11 @@ export default {
   computed: {
     ...mapState(['loading'])
   },
-  watch: {
-    $route() {
-      this.$store.dispatch('errorReset')
-    }
-  },
   created() {
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'ERROR') {
         this.$toasted.show(state.error, { type: 'error' })
+        this.$store.dispatch('errorReset')
       }
     })
   }
