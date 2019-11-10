@@ -3,10 +3,10 @@
     <h2>Users</h2>
     <table>
       <tr>
-        <th width="15%">Name</th>
-        <th width="15%">Email</th>
-        <th width="15%">IP</th>
-        <th>Status</th>
+        <th width="25%">Name</th>
+        <th width="25%">Real Name or Alt</th>
+        <th width="25%">Email</th>
+        <th width="25%">Location(ish)</th>
       </tr>
       <tr v-for="(user, key) in users" :key="key">
         <td valign="top">
@@ -15,15 +15,15 @@
           </router-link>
         </td>
         <td valign="top">
-          {{ user.email }}
+          <span v-if="user.lookup && user.lookup.fullName">{{ user.lookup.fullName }}</span>
+          <span v-if="user.nameAlt">{{ user.nameAlt | truncate(25) }}</span>
         </td>
         <td valign="top">
-          {{ user.ip }}
+          {{ user.email }} <span v-if="user.emailAlt">{{ user.emailAlt }}</span>
         </td>
         <td valign="top">
-          <div v-if="user.statuses.length">
-            {{ user.statuses[0].content }}
-          </div>
+          <div v-if="user.geo">{{ user.geo.city }}, {{ user.geo.region_name }}, {{ user.geo.country_code }}</div>
+          <div v-else-if="user.timezone">{{ user.timezone }}</div>
         </td>
       </tr>
     </table>
