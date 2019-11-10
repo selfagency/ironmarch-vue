@@ -4,7 +4,7 @@
     <messages v-if="method === 'message'" :msgs="results" :search="true"></messages>
 
     <div v-if="method === 'user'">
-      <map-box></map-box>
+      <map-box :users="results"></map-box>
       <users :users="results" :search="true"></users>
     </div>
 

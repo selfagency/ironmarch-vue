@@ -5,7 +5,7 @@
     :map-options="options"
     @map-load="loaded"
     @map-click:points="clicked"
-    @geolocate-error="geolocateError"
+    @geolocate-error="error"
   ></mapbox>
 </template>
 
@@ -18,6 +18,15 @@ export default {
   components: {
     Mapbox
   },
+  props: {
+    users: {
+      type: Array,
+      default() {
+        return []
+      },
+      required: false
+    }
+  },
   data() {
     return {
       token: 'pk.eyJ1Ijoic2VsZmFnZW5jeSIsImEiOiJjazJ0OWtsam0xOWJxM2NudmwybnR1cjhsIn0._iM7hdUc85pcJI3xOS0HfA',
@@ -27,6 +36,25 @@ export default {
         center: [-96, 37.8],
         zoom: 1
       }
+    }
+  },
+  computed: {
+    points() {
+      let points = []
+
+      this.users.forEach(user => {
+        if (user.geo && Object.values(geo).length) {
+          points.push({
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: []
+            }
+          })
+        }
+      })
+
+      return points
     }
   },
   methods: {
@@ -47,7 +75,7 @@ export default {
                 },
                 properties: {
                   title: 'Mapbox DC',
-                  icon: 'monument'
+                  icon: 'marker'
                 }
               },
               {
@@ -58,7 +86,7 @@ export default {
                 },
                 properties: {
                   title: 'Mapbox SF',
-                  icon: 'harbor'
+                  icon: 'marker'
                 }
               }
             ]
