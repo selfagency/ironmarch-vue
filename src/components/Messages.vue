@@ -31,7 +31,7 @@
           <div v-if="trunc" class="content">
             {{ content(msg) }}
             <div class="read-more">
-              <router-link :to="{ name: 'message', params: { id: msg.id } }">
+              <router-link :to="{ name: 'message', params: { id: msg.id }, hash: `#msg-${msg.id}` }">
                 More &raquo;
               </router-link>
             </div>
