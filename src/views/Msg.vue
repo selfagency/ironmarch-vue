@@ -50,7 +50,7 @@ export default {
 main
   margin 0 auto
   padding 2em
-  max-width 760px
+  max-width 960px
 
 article
   margin 2em 0
