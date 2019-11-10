@@ -24,6 +24,18 @@
             @input="setMethod(search)"
           />
           <label class="label-inline" :for="`search-${search}`">{{ search | capitalize }}</label>
+
+          <div v-if="search === 'users' && method === 'user'" class="doxbox">
+            <input
+              id="dox"
+              v-model="dox"
+              type="checkbox"
+              name="dox"
+              aria-label="Show doxed users only"
+              @click="setDox"
+            />
+            <label class="label-inline" for="dox">IDed only</label>
+          </div>
         </div>
       </div>
     </fieldset>
@@ -38,11 +50,12 @@ export default {
   data() {
     return {
       searches: ['posts', 'messages', 'users'],
-      selected: null
+      selected: null,
+      dox: null
     }
   },
   computed: {
-    ...mapState('search', ['params']),
+    ...mapState('search', ['method', 'params']),
     terms: {
       get() {
         return this.params.terms
@@ -52,13 +65,13 @@ export default {
       }
     }
   },
-  mounted() {
+  created() {
     this.$nextTick(() => {
       this.selected = 'posts'
     })
   },
   methods: {
-    ...mapActions('search', ['setMethod', 'search', 'deleteResults'])
+    ...mapActions('search', ['setMethod', 'setDox', 'search', 'deleteResults'])
   }
 }
 </script>
@@ -66,4 +79,7 @@ export default {
 <style lang="stylus" scoped>
 #search-button
   width 100%
+
+.doxbox
+  float right
 </style>

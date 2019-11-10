@@ -40,7 +40,6 @@ export default {
     ...mapActions(['loading']),
     get() {
       this.loading()
-      this.$scrollTo('#app')
       this.getPage({ method: 'post', params: { id: this.$route.params.id } })
       this.loading()
     }

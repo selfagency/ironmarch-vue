@@ -51,7 +51,6 @@ export default {
     ...mapActions(['loading']),
     get() {
       this.loading()
-      this.$scrollTo('#app')
       this.getUser({ params: { id: this.$route.params.id } })
       this.loading()
     }

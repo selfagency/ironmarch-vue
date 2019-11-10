@@ -4,9 +4,10 @@ const model = () => {
   return {
     method: 'post',
     params: {
+      dox: false,
       terms: null,
       user: null,
-      limit: 25,
+      limit: 20,
       offset: 0
     },
     results: [],
@@ -26,15 +27,20 @@ export default {
     SEARCH_TERMS(state, terms) {
       state.params.terms = terms
     },
+    SET_DOX(state) {
+      state.params.dox = !state.params.dox
+    },
     RESULTS_ADD(state, result) {
       if (result && result.length) state.results.push(...result)
     },
     RESULTS_DEL(state) {
       const method = state.method,
-        terms = state.params.terms
+        terms = state.params.terms,
+        dox = state.params.dox
       Object.assign(state, model())
       state.method = method
       state.params.terms = terms
+      state.params.dox = dox
     },
     OFFSET(state) {
       state.params.offset = state.params.offset + state.params.limit
@@ -78,6 +84,9 @@ export default {
     },
     setTerms({ commit }, t) {
       commit('SEARCH_TERMS', t)
+    },
+    setDox({ commit }) {
+      commit('SET_DOX')
     },
     deleteResults({ commit }) {
       commit('RESULTS_DEL')

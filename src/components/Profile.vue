@@ -3,14 +3,16 @@
     <div class="column column-75">
       <div v-if="lookup">
         <div v-if="lookup.fullName"><strong>Real Name:</strong> {{ lookup.fullName }}</div>
-        <div>
+        <div v-if="lookup.details">
           <span v-if="lookup.details.gender"><strong>Gender:</strong> {{ lookup.details.gender }}</span>
           <span v-if="lookup.details.gender && lookup.details.age"> · </span>
-          <span v-if="lookup.details.age"><strong>Age:</strong> {{ lookup.details.age }}</span>
+          <span v-if="lookup.details.age">
+            <strong>Age:</strong> {{ lookup.details.age.range || lookup.details.age }}
+          </span>
         </div>
         <div v-if="user.name"><strong>Username:</strong> {{ user.name }}</div>
         <div v-if="user.email"><strong>Email:</strong> {{ user.email }}</div>
-        <div v-if="Object.values(lookup.details.profiles).length">
+        <div v-if="lookup && lookup.details && Object.values(lookup.details.profiles).length">
           <strong>Social profiles:</strong>
           <ul class="lookup-social">
             <li v-for="(social, key) in lookup.details.profiles" :key="key">
@@ -34,7 +36,7 @@
       <div v-if="user.salt"><strong>Password Salt:</strong> {{ user.salt }}</div>
     </div>
     <div class="column column-25">
-      <div v-if="user.lookup && lookup.details.photos">
+      <div v-if="lookup && lookup.details && lookup.details.photos.length">
         <img id="user-photo" :src="lookup.details.photos[0].value" />
       </div>
     </div>
@@ -55,7 +57,6 @@ export default {
   computed: {
     lookup() {
       const lookup = JSON.parse(this.user.lookup)
-      Console.log(lookup)
       return lookup
     }
   },

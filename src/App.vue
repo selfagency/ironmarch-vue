@@ -23,6 +23,11 @@ export default {
   computed: {
     ...mapState(['loading'])
   },
+  watch: {
+    route() {
+      this.$scrollTo('#app')
+    }
+  },
   created() {
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'ERROR') {

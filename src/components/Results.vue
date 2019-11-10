@@ -2,7 +2,7 @@
   <main v-if="results" id="results">
     <posts v-if="method === 'post'" :posts="results" :search="true"></posts>
     <messages v-if="method === 'message'" :msgs="results" :search="true"></messages>
-    <users v-if="method === 'user'" :users="results"></users>
+    <users v-if="method === 'user'" :users="results" :search="true"></users>
 
     <div v-if="!results.length" class="status" role="status">
       <p>No results to display.</p>
