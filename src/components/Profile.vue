@@ -4,7 +4,7 @@
       <div class="column column-75">
         <div v-if="user.name"><strong>Username:</strong> {{ user.name }}</div>
         <div v-if="user.nameAlt"><strong>Alt Username:</strong> {{ user.nameAlt }}</div>
-        <div v-if="user.tagline"><strong>Tagline:</strong> {{ user.tagline }}</div>
+        <div v-if="user.tagline"><strong>Tagline:</strong> <span v-html="user.tagline"></span></div>
         <div v-if="user.email">
           <strong>Email:</strong> {{ user.email }}
           <div v-if="user.emailAlt"><strong>Alt Email:</strong> {{ user.emailAlt }}</div>
