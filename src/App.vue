@@ -24,8 +24,8 @@ export default {
     ...mapState(['loading'])
   },
   watch: {
-    route() {
-      this.$scrollTo('#app')
+    $route(from, to) {
+      if (from.name !== to.name) this.$scrollTo('#app')
     }
   },
   created() {

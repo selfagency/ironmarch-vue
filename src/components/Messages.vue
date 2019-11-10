@@ -81,6 +81,11 @@ export default {
       default: true
     }
   },
+  watch: {
+    $route() {
+      this.$scrollTo(this.$route.hash)
+    }
+  },
   mounted() {
     this.$nextTick(() => {
       setTimeout(() => {

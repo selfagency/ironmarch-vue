@@ -65,9 +65,9 @@ export default {
       }
     }
   },
-  created() {
+  mounted() {
     this.$nextTick(() => {
-      this.selected = 'posts'
+      this.selected = this.method ? `${this.method}s` : 'posts'
     })
   },
   methods: {
