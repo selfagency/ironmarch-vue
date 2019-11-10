@@ -2,10 +2,10 @@
   <main v-if="results" id="results">
     <posts v-if="method === 'post'" :posts="results" :search="true"></posts>
     <messages v-if="method === 'message'" :msgs="results" :search="true"></messages>
-    <users v-if="method === 'user'" :users="results" :search="true"></users>
 
     <div v-if="method === 'user'">
-      <world-map></world-map>
+      <map-box></map-box>
+      <users :users="results" :search="true"></users>
     </div>
 
     <div v-if="!results.length" class="status" role="status">
@@ -26,7 +26,7 @@ import { mapState, mapActions } from 'vuex'
 import Posts from './Posts.vue'
 import Messages from './Messages.vue'
 import Users from './Users.vue'
-import WorldMap from './Map.vue'
+import MapBox from './Map.vue'
 
 export default {
   name: 'Results',
@@ -34,8 +34,9 @@ export default {
     Posts,
     Messages,
     Users,
-    WorldMap
+    MapBox
   },
+
   computed: {
     ...mapState('search', ['method', 'results', 'params', 'isMore'])
   },
@@ -59,4 +60,7 @@ export default {
   display flex
   justify-content center
   align-items center
+
+#map
+  margin-bottom 4em
 </style>
