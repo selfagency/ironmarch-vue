@@ -32,7 +32,9 @@ export default {
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'ERROR') {
         this.$toasted.show(state.error, { type: 'error' })
-        this.$store.dispatch('errorReset')
+        setTimeout(() => {
+          this.$store.dispatch('errorReset')
+        }, 5000)
       }
     })
   }
