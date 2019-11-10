@@ -3,11 +3,11 @@
     <div class="row">
       <div class="column column-75">
         <div v-if="user.name"><strong>Username:</strong> {{ user.name }}</div>
-        <div v-if="user.nameAlt"><strong>Alt username:</strong> {{ user.nameAlt }}</div>
+        <div v-if="user.nameAlt"><strong>Alt Username:</strong> {{ user.nameAlt }}</div>
         <div v-if="user.tagline"><strong>Tagline:</strong> {{ user.tagline }}</div>
         <div v-if="user.email">
           <strong>Email:</strong> {{ user.email }}
-          <div v-if="user.emailAlt">{{ user.emailAlt }}</div>
+          <div v-if="user.emailAlt"><strong>Alt Email:</strong> {{ user.emailAlt }}</div>
         </div>
         <div v-if="user.dobD > 0">
           <strong>DOB:</strong> {{ user.dobM }}/{{ user.dobD }}{{ user.dobY > 0 ? `/${user.dobY}` : null }}
