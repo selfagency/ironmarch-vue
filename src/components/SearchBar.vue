@@ -31,7 +31,7 @@
               v-model="dox"
               type="checkbox"
               name="dox"
-              aria-label="Show doxed users only"
+              aria-label="Show IDed users only"
               @click="setDox"
             />
             <label class="label-inline" for="dox">IDed only</label>

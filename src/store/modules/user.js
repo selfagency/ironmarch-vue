@@ -75,10 +75,14 @@ export default {
           dispatch('addContent', { method: 'statuse', content: content.statuses })
           dispatch('content/addContent', { method: 'user', content: [content] }, { root: true })
         }
-        if (posts) dispatch('addContent', { method: 'post', content: posts })
-        if (posts.length < 10) dispatch('noMore', { method: 'post' })
-        if (msgs) dispatch('addContent', { method: 'message', content: msgs })
-        if (msgs.length < 10) dispatch('noMore', { method: 'message' })
+        if (posts) {
+          dispatch('addContent', { method: 'post', content: posts })
+          if (posts.length < 10) dispatch('noMore', { method: 'post' })
+        }
+        if (msgs) {
+          dispatch('addContent', { method: 'message', content: msgs })
+          if (msgs.length < 10) dispatch('noMore', { method: 'message' })
+        }
         dispatch('loading', null, { root: true })
       }
     },
