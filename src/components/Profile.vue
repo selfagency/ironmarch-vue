@@ -58,14 +58,14 @@
         <br />
         <div v-if="user.bio">
           <strong>Bio:</strong>
-          <div v-html="user.bio"></div>
+          <div v-html="$utils.bbcode(user.bio)"></div>
         </div>
         <div v-if="user.bio && user.signature">
           <br />
         </div>
         <div v-if="user.signature">
           <strong>Signature:</strong>
-          <div v-html="user.signature"></div>
+          <div v-html="$utils.bbcode(user.signature)"></div>
         </div>
       </div>
     </div>
