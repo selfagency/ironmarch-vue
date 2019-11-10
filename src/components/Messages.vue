@@ -6,7 +6,7 @@
         <th width="30%">Meta</th>
         <th>Content</th>
       </tr>
-      <tr v-for="(msg, key) in msgs" v-show="msg.author" :key="key">
+      <tr v-for="(msg, key) in msgs" v-show="msg.author" :id="`msg-${msg.id}`" :key="key">
         <td valign="top">
           <div v-if="msg.author && msg.author.name">
             <strong>From:</strong>
@@ -14,16 +14,14 @@
               {{ msg.author.name }}
             </router-link>
           </div>
-          <div v-if="msg.thread && msg.thread.recipient">
-            <strong>To:</strong>
-            <router-link :to="{ name: 'user', params: { id: msg.thread.recipientId } }">
-              {{ msg.thread.recipient.name }}
-            </router-link>
-          </div>
           <div>
             <small>{{ msg.date | dateConv }}</small>
             <br />
-            <small><router-link :to="{ name: 'message', params: { id: msg.id } }">Link</router-link></small>
+            <small>
+              <router-link :to="{ name: 'message', params: { id: msg.id }, hash: `#msg-${msg.id}` }">
+                Link
+              </router-link>
+            </small>
           </div>
         </td>
         <td valign="top">
@@ -82,6 +80,13 @@ export default {
       required: false,
       default: true
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      setTimeout(() => {
+        if (this.$route.hash) this.$scrollTo(this.$route.hash)
+      }, 1000)
+    })
   },
   methods: {
     ...mapActions('user', ['getMore']),
