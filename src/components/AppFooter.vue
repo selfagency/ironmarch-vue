@@ -6,6 +6,8 @@
         <a href="https://archive.org/details/iron_march_201911">Source data</a> ·
         <a href="https://gitlab.com/jewishworker">Source code</a>
         <br />
+        Dedicated in memory of Blaze Bernstein, ז׳׳ל, so that others may not meet his fate.
+        <br />
         This website does not collect or track any information about its visitors.
         <br /><br />
         <a href="https://twitter.com/jewishworker" target="_blank">
