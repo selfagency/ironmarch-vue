@@ -3,9 +3,9 @@ import Vuex from 'vuex'
 import VuexPersistence from 'vuex-persist'
 import localforage from 'localforage'
 
-import * as content from './modules/content'
-import * as search from './modules/search'
-import * as user from './modules/user'
+import content from './modules/content'
+import search from './modules/search'
+import user from './modules/user'
 
 Vue.use(Vuex)
 const vuexLocal = new VuexPersistence({

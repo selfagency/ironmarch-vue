@@ -6,7 +6,7 @@
         <th width="30%">Meta</th>
         <th>Content</th>
       </tr>
-      <tr v-for="(msg, key) in msgs" :key="key">
+      <tr v-for="(msg, key) in msgs" v-show="msg.author" :key="key">
         <td valign="top">
           <div v-if="msg.author && msg.author.name">
             <strong>From:</strong>
@@ -30,15 +30,15 @@
           <div v-if="msg.thread">
             <strong v-html="msg.thread.content"></strong>
           </div>
-          <div class="content">
-            {{ msg.content | truncate(255) }}
-
+          <div v-if="trunc" class="content">
+            {{ content(msg) }}
             <div class="read-more">
               <router-link :to="{ name: 'message', params: { id: msg.id } }">
                 More &raquo;
               </router-link>
             </div>
           </div>
+          <div v-else v-html="content(msg)"></div>
         </td>
       </tr>
     </table>
@@ -76,10 +76,18 @@ export default {
       default() {
         return []
       }
+    },
+    trunc: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   methods: {
-    ...mapActions('user', ['getMore'])
+    ...mapActions('user', ['getMore']),
+    content(msg) {
+      return this.trunc ? this.$options.filters.truncate(msg.content, 255) : msg.content
+    }
   }
 }
 </script>

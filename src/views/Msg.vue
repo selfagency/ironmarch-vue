@@ -2,31 +2,21 @@
   <main v-if="msg" id="message">
     <div class="meta">
       <h1 v-if="msg.thread && msg.thread.content" class="title">{{ msg.thread.content }}</h1>
-      <div v-if="msg.author">
-        <strong>From</strong>
-        <router-link :to="{ name: 'user', params: { id: msg.authorId } }">
-          {{ msg.author.name }}
-        </router-link>
-      </div>
-      <div v-if="msg.thread && msg.thread.recipient">
-        <strong>To</strong>
-        <router-link :to="{ name: 'user', params: { id: msg.thread.recipientId } }">
-          {{ msg.thread.recipient.name }}
-        </router-link>
-      </div>
-      <div v-if="msg.date">
-        <small>{{ msg.date | dateConv }}</small>
-      </div>
     </div>
-    <article class="container" v-html="msg.content"></article>
+    <!-- <article class="container" v-html="msg.content"></article> -->
+    <messages :msgs="msg.thread" :trunc="false"></messages>
   </main>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import Messages from '../components/Messages.vue'
 
 export default {
   name: 'Msg',
+  components: {
+    Messages
+  },
   computed: {
     ...mapState('content', ['current']),
     msg() {
