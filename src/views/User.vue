@@ -10,7 +10,7 @@
       <profile :user="profile"></profile>
       <div class="user-nav">
         <ul>
-          <li v-if="statuses.data.length" role="link" @click="$scrollTo('#statuses')">Statuses</li>
+          <li v-if="hasStatus(statuses.data)" role="link" @click="$scrollTo('#statuses')">Statuses</li>
           <li v-if="posts.data.length" role="link" @click="$scrollTo('#posts')">Posts</li>
           <li v-if="messages.data.length" role="link" @click="$scrollTo('#messages')">Messages</li>
         </ul>
@@ -54,6 +54,9 @@ export default {
   methods: {
     ...mapActions('user', ['getUser']),
     ...mapActions(['loading']),
+    hasStatus(s) {
+      return s.length && Object.values(s[0]).length
+    },
     get() {
       this.loading()
       this.getUser({ params: { id: this.$route.params.id } })
