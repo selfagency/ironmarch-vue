@@ -85,8 +85,7 @@ export default {
   },
   computed: {
     lookup() {
-      const lookup = JSON.parse(this.user.lookup)
-      return lookup
+      return this.user.lookup
     }
   },
   mounted() {
