@@ -61,6 +61,6 @@ export default {
   justify-content center
   align-items center
 
-#map
+.mgl-map-wrapper
   margin-bottom 4em
 </style>
