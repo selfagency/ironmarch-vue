@@ -1,12 +1,12 @@
 import vueDebounce from 'vue-debounce'
 // import VueEvents from 'vue-events'
-// import VueMeta from 'vue-meta'
+import VueMeta from 'vue-meta'
 import VueScrollTo from 'vue-scrollto'
 import Toasted from 'vue-toasted'
 // import VueSkipTo from 'vue-skip-to'
-// import VueViewports from 'vue-viewports'
+import VueViewports from 'vue-viewports'
 
-// import breakpoints from '../data/breakpoints.json'
+import breakpoints from '../data/breakpoints.json'
 
 const plugins = Vue => {
   // if (window.debug) Vue.use(require('vue-axe'))
@@ -14,14 +14,14 @@ const plugins = Vue => {
     listenTo: ['input', 'keyup']
   })
   // Vue.use(VueEvents)
-  // Vue.use(VueMeta)
+  Vue.use(VueMeta)
   Vue.use(VueScrollTo)
   // Vue.use(VueSkipTo)
   Vue.use(Toasted, {
     position: 'bottom-right',
     duration: '5000'
   })
-  // Vue.use(VueViewports, breakpoints)
+  Vue.use(VueViewports, breakpoints)
 }
 
 export default plugins

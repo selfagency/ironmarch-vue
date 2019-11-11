@@ -2,16 +2,29 @@ import get from '../../app/api'
 
 const model = () => {
   return {
-    method: 'post',
     params: {
-      dox: false,
       terms: null,
       user: null,
-      limit: 20,
-      offset: 0
+      limit: 10
     },
-    results: [],
-    isMore: true
+    results: {
+      users: {
+        data: [],
+        offset: 0,
+        isMore: true
+      },
+      messages: {
+        data: [],
+        offset: 0,
+        isMore: true
+      },
+      posts: {
+        data: [],
+        offset: 0,
+        isMore: true
+      }
+    },
+    active: false
   }
 }
 
@@ -21,42 +34,48 @@ export default {
     return model()
   },
   mutations: {
-    SEARCH_METHOD(state, method) {
-      state.method = method
-    },
     SEARCH_TERMS(state, terms) {
       state.params.terms = terms
     },
-    SET_DOX(state) {
-      state.params.dox = !state.params.dox
-    },
-    RESULTS_ADD(state, result) {
-      if (result && result.length) state.results.push(...result)
+    RESULTS_ADD(state, { results, method }) {
+      if (results && results.length) state.results[method].data.push(...results)
     },
     RESULTS_DEL(state) {
-      const method = state.method,
-        terms = state.params.terms,
-        dox = state.params.dox
+      const terms = state.params.terms
       Object.assign(state, model())
-      state.method = method
       state.params.terms = terms
-      state.params.dox = dox
     },
-    OFFSET(state) {
-      state.params.offset = state.params.offset + state.params.limit
+    OFFSET(state, method) {
+      state.results[`${method}s`].offset = state.results[`${method}s`].offset + state.params.limit
     },
-    NO_MORE(state) {
-      state.isMore = false
+    NO_MORE(state, method) {
+      state.results[method].isMore = false
+    },
+    ACTIVE(state) {
+      state.active = !state.active
     }
   },
   actions: {
     async search({ commit, state, dispatch }, event) {
       try {
         event.preventDefault()
-        dispatch('loading', null, { root: true })
+        dispatch('activeToggle')
         dispatch('deleteResults')
-        const result = await get(state.method, state.params)
-        commit('RESULTS_ADD', result)
+        dispatch('loading', null, { root: true })
+
+        const [users, messages, posts] = await Promise.all([
+          get('user', { ...state.params, offset: state.results['users'].offset }),
+          get('message', { ...state.params, offset: state.results['messages'].offset }),
+          get('post', { ...state.params, offset: state.results['posts'].offset })
+        ])
+
+        if (users.length) commit('RESULTS_ADD', { results: users, method: 'users' })
+        if (users.length < 10) dispatch('noMore', 'users')
+        if (messages.length) commit('RESULTS_ADD', { results: messages, method: 'messages' })
+        if (messages.length < 10) dispatch('noMore', 'messages')
+        if (posts.length) commit('RESULTS_ADD', { results: posts, method: 'posts' })
+        if (posts.length < 10) dispatch('noMore', 'posts')
+
         dispatch('loading', null, { root: true })
       } catch (err) {
         Console.error(err)
@@ -64,13 +83,18 @@ export default {
         dispatch('error', err.message, { root: true })
       }
     },
-    async more({ commit, state, dispatch }) {
+    async more({ commit, state, dispatch }, method) {
+      const params = { ...state.params }
+      params.offset = state.results[`${method}s`].offset + state.params.limit
+
       try {
         dispatch('loading', null, { root: true })
-        dispatch('offset')
-        const result = await get(state.method, state.params)
-        commit('RESULTS_ADD', result)
-        if (!result || result.length < 10) dispatch('noMore')
+        const result = await get(method, params)
+        if (!result || result.length < state.params.limit) dispatch('noMore', method)
+        if (result) {
+          commit('RESULTS_ADD', { result, method })
+          dispatch('offset', method)
+        }
         dispatch('loading', null, { root: true })
       } catch (err) {
         Console.error(err)
@@ -78,24 +102,20 @@ export default {
         dispatch('error', err.message, { root: true })
       }
     },
-    setMethod({ commit, dispatch }, m) {
-      dispatch('deleteResults')
-      commit('SEARCH_METHOD', m.substring(0, m.length - 1))
-    },
-    setTerms({ commit }, t) {
-      commit('SEARCH_TERMS', t)
-    },
-    setDox({ commit }) {
-      commit('SET_DOX')
+    setTerms({ commit }, terms) {
+      commit('SEARCH_TERMS', terms)
     },
     deleteResults({ commit }) {
       commit('RESULTS_DEL')
     },
-    offset({ commit }) {
-      commit('OFFSET')
+    offset({ commit }, method) {
+      commit('OFFSET', method)
     },
-    noMore({ commit }) {
-      commit('NO_MORE')
+    noMore({ commit }, method) {
+      commit('NO_MORE', method)
+    },
+    activeToggle({ commit }) {
+      commit('ACTIVE')
     }
   }
 }

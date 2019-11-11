@@ -35,6 +35,11 @@ const filters = Vue => {
 
   Vue.filter('truncate', (str, ln) => {
     if (!str) return ''
+    return truncate(breakup(stripHtml(str)), ln)
+  })
+
+  Vue.filter('truncStrip', (str, ln) => {
+    if (!str) return ''
     return truncate(breakup(StripChar.RSspecChar(stripHtml(str), '\u00AD')), ln)
   })
 

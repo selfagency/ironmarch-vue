@@ -55,7 +55,10 @@ export default {
 <style lang="stylus">
 .mgl-map-wrapper
   width 100%
-  height 500px
+  height 250px
+
+  @media (min-width: 800px)
+    height 500px
 
 .mapboxgl-popup
   width 100%

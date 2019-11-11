@@ -1,13 +1,16 @@
 <template>
-  <section v-if="msgs.length && Object.values(msgs[0]).length" id="messages">
+  <section v-if="Object.values(msgs.data[0]).length" id="messages">
     <h2>Messages</h2>
     <table>
-      <tr>
-        <th width="30%">Meta</th>
-        <th>Content</th>
+      <tr class="flex">
+        <th class="none third-800">Meta</th>
+        <th class="none two-third-800">Content</th>
       </tr>
-      <tr v-for="(msg, key) in msgs" v-show="msg.author" :id="`msg-${msg.id}`" :key="key">
-        <td valign="top">
+      <tr v-for="(msg, key) in msgs.data" :id="`msg-${msg.id}`" :key="key" class="flex">
+        <td valign="top" class="full third-800">
+          <div v-if="msg.thread">
+            <strong v-html="msg.thread.content"></strong>
+          </div>
           <div v-if="msg.author && msg.author.name">
             <strong>From:</strong>
             <router-link :to="{ name: 'user', params: { id: msg.author.id } }">
@@ -24,10 +27,7 @@
             </small>
           </div>
         </td>
-        <td valign="top">
-          <div v-if="msg.thread">
-            <strong v-html="msg.thread.content"></strong>
-          </div>
+        <td valign="top" class="full two-third-800">
           <div v-if="trunc" class="content">
             {{ content(msg) }}
             <div class="read-more">
@@ -41,8 +41,8 @@
       </tr>
     </table>
 
-    <div v-if="!search && isMore" class="more" role="none">
-      <button @click="getMore({ method: 'message', params: { user: user.id } })">
+    <div v-if="msgs.isMore" class="more" role="none">
+      <button @click="search ? more('message') : getMore({ method: 'message', params: { user: user.id } })">
         More messages
       </button>
     </div>
@@ -70,9 +70,9 @@ export default {
       default: false
     },
     msgs: {
-      type: Array,
+      type: Object,
       default() {
-        return []
+        return {}
       }
     },
     trunc: {
@@ -95,6 +95,7 @@ export default {
   },
   methods: {
     ...mapActions('user', ['getMore']),
+    ...mapActions('search', ['more']),
     content(msg) {
       return this.trunc ? this.$options.filters.truncate(msg.content, 255) : msg.content
     }
@@ -103,11 +104,24 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.read-more
-  float right
+#messages
+  table
+    width 100%
 
-.more
-  display flex
-  justify-content center
-  align-items center
+    .flex
+      margin 0
+      width 100%
+
+      td
+        padding 0.75em
+
+  .read-more
+    float right
+    font-size 0.8em
+
+  .more
+    display flex
+    justify-content center
+    align-items center
+    margin 2em 0
 </style>

@@ -8252,6 +8252,11 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
+picnic@^6.5.1:
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/picnic/-/picnic-6.5.1.tgz#0f19bebdae4c7885e42a593cc5bcda7ea2e9e054"
+  integrity sha512-IhhTzFZkvq+36UyVDH8PR5n+yxMv5ZphNlbyishsjJ/628dJkMkEC6mIaQ5a6fIwuhd5yn34Y5QYPWBH5v/jCA==
+
 picomatch@^2.0.4:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.1.1.tgz#ecdfbea7704adb5fe6fb47f9866c4c0e15e905c5"
@@ -11053,6 +11058,11 @@ vue-i18n@^8.0.0:
   resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-8.15.0.tgz#9b11ef8e7a124f67cdf788c8c90a81f3606240ed"
   integrity sha512-juJ/avAP39bOMycC+qQDLJ8U9z9LtLF/9PsRoJLBSfsYZo9bqYntyyX5QPicwlb1emJKjgxhZ3YofHiQcXBu0Q==
 
+vue-inline-svg@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/vue-inline-svg/-/vue-inline-svg-1.1.3.tgz#6e842ef56af009ca58daefe1f5dc9fce5a080923"
+  integrity sha512-x642xRn1g/38mEiHPdmkc8s+lL6bfl2BAeWx6yfJplppwVL1nrjQGkqGhbpvB8VvMM14kBIaaG98yHnDMTDD8w==
+
 vue-jest@^3.0.5:
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/vue-jest/-/vue-jest-3.0.5.tgz#d6f124b542dcbff207bf9296c19413f4c40b70c9"
@@ -11086,6 +11096,13 @@ vue-mapbox@^0.4.1:
   integrity sha512-F1ebtVpRSvl6HDiHCWm5TxBNDy5WCoNJOZWj4ub6XQzht15GfUpAn4bHIeVzrUHr3fi1PFEDbxnzPeG1S9o0Tg==
   dependencies:
     map-promisified latest
+
+vue-meta@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/vue-meta/-/vue-meta-2.3.1.tgz#32a1c2634f49433f30e7e7a028aa5e5743f84f6a"
+  integrity sha512-hnZvDNvLh+PefJLfYkZhG6cSBNKikgQyiEK8lI/P2qscM1DC/qHHOfdACPQ/VDnlaWU9VlcobCTNyVtssTR4XQ==
+  dependencies:
+    deepmerge "^4.0.0"
 
 vue-router@^3.1.3:
   version "3.1.3"
@@ -11125,7 +11142,14 @@ vue-toasted@^1.1.27:
   resolved "https://registry.yarnpkg.com/vue-toasted/-/vue-toasted-1.1.27.tgz#ce0a74b875f90c2e4a9e163cce6d5fc37d78a07c"
   integrity sha512-GVbwInwnqkVxQ4GU/XYeQt1e0dAXL8sF5Hr1H/coCBbYUan5xP0G2mEz/HRDf1lt73rFQAN/bJcLTOKkqiM6tg==
 
-vue@^2.6.10:
+vue-viewports@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/vue-viewports/-/vue-viewports-3.1.2.tgz#a0f6195930d8389e6868631cedcc854a30efb4e0"
+  integrity sha512-EJidT4iiyzZA7ZYWKx7Mm+83OzEuUKh/D8C6E3d5kRkWT8sGvUI85TvpGrsAmbWWvfaLYnBS0qdTqJwjbJNSKg==
+  dependencies:
+    vue "^2.5.9"
+
+vue@^2.5.9, vue@^2.6.10:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ==

@@ -31,7 +31,8 @@ export default {
   created() {
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'ERROR') {
-        this.$toasted.show(state.error, { type: 'error' })
+        if (this.loading) this.$store.dispatch('loading')
+        this.$toasted.show(`Error: ${state.error}`, { type: 'error' })
         setTimeout(() => {
           this.$store.dispatch('errorReset')
         }, 5000)
@@ -42,17 +43,15 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '../node_modules/milligram/dist/milligram.css'
+@import '../node_modules/picnic/picnic.min.css'
 
 #app
   position relative
   margin 0 auto
   padding 2em
   max-width 1160px
+  width 100%
   font-family Avenir, Arial, Helvetica, sans-serif
-
-main
-  min-height 50vh
 
 #loading
   position fixed

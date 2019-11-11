@@ -1,21 +1,11 @@
 <template>
-  <main v-if="results" id="results">
-    <posts v-if="method === 'post'" :posts="results" :search="true"></posts>
-    <messages v-if="method === 'message'" :msgs="results" :search="true"></messages>
+  <main id="results">
+    <users v-if="results.users.data.length" :users="results.users" :search="true"></users>
+    <messages v-if="results.messages.data.length" :msgs="results.messages" :search="true"></messages>
+    <posts v-if="results.posts.data.length" :posts="results.posts" :search="true"></posts>
 
-    <div v-if="method === 'user' && results.length">
-      <map-box :users="results"></map-box>
-      <users :users="results" :search="true"></users>
-    </div>
-
-    <div v-if="!results.length" class="status" role="status">
+    <div v-if="noResults" class="status" role="status">
       <p>No results to display.</p>
-    </div>
-
-    <div v-if="results.length && isMore" class="more" role="none">
-      <button @click="more">
-        More results
-      </button>
     </div>
   </main>
 </template>
@@ -26,19 +16,23 @@ import { mapState, mapActions } from 'vuex'
 import Posts from './Posts.vue'
 import Messages from './Messages.vue'
 import Users from './Users.vue'
-import MapBox from './Map.vue'
 
 export default {
   name: 'Results',
   components: {
     Posts,
     Messages,
-    Users,
-    MapBox
+    Users
   },
 
   computed: {
-    ...mapState('search', ['method', 'results', 'params', 'isMore'])
+    ...mapState('search', ['results']),
+    hasResults() {
+      return this.results.posts.data.length || this.results.messages.data.length || this.results.users.data.length
+    },
+    noResults() {
+      return !(this.results.posts.data.length && this.results.messages.data.length && this.results.users.data.length)
+    }
   },
   methods: {
     ...mapActions('search', ['more'])
@@ -49,14 +43,8 @@ export default {
 <style lang="stylus" scoped>
 #results
   margin-top 2em
-  padding 2em
 
 .status
-  display flex
-  justify-content center
-  align-items center
-
-.more
   display flex
   justify-content center
   align-items center

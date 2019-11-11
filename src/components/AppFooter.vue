@@ -33,7 +33,7 @@ footer
   display flex
   justify-content center
   align-items center
-  padding 4em
+  padding 2em 0
 
   .credits
     width 100%
