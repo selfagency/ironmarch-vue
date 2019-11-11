@@ -1,22 +1,32 @@
 <template>
-  <mapbox
-    id="map"
-    :access-token="token"
-    :map-options="options"
-    @map-load="loaded"
-    @map-click:points="clicked"
-    @geolocate-error="error"
-  ></mapbox>
+  <mgl-map :access-token="accessToken" :map-style.sync="mapStyle" :center="center" :zoom="zoom">
+    <mgl-marker v-for="(user, key) in users" :key="key" :coordinates="[user.geo.longitude, user.geo.latitude]">
+      <mgl-popup>
+        <div>
+          <strong>{{ user.name }}</strong>
+          <div v-if="user.lookup && user.lookup.fullName">{{ user.lookup.fullName }}</div>
+          <div v-if="user.geo">{{ user.geo.city }}, {{ user.geo.region_name }}, {{ user.geo.country_code }}</div>
+          <router-link :to="{ name: 'user', params: { id: user.id } }">View profile</router-link>
+        </div>
+      </mgl-popup>
+    </mgl-marker>
+    <mgl-navigation-control position="top-right" />
+  </mgl-map>
 </template>
 
 <script>
-import Mapbox from 'mapbox-gl-vue'
+import Mapbox from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
+
+import { MglMap, MglMarker, MglPopup, MglNavigationControl } from 'vue-mapbox'
 
 export default {
   name: 'Map',
   components: {
-    Mapbox
+    MglMap,
+    MglMarker,
+    MglPopup,
+    MglNavigationControl
   },
   props: {
     users: {
@@ -29,91 +39,28 @@ export default {
   },
   data() {
     return {
-      token: 'pk.eyJ1Ijoic2VsZmFnZW5jeSIsImEiOiJjazJ0OWtsam0xOWJxM2NudmwybnR1cjhsIn0._iM7hdUc85pcJI3xOS0HfA',
-      options: {
-        container: 'map',
-        style: 'mapbox://styles/mapbox/light-v9',
-        center: [-96, 37.8],
-        zoom: 1
-      }
+      accessToken: 'pk.eyJ1Ijoic2VsZmFnZW5jeSIsImEiOiJjazJ0OWtsam0xOWJxM2NudmwybnR1cjhsIn0._iM7hdUc85pcJI3xOS0HfA',
+      mapStyle: 'mapbox://styles/mapbox/light-v9',
+      center: [-96, 37.8],
+      zoom: 1
     }
   },
-  computed: {
-    points() {
-      let points = []
-
-      this.users.forEach(user => {
-        if (user.geo && Object.values(geo).length) {
-          points.push({
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: []
-            }
-          })
-        }
-      })
-
-      return points
-    }
+  created() {
+    this.mapbox = Mapbox
   },
-  methods: {
-    loaded(map) {
-      map.addLayer({
-        id: 'points',
-        type: 'symbol',
-        source: {
-          type: 'geojson',
-          data: {
-            type: 'FeatureCollection',
-            features: [
-              {
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: [-77.03238901390978, 38.913188059745586]
-                },
-                properties: {
-                  title: 'Mapbox DC',
-                  icon: 'marker'
-                }
-              },
-              {
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: [-122.414, 37.776]
-                },
-                properties: {
-                  title: 'Mapbox SF',
-                  icon: 'marker'
-                }
-              }
-            ]
-          }
-        },
-        layout: {
-          'icon-image': '{icon}-15',
-          'text-field': '{title}',
-          'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-          'text-offset': [0, 0.6],
-          'text-anchor': 'top'
-        }
-      })
-    },
-    clicked(map, e) {
-      const title = e.features[0].properties.title
-      console.log(title)
-    },
-    error(control, positionError) {
-      console.log(positionError)
-    }
-  }
+  methods: {}
 }
 </script>
 
-<style lang="stylus" scoped>
-#map
+<style lang="stylus">
+.mgl-map-wrapper
   width 100%
   height 500px
+
+.mapboxgl-popup
+  width 100%
+
+  .mapboxgl-popup-close-button
+    padding 0 10px
+    color black
 </style>

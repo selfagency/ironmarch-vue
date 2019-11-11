@@ -3,7 +3,7 @@
     <fieldset>
       <div class="row">
         <div class="column column-75">
-          <input v-model="terms" type="text" class="search-box" aria-label="Search box" />
+          <input v-model="terms" type="text" class="search-box" :placeholder="placeholder" aria-label="Search box" />
         </div>
         <div class="column column-25">
           <button id="search-button" type="submit" @click="search">
@@ -63,6 +63,21 @@ export default {
       set(t) {
         this.$store.dispatch('search/setTerms', t)
       }
+    },
+    placeholder() {
+      let ph
+      switch (this.selected) {
+        case 'posts':
+          ph = 'Search full post text'
+          break
+        case 'messages':
+          ph = 'Search full message text'
+          break
+        case 'users':
+          ph = 'Search by username, email address, or location'
+          break
+      }
+      return ph
     }
   },
   mounted() {

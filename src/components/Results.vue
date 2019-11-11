@@ -3,7 +3,7 @@
     <posts v-if="method === 'post'" :posts="results" :search="true"></posts>
     <messages v-if="method === 'message'" :msgs="results" :search="true"></messages>
 
-    <div v-if="method === 'user'">
+    <div v-if="method === 'user' && results.length">
       <map-box :users="results"></map-box>
       <users :users="results" :search="true"></users>
     </div>
