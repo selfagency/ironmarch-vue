@@ -2,11 +2,12 @@
   <footer>
     <div class="credits">
       <small>
-        Built by <a href="https://jewishworker.org">The Jewish Worker</a> ·
-        <a href="https://archive.org/details/iron_march_201911">Source data</a> ·
-        <a href="https://gitlab.com/jewishworker">Source code</a>
+        Built by <a href="https://jewishworker.org" target="_blank">The Jewish Worker</a> ·
+        <a href="https://gitlab.com/jewishworker/ironmarch-data" target="_blank">Source data</a> ·
+        <a href="https://gitlab.com/jewishworker" target="_blank">Source code</a> ·
+        <a href="https://ko-fi.com/jewishworker" target="_blank">Buy us a coffee</a>
         <br />
-        Dedicated in memory of Blaze Bernstein, ז׳׳ל, so that others may not meet his fate.
+        Dedicated in memory of Blaze Bernstein, ז׳׳ל, so that others may not suffer the same fate.
         <br />
         This website does not collect or track any information about its visitors.
         <br /><br />
