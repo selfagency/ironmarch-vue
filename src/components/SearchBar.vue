@@ -1,6 +1,6 @@
 <template>
   <div id="search">
-    <form :class="{ modal, 'none full-600': !modal }">
+    <form id="search-form" :class="{ modal, 'none full-600': !modal }">
       <fieldset>
         <div id="search-bar" class="flex two">
           <div class="three-fourth">
@@ -14,10 +14,10 @@
         </div>
       </fieldset>
     </form>
-    <div id="search-toggle" class="none-600" @click="toggleModal">
+    <div id="search-toggle" class="none-600" @click="searchToggle">
       <transition-group name="zoom" mode="out-in">
-        <inline-svg v-if="modal" key="close" :src="close" width="25" height="25"></inline-svg>
-        <inline-svg v-else key="open" :src="open" width="25" height="25"></inline-svg>
+        <inline-svg v-show="modal" key="close" :src="close" width="25" height="25"></inline-svg>
+        <inline-svg v-show="!modal" key="open" :src="open" width="25" height="25"></inline-svg>
       </transition-group>
     </div>
   </div>
@@ -60,7 +60,10 @@ export default {
     })
   },
   methods: {
-    ...mapActions('search', ['search', 'deleteResults', 'toggleModal'])
+    ...mapActions('search', ['search', 'deleteResults', 'toggleModal']),
+    searchToggle() {
+      this.toggleModal()
+    }
   }
 }
 </script>
