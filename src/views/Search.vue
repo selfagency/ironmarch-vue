@@ -85,7 +85,7 @@ export default {
       return this.results.posts.data.length || this.results.messages.data.length || this.results.users.data.length
     },
     noResults() {
-      return !(this.results.posts.data.length && this.results.messages.data.length && this.results.users.data.length)
+      return !this.results.posts.data.length && !this.results.messages.data.length && !this.results.users.data.length
     }
   },
   created() {
