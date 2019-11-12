@@ -41,7 +41,7 @@
       </tr>
     </table>
 
-    <div v-if="msgs.isMore" class="more" role="none">
+    <div v-if="isMore" class="more" role="none">
       <button @click="search ? more('message') : getMore({ method: 'message', params: { user: user.id } })">
         More messages
       </button>
