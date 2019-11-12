@@ -1,10 +1,7 @@
 <template>
-  <main v-if="msg" id="message">
-    <div class="meta">
-      <h1 v-if="msg.thread && msg.thread.content" class="title">{{ msg.thread.content }}</h1>
-    </div>
-    <!-- <article class="container" v-html="msg.content"></article> -->
-    <messages :msgs="msg.thread" :trunc="false"></messages>
+  <main id="message">
+    <go-back></go-back>
+    <messages :msgs="current.thread" :trunc="false" :thread="current.title"></messages>
   </main>
 </template>
 
@@ -18,10 +15,7 @@ export default {
     Messages
   },
   computed: {
-    ...mapState('content', ['current']),
-    msg() {
-      return this.current
-    }
+    ...mapState('content', ['current'])
   },
   watch: {
     $route(to) {
@@ -46,11 +40,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-main
-  margin 0 auto
-  padding 2em
-  max-width 960px
-
 article
   margin 2em 0
   padding 0

@@ -1,16 +1,19 @@
 <template>
-  <main v-if="post" id="post" class="card">
-    <div class="meta">
-      <div v-if="post.author">
-        <router-link :to="{ name: 'user', params: { id: post.author.id } }">
-          <strong>{{ post.author.name }}</strong>
-        </router-link>
+  <main v-if="post" id="post">
+    <go-back></go-back>
+    <article class="card">
+      <div class="meta">
+        <div v-if="post.author">
+          <router-link :to="{ name: 'user', params: { id: post.author.id } }">
+            <strong>{{ post.author.name }}</strong>
+          </router-link>
+        </div>
+        <div v-if="post.date">
+          <small>{{ post.date | dateConv }}</small>
+        </div>
       </div>
-      <div v-if="post.date">
-        <small>{{ post.date | dateConv }}</small>
-      </div>
-    </div>
-    <article class="container" v-html="post.content"></article>
+      <div class="content" v-html="post.content"></div>
+    </article>
   </main>
 </template>
 
@@ -48,15 +51,16 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-main
-  margin 0 auto
+.go-back
+  margin-bottom 1em
+
+.card
   padding 2em
-  max-width 760px
 
 .meta
   font-size 1.1em
 
-article
-  margin 2em 0
+.content
+  margin 2em 0 0
   padding 0
 </style>

@@ -38,6 +38,7 @@
     "vue-scrollto": "^2.17.1",
     "vue-toasted": "^1.1.27",
     "vue-viewports": "^3.1.2",
+    "vue2-animate": "^2.1.2",
     "vuelidate": "^0.7.4",
     "vuex": "^3.0.1",
     "vuex-persist": "^2.1.1"

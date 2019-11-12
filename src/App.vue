@@ -2,9 +2,11 @@
   <div id="app">
     <app-header></app-header>
     <div v-if="loading" id="loading">
-      <loader :color="`#9b4dca`"></loader>
+      <loader :color="`rgb(52, 116, 217)`"></loader>
     </div>
-    <router-view />
+    <transition>
+      <router-view />
+    </transition>
     <app-footer></app-footer>
     <to-top></to-top>
   </div>
@@ -26,16 +28,11 @@ export default {
   computed: {
     ...mapState(['loading'])
   },
-  watch: {
-    $route(from, to) {
-      if (from.name !== to.name) this.$scrollTo('#app')
-    }
-  },
   created() {
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'ERROR') {
         if (this.loading) this.$store.dispatch('loading')
-        this.$toasted.show(`Error: ${state.error}`, { type: 'error' })
+        this.$toasted.show(state.error, { type: 'error' })
         setTimeout(() => {
           this.$store.dispatch('errorReset')
         }, 5000)
@@ -47,6 +44,7 @@ export default {
 
 <style lang="stylus">
 @import '../node_modules/picnic/picnic.min.css'
+@import '../node_modules/vue2-animate/dist/vue2-animate.min.css'
 
 #app
   position relative
@@ -57,8 +55,13 @@ export default {
   font-size 0.9em
   font-family Avenir, Arial, Helvetica, sans-serif
 
-  main
-    margin-top 3em
+main
+  margin 3em auto 0
+  min-height 60vh
+  max-width 760px
+
+img
+  max-width 100%
 
 #loading
   position fixed
@@ -71,4 +74,7 @@ export default {
   width 100vw
   height 100vh
   pointer-events none
+
+p
+  margin-block-start 0
 </style>

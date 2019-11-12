@@ -24,13 +24,21 @@ const routes = [
     path: '/user/:id',
     name: 'user',
     component: () => import(/* webpackChunkName: "user" */ '../views/User.vue')
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: () => import(/* webpackChunkName: "search" */ '../views/Search.vue')
   }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  afterEach() {
+    Vue._vm.$scrollTo('#app')
+  }
 })
 
 export default router

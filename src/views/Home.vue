@@ -1,16 +1,9 @@
 <template>
-  <main id="home">
-    <results></results>
-  </main>
+  <main id="home"></main>
 </template>
 
 <script>
-import Results from '../components/Results.vue'
-
 export default {
-  name: 'Home',
-  components: {
-    Results
-  }
+  name: 'Home'
 }
 </script>

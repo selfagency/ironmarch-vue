@@ -24,7 +24,8 @@ const model = () => {
         isMore: true
       }
     },
-    active: false
+    modal: false,
+    active: null
   }
 }
 
@@ -51,16 +52,20 @@ export default {
     NO_MORE(state, method) {
       state.results[method].isMore = false
     },
+    MODAL_TOGGLE(state) {
+      state.modal = !state.modal
+    },
     ACTIVE(state) {
-      state.active = !state.active
+      state.active = `${state.params.terms}`
     }
   },
   actions: {
     async search({ commit, state, dispatch }, event) {
       try {
         event.preventDefault()
-        dispatch('activeToggle')
+        dispatch('toggleModal')
         dispatch('deleteResults')
+        dispatch('setActive')
         dispatch('loading', null, { root: true })
 
         const [users, messages, posts] = await Promise.all([
@@ -69,12 +74,20 @@ export default {
           get('post', { ...state.params, offset: state.results['posts'].offset })
         ])
 
-        if (users.length) commit('RESULTS_ADD', { results: users, method: 'user' })
-        if (users.length < 10) dispatch('noMore', 'users')
-        if (messages.length) commit('RESULTS_ADD', { results: messages, method: 'message' })
-        if (messages.length < 10) dispatch('noMore', 'messages')
-        if (posts.length) commit('RESULTS_ADD', { results: posts, method: 'post' })
-        if (posts.length < 10) dispatch('noMore', 'posts')
+        if (users) {
+          if (users.length) commit('RESULTS_ADD', { results: users, method: 'user' })
+          if (users.length < 10) dispatch('noMore', 'users')
+        }
+
+        if (messages) {
+          if (messages.length) commit('RESULTS_ADD', { results: messages, method: 'message' })
+          if (messages.length < 10) dispatch('noMore', 'messages')
+        }
+
+        if (posts) {
+          if (posts.length) commit('RESULTS_ADD', { results: posts, method: 'post' })
+          if (posts.length < 10) dispatch('noMore', 'posts')
+        }
 
         dispatch('loading', null, { root: true })
       } catch (err) {
@@ -114,7 +127,10 @@ export default {
     noMore({ commit }, method) {
       commit('NO_MORE', method)
     },
-    activeToggle({ commit }) {
+    toggleModal({ commit }) {
+      commit('MODAL_TOGGLE')
+    },
+    setActive({ commit }) {
       commit('ACTIVE')
     }
   }

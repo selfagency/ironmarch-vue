@@ -15,7 +15,9 @@ const plugins = Vue => {
   })
   // Vue.use(VueEvents)
   Vue.use(VueMeta)
-  Vue.use(VueScrollTo)
+  Vue.use(VueScrollTo, {
+    offset: -60
+  })
   // Vue.use(VueSkipTo)
   Vue.use(Toasted, {
     position: 'bottom-right',

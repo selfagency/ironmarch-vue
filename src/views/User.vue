@@ -5,21 +5,22 @@
       therefore may not be wholly accurate. Unless you are able to verify and corroborate an individual's identity, do
       not assume that a real name match or Twitter profile match, for example, is concrete proof of anything.
     </header>
+    <go-back></go-back>
     <div class="flex">
       <h1 class="full half-500">{{ profile.name }}</h1>
       <div id="user-nav" class="full half-500">
         #
         <ul>
           <li v-if="hasStatus(statuses.data)" role="link" @click="$scrollTo('#statuses')">Statuses</li>
-          <li v-if="posts.data.length" role="link" @click="$scrollTo('#posts')">Posts</li>
           <li v-if="messages.data.length" role="link" @click="$scrollTo('#messages')">Messages</li>
+          <li v-if="posts.data.length" role="link" @click="$scrollTo('#posts')">Posts</li>
         </ul>
       </div>
     </div>
     <profile :user="profile"></profile>
     <statuses :statuses="statuses.data"></statuses>
+    <messages :msgs="messages.data" :is-more="messages.isMore" :user="profile"></messages>
     <posts :posts="posts" :is-more="posts.isMore" :user="profile"></posts>
-    <messages :msgs="messages" :is-more="messages.isMore" :user="profile"></messages>
   </main>
 </template>
 
@@ -90,7 +91,7 @@ h1
 #user-nav
   display flex
   justify-content flex-end
-  align-items flex-start
+  align-items center
 
   ul
     margin 0

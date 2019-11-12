@@ -1,6 +1,6 @@
 <template>
   <div id="search">
-    <form :class="{ modal: active, 'none full-600': !active }">
+    <form :class="{ modal, 'none full-600': !modal }">
       <fieldset>
         <div id="search-bar" class="flex two">
           <div class="three-fourth">
@@ -14,7 +14,7 @@
         </div>
       </fieldset>
     </form>
-    <div id="search-toggle" class="none-600" @click="activeToggle">
+    <div id="search-toggle" class="none-600" @click="toggleModal">
       <inline-svg :src="icon" width="25" height="25"></inline-svg>
     </div>
   </div>
@@ -34,9 +34,9 @@ export default {
     }
   },
   computed: {
-    ...mapState('search', ['params', 'active']),
+    ...mapState('search', ['params', 'modal']),
     icon() {
-      return this.active ? close : search
+      return this.modal ? close : search
     },
     terms: {
       get() {
@@ -47,13 +47,18 @@ export default {
       }
     }
   },
+  created() {
+    this.$store.subscribeAction(action => {
+      if (action.type === 'search/search' && this.$route.name !== 'search') this.$router.push({ name: 'search' })
+    })
+  },
   mounted() {
     this.$nextTick(() => {
       this.selected = this.method ? `${this.method}s` : 'users'
     })
   },
   methods: {
-    ...mapActions('search', ['search', 'deleteResults', 'activeToggle'])
+    ...mapActions('search', ['search', 'deleteResults', 'toggleModal'])
   }
 }
 </script>
@@ -71,6 +76,9 @@ export default {
     width 100vw
     height calc(100vh - 3em)
     background-color #ccc
+
+    fieldset
+      width 85%
 
   #search-bar
     align-items center

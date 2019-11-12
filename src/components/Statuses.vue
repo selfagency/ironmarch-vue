@@ -2,15 +2,15 @@
   <section v-if="statuses.length && Object.values(statuses[0]).length" id="statuses">
     <h2>Statuses</h2>
     <table>
-      <tr>
-        <th width="30%">Date</th>
-        <th>Content</th>
+      <tr class="flex">
+        <th class="third">Date</th>
+        <th class="two-third">Content</th>
       </tr>
-      <tr v-for="(status, key) in statuses" :key="key">
-        <td valign="top">
-          <small>{{ status.date | dateConv }}</small>
+      <tr v-for="(status, key) in statuses" :key="key" class="flex">
+        <td valign="top" class="third">
+          {{ status.date | dateConv }}
         </td>
-        <td valign="top" v-html="status.content"></td>
+        <td class="two-third" valign="top" v-html="status.content"></td>
       </tr>
     </table>
   </section>
@@ -29,3 +29,15 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+table
+  width 100%
+
+  .flex
+    margin 0
+    width 100%
+
+    td
+      padding 0.75em
+</style>

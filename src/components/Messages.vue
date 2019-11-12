@@ -1,14 +1,14 @@
 <template>
-  <section v-if="Object.values(msgs.data[0]).length" id="messages">
-    <h2>Messages</h2>
+  <section v-if="msgs" id="messages">
+    <h2>{{ thread ? thread : 'Messages' }}</h2>
     <table>
       <tr class="flex">
         <th class="none third-800">Meta</th>
         <th class="none two-third-800">Content</th>
       </tr>
-      <tr v-for="(msg, key) in msgs.data" :id="`msg-${msg.id}`" :key="key" class="flex">
-        <td valign="top" class="full third-800">
-          <div v-if="msg.thread">
+      <tr v-for="(msg, key) in msgs" :id="`msg-${msg.id}`" :key="key" class="flex">
+        <td valign="top" class="meta full third-800">
+          <div v-if="search && msg.thread">
             <strong v-html="msg.thread.content"></strong>
           </div>
           <div v-if="msg.author && msg.author.name">
@@ -27,7 +27,7 @@
             </small>
           </div>
         </td>
-        <td valign="top" class="full two-third-800">
+        <td valign="top" class="content full two-third-800">
           <div v-if="trunc" class="content">
             {{ content(msg) }}
             <div class="read-more">
@@ -65,14 +65,18 @@ export default {
       type: Boolean,
       default: false
     },
+    thread: {
+      type: String,
+      default: null
+    },
     isMore: {
       type: Boolean,
       default: false
     },
     msgs: {
-      type: Object,
+      type: [Object, Array],
       default() {
-        return {}
+        return []
       }
     },
     trunc: {

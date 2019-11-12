@@ -41,6 +41,7 @@ export default {
           content.hash = hash
 
           if (method === 'message' && params.id) {
+            content.title = content.thread.content
             content.thread = await get('thread', { id: content.threadId })
           }
 
