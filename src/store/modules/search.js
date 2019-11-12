@@ -38,7 +38,7 @@ export default {
       state.params.terms = terms
     },
     RESULTS_ADD(state, { results, method }) {
-      if (results && results.length) state.results[method].data.push(...results)
+      if (results && results.length) state.results[`${method}s`].data.push(...results)
     },
     RESULTS_DEL(state) {
       const terms = state.params.terms
@@ -69,11 +69,11 @@ export default {
           get('post', { ...state.params, offset: state.results['posts'].offset })
         ])
 
-        if (users.length) commit('RESULTS_ADD', { results: users, method: 'users' })
+        if (users.length) commit('RESULTS_ADD', { results: users, method: 'user' })
         if (users.length < 10) dispatch('noMore', 'users')
-        if (messages.length) commit('RESULTS_ADD', { results: messages, method: 'messages' })
+        if (messages.length) commit('RESULTS_ADD', { results: messages, method: 'message' })
         if (messages.length < 10) dispatch('noMore', 'messages')
-        if (posts.length) commit('RESULTS_ADD', { results: posts, method: 'posts' })
+        if (posts.length) commit('RESULTS_ADD', { results: posts, method: 'post' })
         if (posts.length < 10) dispatch('noMore', 'posts')
 
         dispatch('loading', null, { root: true })
@@ -89,10 +89,10 @@ export default {
 
       try {
         dispatch('loading', null, { root: true })
-        const result = await get(method, params)
-        if (!result || result.length < state.params.limit) dispatch('noMore', method)
-        if (result) {
-          commit('RESULTS_ADD', { result, method })
+        const results = await get(method, params)
+        if (!results || results.length < state.params.limit) dispatch('noMore', method)
+        if (results) {
+          commit('RESULTS_ADD', { results, method })
           dispatch('offset', method)
         }
         dispatch('loading', null, { root: true })

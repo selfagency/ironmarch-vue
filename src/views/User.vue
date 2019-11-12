@@ -1,24 +1,25 @@
 <template>
   <main v-if="profile && Object.values(profile).length" id="user">
-    <div class="container">
-      <div class="notice column">
-        <span>NOTICE:</span> Some identifying information below may come from public email and IP address lookups and
-        therefore may not be wholly accurate. Unless you are able to verify and corroborate an individual's identity, do
-        not assume that a real name match or Twitter profile match, for example, is concrete proof of anything.
-      </div>
-      <h1>{{ profile.name }}</h1>
-      <profile :user="profile"></profile>
-      <div class="user-nav">
+    <header class="notice column">
+      <span>NOTICE:</span> Some identifying information below may come from public email and IP address lookups and
+      therefore may not be wholly accurate. Unless you are able to verify and corroborate an individual's identity, do
+      not assume that a real name match or Twitter profile match, for example, is concrete proof of anything.
+    </header>
+    <div class="flex">
+      <h1 class="full half-500">{{ profile.name }}</h1>
+      <div id="user-nav" class="full half-500">
+        #
         <ul>
           <li v-if="hasStatus(statuses.data)" role="link" @click="$scrollTo('#statuses')">Statuses</li>
           <li v-if="posts.data.length" role="link" @click="$scrollTo('#posts')">Posts</li>
           <li v-if="messages.data.length" role="link" @click="$scrollTo('#messages')">Messages</li>
         </ul>
       </div>
-      <statuses :statuses="statuses.data"></statuses>
-      <posts :posts="posts.data" :is-more="posts.isMore" :user="profile"></posts>
-      <messages :msgs="messages.data" :is-more="messages.isMore" :user="profile"></messages>
     </div>
+    <profile :user="profile"></profile>
+    <statuses :statuses="statuses.data"></statuses>
+    <posts :posts="posts" :is-more="posts.isMore" :user="profile"></posts>
+    <messages :msgs="messages" :is-more="messages.isMore" :user="profile"></messages>
   </main>
 </template>
 
@@ -78,18 +79,27 @@ export default {
     color red
     font-weight bold
 
-.user-nav
-  display flex
-  justify-content center
+.flex
   align-items center
-  margin 2em auto -4em
+  margin 0
+  width 100%
+
+h1
+  padding 0.5em 0
+
+#user-nav
+  display flex
+  justify-content flex-end
+  align-items flex-start
 
   ul
+    margin 0
+    padding 0
     list-style-type none
 
     li
       display inline-block
-      padding 1em
+      padding 0 0 0 1em
       font-weight bold
       cursor pointer
 

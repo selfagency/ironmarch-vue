@@ -22,19 +22,22 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import icon from '../assets/search.svg'
+import search from '../assets/search.svg'
+import close from '../assets/close.svg'
 
 export default {
   name: 'SearchBar',
   data() {
     return {
       searches: ['users', 'messages', 'posts'],
-      placeholder: 'Search text, emails, and locations',
-      icon
+      placeholder: 'Search text, emails, and locations'
     }
   },
   computed: {
     ...mapState('search', ['params', 'active']),
+    icon() {
+      return this.active ? close : search
+    },
     terms: {
       get() {
         return this.params.terms

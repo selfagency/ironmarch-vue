@@ -1,5 +1,6 @@
 <template>
   <main id="results">
+    <h1 v-if="params.terms">Results for '{{ params.terms }}'</h1>
     <users v-if="results.users.data.length" :users="results.users" :search="true"></users>
     <messages v-if="results.messages.data.length" :msgs="results.messages" :search="true"></messages>
     <posts v-if="results.posts.data.length" :posts="results.posts" :search="true"></posts>
@@ -26,7 +27,7 @@ export default {
   },
 
   computed: {
-    ...mapState('search', ['results']),
+    ...mapState('search', ['results', 'params']),
     hasResults() {
       return this.results.posts.data.length || this.results.messages.data.length || this.results.users.data.length
     },

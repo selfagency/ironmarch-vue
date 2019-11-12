@@ -1,7 +1,7 @@
 <template>
   <section v-if="user && Object.values(user).length" id="meta">
-    <div class="row">
-      <div class="column column-75">
+    <div class="flex">
+      <div class="two-third">
         <div v-if="user.name"><strong>Username:</strong> {{ user.name }}</div>
         <div v-if="user.nameAlt"><strong>Alt Username:</strong> {{ user.nameAlt }}</div>
         <div v-if="user.tagline"><strong>Tagline:</strong> <span v-html="user.tagline"></span></div>
@@ -44,7 +44,7 @@
         <div v-if="user.password"><strong>Password:</strong> {{ user.password }}</div>
         <div v-if="user.salt"><strong>Password Salt:</strong> {{ user.salt }}</div>
       </div>
-      <div class="column column-25">
+      <div class="third">
         <div v-if="lookup && lookup.details && lookup.details.photos.length">
           <img id="user-photo" :src="lookup.details.photos[0].value" />
         </div>
@@ -53,20 +53,17 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="column">
+    <div>
+      <div v-if="user.bio">
+        <strong>Bio:</strong>
+        <div v-html="$utils.bbcode(user.bio)"></div>
+      </div>
+      <div v-if="user.bio && user.signature">
         <br />
-        <div v-if="user.bio">
-          <strong>Bio:</strong>
-          <div v-html="$utils.bbcode(user.bio)"></div>
-        </div>
-        <div v-if="user.bio && user.signature">
-          <br />
-        </div>
-        <div v-if="user.signature">
-          <strong>Signature:</strong>
-          <div v-html="$utils.bbcode(user.signature)"></div>
-        </div>
+      </div>
+      <div v-if="user.signature">
+        <strong>Signature:</strong>
+        <div v-html="$utils.bbcode(user.signature)"></div>
       </div>
     </div>
   </section>
@@ -99,6 +96,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+#user-photo
+  width 100%
+
 .lookup-social
   padding 0
   list-style-type none

@@ -1,9 +1,9 @@
 <template>
-  <main v-if="post" id="post">
+  <main v-if="post" id="post" class="card">
     <div class="meta">
       <div v-if="post.author">
         <router-link :to="{ name: 'user', params: { id: post.author.id } }">
-          {{ post.author.name }}
+          <strong>{{ post.author.name }}</strong>
         </router-link>
       </div>
       <div v-if="post.date">
@@ -52,6 +52,9 @@ main
   margin 0 auto
   padding 2em
   max-width 760px
+
+.meta
+  font-size 1.1em
 
 article
   margin 2em 0

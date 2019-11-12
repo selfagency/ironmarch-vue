@@ -32,7 +32,7 @@
     </table>
 
     <div v-if="posts.isMore" class="more" role="none">
-      <button @click="search ? more('post') : getMore({ method: 'message', params: { user: user.id } })">
+      <button @click="search ? more('post') : getMore({ method: 'post', params: { user: user.id } })">
         More posts
       </button>
     </div>

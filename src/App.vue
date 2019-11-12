@@ -6,6 +6,7 @@
     </div>
     <router-view />
     <app-footer></app-footer>
+    <to-top></to-top>
   </div>
 </template>
 
@@ -13,12 +14,14 @@
 import { mapState } from 'vuex'
 import AppHeader from './components/AppHeader.vue'
 import AppFooter from './components/AppFooter.vue'
+import ToTop from './components/ToTop.vue'
 
 export default {
   name: 'App',
   components: {
     AppHeader,
-    AppFooter
+    AppFooter,
+    ToTop
   },
   computed: {
     ...mapState(['loading'])
@@ -51,7 +54,11 @@ export default {
   padding 2em
   max-width 1160px
   width 100%
+  font-size 0.9em
   font-family Avenir, Arial, Helvetica, sans-serif
+
+  main
+    margin-top 3em
 
 #loading
   position fixed
