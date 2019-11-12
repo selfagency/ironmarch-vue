@@ -57,7 +57,7 @@ export default {
   ul
     margin 0.5em auto
     padding 0
-    max-width 300px
+    max-width 320px
     width 100%
     text-align left
 </style>
