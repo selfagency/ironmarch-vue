@@ -25,7 +25,7 @@
         <p>No results to display.</p>
       </div>
 
-      <div v-if="!active && noResults" key="pre-search" class="card">
+      <div v-if="!loading && !active && noResults" key="pre-search" class="card">
         <strong>Use the form above to search:</strong>
         <ul>
           <li>Full-text of posts, messages, and user bios</li>
