@@ -29,6 +29,7 @@ export default {
   bottom 1em
   width 2em
   height 2em
+  cursor pointer
 
   svg
     fill rgba(0, 0, 0, 0.25)
