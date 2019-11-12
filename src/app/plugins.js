@@ -1,5 +1,4 @@
 import vueDebounce from 'vue-debounce'
-// import VueEvents from 'vue-events'
 import VueMeta from 'vue-meta'
 import VueScrollTo from 'vue-scrollto'
 import Toasted from 'vue-toasted'
@@ -13,7 +12,6 @@ const plugins = Vue => {
   Vue.use(vueDebounce, {
     listenTo: ['input', 'keyup']
   })
-  // Vue.use(VueEvents)
   Vue.use(VueMeta)
   Vue.use(VueScrollTo, {
     offset: -60

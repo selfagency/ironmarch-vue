@@ -1,35 +1,39 @@
 <template>
   <div id="search">
-    <form id="search-form" :class="{ fadeIn: modal, fadeOut: !modal, modal, 'none full-600': !modal }" class="animated">
-      <fieldset>
-        <div id="search-bar" class="flex two">
-          <div class="three-fourth">
-            <input id="search-box" v-model="terms" type="text" :placeholder="placeholder" aria-label="Search box" />
-          </div>
-          <div class="fourth">
-            <button id="search-button" type="submit" @click="search">
-              Search
-            </button>
-          </div>
-        </div>
-      </fieldset>
-    </form>
+    <transition-group name="fade">
+      <form v-if="modal" id="search-form" key="modal" class="modal">
+        <search-form :placeholder="placeholder" @search="search"></search-form>
+      </form>
+      <form v-else id="search-form" key="bar" class="none full-600">
+        <search-form :placeholder="placeholder" @search="search"></search-form>
+      </form>
+    </transition-group>
     <div id="search-toggle" class="none-600" @click="searchToggle">
-      <!-- <transition-group name="zoom" mode="out-in"> -->
-      <inline-svg v-show="modal" key="close" :src="close" :class="{ fadeIn: modal, fadeOut: !modal }" class="animated" width="25" height="25"></inline-svg>
-      <inline-svg v-show="!modal" key="open" :src="open" :class="{ fadeIn: !modal, fadeOut: modal }" class="animated" width="25" height="25"></inline-svg>
-      <!-- </transition-group> -->
+      <transition-group name="zoom" mode="out-in">
+        <div v-show="modal" key="close">
+          <inline-svg :src="close" width="25" height="25"></inline-svg>
+        </div>
+
+        <div v-show="!modal" key="open">
+          <inline-svg :src="open" width="25" height="25"></inline-svg>
+        </div>
+      </transition-group>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import SearchForm from './SearchForm.vue'
 import open from '../assets/search.svg'
 import close from '../assets/close.svg'
 
 export default {
   name: 'SearchBar',
+  directives: { focus },
+  components: {
+    SearchForm
+  },
   data() {
     return {
       searches: ['users', 'messages', 'posts'],
@@ -39,28 +43,15 @@ export default {
     }
   },
   computed: {
-    ...mapState('search', ['params', 'modal']),
-    terms: {
-      get() {
-        return this.params.terms
-      },
-      set(t) {
-        this.$store.dispatch('search/setTerms', t)
-      }
-    }
+    ...mapState('search', ['modal'])
   },
   created() {
     this.$store.subscribeAction(action => {
       if (action.type === 'search/search' && this.$route.name !== 'search') this.$router.push({ name: 'search' })
     })
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.selected = this.method ? `${this.method}s` : 'users'
-    })
-  },
   methods: {
-    ...mapActions('search', ['search', 'deleteResults', 'toggleModal']),
+    ...mapActions('search', ['search', 'deleteResults', 'toggleModal', 'toggleFocus']),
     searchToggle() {
       this.toggleModal()
     }
@@ -85,20 +76,11 @@ export default {
     fieldset
       width 85%
 
-  #search-bar
-    align-items center
-    margin-top 0.1em
-    width 100%
-
-  #search-toggle svg
+  #search-toggle div
     position absolute
     top 0.6em
     right 0.6em
     width 25px
     height 25px
     cursor pointer
-
-  #search-button
-    min-width 90px
-    width 100%
 </style>

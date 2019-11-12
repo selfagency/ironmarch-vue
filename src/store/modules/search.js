@@ -25,7 +25,8 @@ const model = () => {
       }
     },
     modal: false,
-    active: null
+    active: null,
+    focused: true
   }
 }
 
@@ -58,6 +59,9 @@ export default {
     MODAL_TOGGLE(state) {
       state.modal = !state.modal
     },
+    FOCUS_TOGGLE(state, toggle) {
+      state.focused = toggle
+    },
     ACTIVE(state) {
       state.active = `${state.params.terms}`
     }
@@ -82,17 +86,17 @@ export default {
 
         if (users) {
           if (users.length) commit('RESULTS_ADD', { results: users, method: 'user' })
-          if (users.length < 10) dispatch('noMore', 'users')
+          if (users.length < 10) dispatch('noMore', 'user')
         }
 
         if (messages) {
           if (messages.length) commit('RESULTS_ADD', { results: messages, method: 'message' })
-          if (messages.length < 10) dispatch('noMore', 'messages')
+          if (messages.length < 10) dispatch('noMore', 'message')
         }
 
         if (posts) {
           if (posts.length) commit('RESULTS_ADD', { results: posts, method: 'post' })
-          if (posts.length < 10) dispatch('noMore', 'posts')
+          if (posts.length < 10) dispatch('noMore', 'post')
         }
 
         dispatch('loading', null, { root: true })
@@ -135,6 +139,9 @@ export default {
     },
     toggleModal({ commit }) {
       commit('MODAL_TOGGLE')
+    },
+    toggleFocus({ commit }, toggle) {
+      commit('FOCUS_TOGGLE', toggle)
     },
     setActive({ commit }) {
       commit('ACTIVE')
