@@ -21,7 +21,7 @@
         <posts v-if="results.posts.data.length" :posts="results.posts" :search="true"></posts>
       </div>
 
-      <div v-if="active && noResults" key="no-results" class="card" role="status">
+      <div v-if="!loading && active && noResults" key="no-results" class="card" role="status">
         <p>No results to display.</p>
       </div>
 
@@ -80,7 +80,7 @@ export default {
   },
   computed: {
     ...mapState('search', ['results', 'active', 'params']),
-    ...mapState(['siteUrl', 'logo']),
+    ...mapState(['siteUrl', 'logo', 'loading']),
     hasResults() {
       return this.results.posts.data.length || this.results.messages.data.length || this.results.users.data.length
     },
