@@ -1,6 +1,6 @@
 <template>
   <div id="search">
-    <form id="search-form" :class="{ modal, 'none full-600': !modal }">
+    <form id="search-form" :class="{ fadeIn: modal, fadeOut: !modal, modal, 'none full-600': !modal }" class="animated">
       <fieldset>
         <div id="search-bar" class="flex two">
           <div class="three-fourth">
@@ -15,10 +15,10 @@
       </fieldset>
     </form>
     <div id="search-toggle" class="none-600" @click="searchToggle">
-      <transition-group name="zoom" mode="out-in">
-        <inline-svg v-show="modal" key="close" :src="close" width="25" height="25"></inline-svg>
-        <inline-svg v-show="!modal" key="open" :src="open" width="25" height="25"></inline-svg>
-      </transition-group>
+      <!-- <transition-group name="zoom" mode="out-in"> -->
+      <inline-svg v-show="modal" key="close" :src="close" :class="{ fadeIn: modal, fadeOut: !modal }" class="animated" width="25" height="25"></inline-svg>
+      <inline-svg v-show="!modal" key="open" :src="open" :class="{ fadeIn: !modal, fadeOut: modal }" class="animated" width="25" height="25"></inline-svg>
+      <!-- </transition-group> -->
     </div>
   </div>
 </template>

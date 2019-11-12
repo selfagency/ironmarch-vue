@@ -62,7 +62,7 @@ export default {
 
 <style lang="stylus">
 @import '../node_modules/picnic/picnic.min.css'
-@import '../node_modules/vue2-animate/dist/vue2-animate.min.css'
+@import '../node_modules/vue2-animate/dist/vue2-animate.css'
 
 #app
   position relative

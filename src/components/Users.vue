@@ -30,7 +30,7 @@
     </table>
 
     <div v-if="users.isMore" class="more" role="none">
-      <button @click="more('users')">
+      <button @click="more('user')">
         More users
       </button>
     </div>

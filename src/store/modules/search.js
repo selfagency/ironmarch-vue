@@ -39,7 +39,8 @@ export default {
       state.params.terms = terms
     },
     RESULTS_ADD(state, { results, method }) {
-      if (results && results.length) state.results[`${method}s`].data.push(...results)
+      method = `${method}s`
+      if (results && results.length) state.results[method].data.push(...results)
     },
     RESULTS_DEL(state) {
       const terms = state.params.terms
@@ -47,9 +48,11 @@ export default {
       state.params.terms = terms
     },
     OFFSET(state, method) {
-      state.results[`${method}s`].offset = state.results[`${method}s`].offset + state.params.limit
+      method = `${method}s`
+      state.results[method].offset = state.results[method].offset + state.params.limit
     },
     NO_MORE(state, method) {
+      method = `${method}s`
       state.results[method].isMore = false
     },
     MODAL_TOGGLE(state) {
