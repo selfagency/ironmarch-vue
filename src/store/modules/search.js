@@ -1,4 +1,5 @@
 import get from '../../app/api'
+import router from '../../app/router'
 
 const model = () => {
   return {
@@ -62,7 +63,10 @@ export default {
   actions: {
     async search({ commit, state, dispatch }, event) {
       try {
-        event.preventDefault()
+        if (event) {
+          event.preventDefault()
+          window.location.assign(`/search?q=${state.params.terms}`)
+        }
         dispatch('toggleModal')
         dispatch('deleteResults')
         dispatch('setActive')

@@ -15,14 +15,17 @@
       </fieldset>
     </form>
     <div id="search-toggle" class="none-600" @click="toggleModal">
-      <inline-svg :src="icon" width="25" height="25"></inline-svg>
+      <transition-group name="zoom" mode="out-in">
+        <inline-svg v-if="modal" :src="close" width="25" height="25" key="close"></inline-svg>
+        <inline-svg v-else :src="open" width="25" height="25" key="open"></inline-svg>
+      </transition-group>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import search from '../assets/search.svg'
+import open from '../assets/search.svg'
 import close from '../assets/close.svg'
 
 export default {
@@ -30,14 +33,13 @@ export default {
   data() {
     return {
       searches: ['users', 'messages', 'posts'],
-      placeholder: 'Search text, emails, and locations'
+      placeholder: 'Search text, emails, and locations',
+      open,
+      close
     }
   },
   computed: {
     ...mapState('search', ['params', 'modal']),
-    icon() {
-      return this.modal ? close : search
-    },
     terms: {
       get() {
         return this.params.terms
@@ -85,13 +87,13 @@ export default {
     margin-top 0.1em
     width 100%
 
-  #search-toggle
-    float right
-    padding 0.6em
-
-    .svg-icon
-      width 1.5em
-      height 1.5em
+  #search-toggle svg
+    position absolute
+    top 0.6em
+    right 0.6em
+    width 25px
+    height 25px
+    cursor pointer
 
   #search-button
     min-width 90px

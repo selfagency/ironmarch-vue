@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <div v-if="loading" id="loading">
-      <loader :color="`rgb(52, 116, 217)`"></loader>
-    </div>
-    <transition>
+    <transition name="fade">
       <router-view />
     </transition>
     <app-footer></app-footer>
+    <div v-if="loading" id="loading">
+      <loader :color="`rgb(52, 116, 217)`"></loader>
+    </div>
     <to-top></to-top>
   </div>
 </template>
@@ -28,6 +28,13 @@ export default {
   computed: {
     ...mapState(['loading'])
   },
+  watch: {
+    $route() {
+      this.$nextTick(() => {
+        this.$utils.footerOffset()
+      })
+    }
+  },
   created() {
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'ERROR') {
@@ -37,6 +44,11 @@ export default {
           this.$store.dispatch('errorReset')
         }, 5000)
       }
+    })
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$utils.footerOffset()
     })
   }
 }
@@ -50,15 +62,22 @@ export default {
   position relative
   margin 0 auto
   padding 2em
-  max-width 1160px
   width 100%
   font-size 0.9em
   font-family Avenir, Arial, Helvetica, sans-serif
 
 main
-  margin 3em auto 0
-  min-height 60vh
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+  margin 3em auto 230px
+  min-height 75vh
   max-width 760px
+  width 100%
+
+  .card
+    width 100%
 
 img
   max-width 100%

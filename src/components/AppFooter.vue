@@ -1,23 +1,24 @@
 <template>
-  <footer>
+  <footer id="footer">
     <div class="credits">
-      <small>
-        Built by <a href="https://jewishworker.org" target="_blank">The Jewish Worker</a> ·
-        <a href="https://gitlab.com/jewishworker/ironmarch-data" target="_blank">Source data</a> ·
-        <a href="https://gitlab.com/jewishworker" target="_blank">Source code</a> ·
-        <a href="https://ko-fi.com/jewishworker" target="_blank">Buy us a coffee</a>
-        <br />
+      <div class="dedication">
         Dedicated in memory of Blaze Bernstein, ז׳׳ל, so that others may not suffer the same fate.
-        <br />
-        This website does not collect or track any information about its visitors.
-        <br /><br />
+      </div>
+      <ul>
+        <li>Built by <a href="https://jewishworker.org" target="_blank">The Jewish Worker</a></li>
+        <li><a href="https://gitlab.com/jewishworker/ironmarch-data" target="_blank">Source data</a></li>
+        <li><a href="https://gitlab.com/jewishworker" target="_blank">Source code</a></li>
+        <li><a href="https://ko-fi.com/jewishworker" target="_blank">Buy us a coffee</a></li>
+      </ul>
+      <div class="twitter">
         <a href="https://twitter.com/jewishworker" target="_blank">
           <img
             src="https://img.shields.io/twitter/follow/jewishworker?style=social"
             alt="Follow Jewish Worker on Twitter"
           />
         </a>
-      </small>
+      </div>
+      <div class="privacy">This website does not collect or track any information about its visitors.</div>
     </div>
   </footer>
 </template>
@@ -30,12 +31,36 @@ export default {
 
 <style lang="stylus" scoped>
 footer
+  position absolute
+  bottom 0
+  left 0
   display flex
   justify-content center
   align-items center
-  padding 2em 0
+  padding 2em
+  width 100%
+  background #efefef
+  font-size 0.9em
 
   .credits
     width 100%
-    text-align center
+
+    ul
+      display flex
+      justify-content center
+      align-items center
+      margin 0
+      padding 0
+      list-style-type none
+
+      li
+        padding 0 0.5em
+        text-align center
+
+    div
+      padding 0.5em 0
+      text-align center
+
+      &.dedication
+        font-style italic
 </style>

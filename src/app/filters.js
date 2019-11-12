@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import stripHtml from 'string-strip-html'
 import truncate from 'truncate'
-import { StripChar } from 'stripchar'
+import smartquotes from 'smartquotes'
 
 const chunk = (str, n) => {
   let out = [],
@@ -38,18 +38,12 @@ const filters = Vue => {
     return truncate(breakup(stripHtml(str)), ln)
   })
 
-  Vue.filter('truncStrip', (str, ln) => {
-    if (!str) return ''
-    return truncate(breakup(StripChar.RSspecChar(stripHtml(str), '\u00AD')), ln)
-  })
-
   Vue.filter('dateConv', date => {
     return dayjs.unix(date)
   })
 
-  Vue.filter('strip', html => {
-    if (!html) return ''
-    return stripHtml(html)
+  Vue.filter('quotes', str => {
+    return smartquotes(str)
   })
 }
 

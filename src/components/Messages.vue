@@ -1,6 +1,6 @@
 <template>
   <section v-if="msgs" id="messages">
-    <h2>{{ thread ? thread : 'Messages' }}</h2>
+    <h2>{{ thread ? thread : 'Messages' | quotes }}</h2>
     <table>
       <tr class="flex">
         <th class="none third-800">Meta</th>
