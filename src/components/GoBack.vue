@@ -10,6 +10,7 @@ export default {
 
 <style lang="stylus" scoped>
 .go-back
+  align-self flex-start
   color rgb(52, 116, 217)
   font-weight bold
   cursor pointer

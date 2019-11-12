@@ -9,17 +9,13 @@
           <strong>Email:</strong> {{ user.email }}
           <div v-if="user.emailAlt"><strong>Alt Email:</strong> {{ user.emailAlt }}</div>
         </div>
-        <div v-if="user.dobD > 0">
-          <strong>DOB:</strong> {{ user.dobM }}/{{ user.dobD }}{{ user.dobY > 0 ? `/${user.dobY}` : null }}
-        </div>
+        <div v-if="user.dobD > 0"><strong>DOB:</strong> {{ user.dobM }}/{{ user.dobD }}{{ user.dobY > 0 ? `/${user.dobY}` : null }}</div>
         <div v-if="lookup">
           <div v-if="lookup.fullName"><strong>Real Name:</strong> {{ lookup.fullName }}</div>
           <div v-if="lookup.details">
             <span v-if="lookup.details.gender"><strong>Gender:</strong> {{ lookup.details.gender }}</span>
             <span v-if="lookup.details.gender && lookup.details.age"> · </span>
-            <span v-if="lookup.details.age">
-              <strong>Age:</strong> {{ lookup.details.age.range || lookup.details.age }}
-            </span>
+            <span v-if="lookup.details.age"> <strong>Age:</strong> {{ lookup.details.age.range || lookup.details.age }} </span>
           </div>
           <div v-if="lookup.details && Object.values(lookup.details.profiles).length">
             <strong>Social profiles:</strong>
@@ -35,9 +31,7 @@
           <span v-if="user.id && user.ip"> · </span>
           <span v-if="user.ip"><strong>IP:</strong> {{ user.ip }}</span>
         </div>
-        <div v-if="user.geo">
-          <strong>Geolocation:</strong> {{ user.geo.city }}, {{ user.geo.region_name }}, {{ user.geo.country_code }}
-        </div>
+        <div v-if="user.geo"><strong>Geolocation:</strong> {{ user.geo.city }}, {{ user.geo.region_name }}, {{ user.geo.country_code }}</div>
         <div v-if="user.timezone"><strong>Profile Time Zone:</strong> {{ user.timezone }}</div>
         <div v-if="user.joined"><strong>Joined:</strong> {{ user.joined | dateConv }}</div>
         <div v-if="user.lastLogin"><strong>Last Login:</strong> {{ user.lastLogin | dateConv }}</div>
@@ -96,6 +90,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+#meta
+  width 100%
+
 #user-photo
   width 100%
 

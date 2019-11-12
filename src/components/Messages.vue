@@ -1,5 +1,5 @@
 <template>
-  <section v-if="msgs" id="messages">
+  <section v-if="msgs.length && Object.values(msgs[0]).length" id="messages">
     <h2>{{ thread ? thread : 'Messages' | quotes }}</h2>
     <table>
       <tr class="flex">
@@ -118,10 +118,6 @@ export default {
 
       td
         padding 0.75em
-
-  .read-more
-    float right
-    font-size 0.8em
 
   .more
     display flex

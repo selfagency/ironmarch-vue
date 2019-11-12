@@ -12,8 +12,40 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'Home'
+  name: 'Home',
+  metaInfo() {
+    return {
+      title: 'Home',
+      meta: [
+        {
+          property: 'title',
+          content: 'Iron March Forum Leak'
+        },
+        {
+          property: 'description',
+          content: 'A searchable index of leaked data from the Iron March neo-Nazi forum'
+        },
+        {
+          property: 'og:description',
+          content: 'A searchable index of leaked data from the Iron March neo-Nazi forum'
+        },
+        {
+          property: 'og:image',
+          content: `${this.siteUrl}${this.logo}`
+        },
+        {
+          property: 'og:url',
+          content: `${this.siteUrl}${this.$route.path}`
+        }
+      ]
+    }
+  },
+  computed: {
+    ...mapState(['siteUrl', 'logo'])
+  }
 }
 </script>
 

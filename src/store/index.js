@@ -7,10 +7,21 @@ import content from './modules/content'
 import search from './modules/search'
 import user from './modules/user'
 
+import logo from '../assets/ironmarch.jpg'
+
 Vue.use(Vuex)
 const vuexLocal = new VuexPersistence({
   storage: localforage
 })
+
+const model = () => {
+  return {
+    loading: false,
+    error: null,
+    siteUrl: 'https://ironmarch-web.now.sh',
+    logo
+  }
+}
 
 export default new Vuex.Store({
   modules: {
@@ -18,9 +29,8 @@ export default new Vuex.Store({
     search,
     user
   },
-  state: {
-    loading: false,
-    error: null
+  state() {
+    return model()
   },
   mutations: {
     ERROR(state, err) {

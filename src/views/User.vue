@@ -1,9 +1,9 @@
 <template>
   <main v-if="profile && Object.values(profile).length" id="user">
     <header class="notice column">
-      <span>NOTICE:</span> Some identifying information below may come from public email and IP address lookups and
-      therefore may not be wholly accurate. Unless you are able to verify and corroborate an individual's identity, do
-      not assume that a real name match or Twitter profile match, for example, is concrete proof of anything.
+      <span>NOTICE:</span> Some identifying information below may come from public email and IP address lookups and therefore may not be wholly accurate. Unless
+      you are able to verify and corroborate an individual's identity, do not assume that a real name match or Twitter profile match, for example, is concrete
+      proof of anything.
     </header>
     <go-back></go-back>
     <div class="flex">
@@ -34,6 +34,33 @@ import Statuses from '../components/Statuses.vue'
 
 export default {
   name: 'User',
+  metaInfo() {
+    return {
+      title: this.profile.name,
+      meta: [
+        {
+          property: 'title',
+          content: this.profile.name
+        },
+        {
+          property: 'description',
+          content: `${this.profile.name}'s user profile on the Iron March neo-Nazi forum`
+        },
+        {
+          property: 'og:description',
+          content: `${this.profile.name}'s user profile on the Iron March neo-Nazi forum`
+        },
+        {
+          property: 'og:image',
+          content: `${this.siteUrl}${this.logo}`
+        },
+        {
+          property: 'og:url',
+          content: `${this.siteUrl}${this.$route.path}`
+        }
+      ]
+    }
+  },
   components: {
     Messages,
     Posts,
@@ -41,7 +68,8 @@ export default {
     Statuses
   },
   computed: {
-    ...mapState('user', ['profile', 'messages', 'posts', 'statuses'])
+    ...mapState('user', ['profile', 'messages', 'posts', 'statuses']),
+    ...mapState(['siteUrl', 'logo'])
   },
   watch: {
     $route(to) {

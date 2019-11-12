@@ -20,6 +20,12 @@ import ToTop from './components/ToTop.vue'
 
 export default {
   name: 'App',
+  metaInfo() {
+    return {
+      titleTemplate: '%s · Iron March Forum Leak',
+      link: [{ rel: 'canonical', href: `https://iron-march-web.now.sh${this.$route.path}` }]
+    }
+  },
   components: {
     AppHeader,
     AppFooter,
@@ -81,6 +87,9 @@ main
 
 img
   max-width 100%
+
+.read-more
+  float right
 
 #loading
   position fixed

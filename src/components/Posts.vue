@@ -90,10 +90,6 @@ export default {
       td
         padding 0.75em
 
-  .read-more
-    float right
-    font-size 0.8em
-
   .more
     display flex
     justify-content center

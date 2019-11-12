@@ -2,7 +2,7 @@
   <header>
     <nav>
       <router-link class="brand" :to="{ name: 'home' }">
-        <img src="../assets/ironmarch.jpg" class="logo" alt="Iron March logo" />
+        <img :src="logo" class="logo" alt="Iron March logo" />
         <span>Iron March Forum Leak</span>
       </router-link>
 
@@ -12,12 +12,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import SearchBar from '../components/SearchBar.vue'
 
 export default {
   name: 'AppHeader',
   components: {
     SearchBar
+  },
+  computed: {
+    ...mapState(['logo'])
   }
 }
 </script>

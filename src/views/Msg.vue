@@ -11,11 +11,39 @@ import Messages from '../components/Messages.vue'
 
 export default {
   name: 'Msg',
+  metaInfo() {
+    return {
+      title: this.current.title,
+      meta: [
+        {
+          property: 'title',
+          content: this.current.title
+        },
+        {
+          property: 'description',
+          content: this.$options.filters.truncate(this.current.content, 255)
+        },
+        {
+          property: 'og:description',
+          content: this.$options.filters.truncate(this.current.content, 255)
+        },
+        {
+          property: 'og:image',
+          content: `${this.siteUrl}${this.logo}`
+        },
+        {
+          property: 'og:url',
+          content: `${this.siteUrl}${this.$route.path}`
+        }
+      ]
+    }
+  },
   components: {
     Messages
   },
   computed: {
-    ...mapState('content', ['current'])
+    ...mapState('content', ['current']),
+    ...mapState(['siteUrl', 'logo'])
   },
   watch: {
     $route(to) {

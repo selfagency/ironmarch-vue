@@ -1,18 +1,18 @@
 <template>
-  <main v-if="post" id="post">
+  <main v-if="current" id="post">
     <go-back></go-back>
     <article class="card">
       <div class="meta">
-        <div v-if="post.author">
-          <router-link :to="{ name: 'user', params: { id: post.author.id } }">
-            <strong>{{ post.author.name }}</strong>
+        <div v-if="current.author">
+          <router-link :to="{ name: 'user', params: { id: current.author.id } }">
+            <strong>{{ current.author.name }}</strong>
           </router-link>
         </div>
-        <div v-if="post.date">
-          <small>{{ post.date | dateConv }}</small>
+        <div v-if="current.date">
+          <small>{{ current.date | dateConv }}</small>
         </div>
       </div>
-      <div class="content" v-html="post.content"></div>
+      <div class="content" v-html="current.content"></div>
     </article>
   </main>
 </template>
@@ -22,11 +22,36 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Post',
+  metaInfo() {
+    return {
+      title: this.$options.filters.truncate(this.current.content, 60),
+      meta: [
+        {
+          property: 'title',
+          content: this.$options.filters.truncate(this.current.content, 60)
+        },
+        {
+          property: 'description',
+          content: this.$options.filters.truncate(this.current.content, 255)
+        },
+        {
+          property: 'og:description',
+          content: this.$options.filters.truncate(this.current.content, 255)
+        },
+        {
+          property: 'og:image',
+          content: `${this.siteUrl}${this.logo}`
+        },
+        {
+          property: 'og:url',
+          content: `${this.siteUrl}${this.$route.path}`
+        }
+      ]
+    }
+  },
   computed: {
     ...mapState('content', ['current']),
-    post() {
-      return this.current
-    }
+    ...mapState(['siteUrl', 'logo'])
   },
   watch: {
     $route(to) {

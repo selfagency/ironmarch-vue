@@ -46,6 +46,33 @@ import Users from '../components/Users.vue'
 
 export default {
   name: 'Search',
+  metaInfo() {
+    return {
+      title: this.params.terms,
+      meta: [
+        {
+          property: 'title',
+          content: `Search for '${this.params.terms}'`
+        },
+        {
+          property: 'description',
+          content: `Iron March Forum Leak search for '${this.params.terms}'`
+        },
+        {
+          property: 'og:description',
+          content: `Iron March Forum Leak search for '${this.params.terms}'`
+        },
+        {
+          property: 'og:image',
+          content: `${this.siteUrl}${this.logo}`
+        },
+        {
+          property: 'og:url',
+          content: `${this.siteUrl}${this.$route.path}`
+        }
+      ]
+    }
+  },
   components: {
     Posts,
     Messages,
@@ -53,6 +80,7 @@ export default {
   },
   computed: {
     ...mapState('search', ['results', 'active', 'params']),
+    ...mapState(['siteUrl', 'logo']),
     hasResults() {
       return this.results.posts.data.length || this.results.messages.data.length || this.results.users.data.length
     },
