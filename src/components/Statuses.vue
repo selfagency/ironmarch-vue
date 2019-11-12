@@ -31,13 +31,16 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-table
-  width 100%
+#statuses
+  margin-top 4em
 
-  .flex
-    margin 0
+  table
     width 100%
 
-    td
-      padding 0.75em
+    .flex
+      margin 0
+      width 100%
+
+      td
+        padding 0.75em
 </style>

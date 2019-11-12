@@ -109,6 +109,8 @@ export default {
 
 <style lang="stylus" scoped>
 #messages
+  margin-top 4em
+
   table
     width 100%
 

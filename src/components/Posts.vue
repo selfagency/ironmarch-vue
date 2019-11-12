@@ -80,6 +80,8 @@ export default {
 
 <style lang="stylus" scoped>
 #posts
+  margin-top 4em
+
   table
     width 100%
 

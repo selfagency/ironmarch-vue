@@ -65,16 +65,19 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-table
-  width 100%
+#users
+  margin-top 4em
 
-  .flex
-    margin 0
+  table
     width 100%
 
-.more
-  display flex
-  justify-content center
-  align-items center
-  margin 2em 0
+    .flex
+      margin 0
+      width 100%
+
+  .more
+    display flex
+    justify-content center
+    align-items center
+    margin 2em 0
 </style>
