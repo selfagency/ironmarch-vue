@@ -1,5 +1,4 @@
 import get from '../../app/api'
-import router from '../../app/router'
 
 const model = () => {
   return {

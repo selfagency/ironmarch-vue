@@ -16,8 +16,8 @@
     </form>
     <div id="search-toggle" class="none-600" @click="toggleModal">
       <transition-group name="zoom" mode="out-in">
-        <inline-svg v-if="modal" :src="close" width="25" height="25" key="close"></inline-svg>
-        <inline-svg v-else :src="open" width="25" height="25" key="open"></inline-svg>
+        <inline-svg v-if="modal" key="close" :src="close" width="25" height="25"></inline-svg>
+        <inline-svg v-else key="open" :src="open" width="25" height="25"></inline-svg>
       </transition-group>
     </div>
   </div>
