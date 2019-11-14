@@ -1,10 +1,9 @@
+// import VueSkipTo from 'vue-skip-to'
+import Toasted from 'vue-toasted'
 import vueDebounce from 'vue-debounce'
 import VueMeta from 'vue-meta'
 import VueScrollTo from 'vue-scrollto'
-import Toasted from 'vue-toasted'
-// import VueSkipTo from 'vue-skip-to'
 import VueViewports from 'vue-viewports'
-
 import breakpoints from '../data/breakpoints.json'
 
 const plugins = Vue => {

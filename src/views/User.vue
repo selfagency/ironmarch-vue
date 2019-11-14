@@ -1,10 +1,5 @@
 <template>
   <main v-if="profile && Object.values(profile).length" id="user">
-    <header class="notice column">
-      <span>NOTICE:</span> Some identifying information below may come from public email and IP address lookups and therefore may not be wholly accurate. Unless
-      you are able to verify and corroborate an individual's identity, do not assume that a real name match or Twitter profile match, for example, is concrete
-      proof of anything.
-    </header>
     <go-back></go-back>
     <div class="flex">
       <h1 class="full half-500">{{ profile.name }}</h1>
@@ -97,17 +92,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.notice
-  margin-bottom 2em
-  padding 1em
-  background-color #FBE9E9
-  color black
-  font-size 0.8em
-
-  span
-    color red
-    font-weight bold
-
 .flex
   align-items center
   margin 0
