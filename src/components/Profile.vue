@@ -2,27 +2,6 @@
   <section v-if="user && Object.values(user).length" id="meta">
     <div class="flex">
       <div class="two-third">
-        <div v-if="lookup" class="card">
-          <h3>Unverified Identity Match</h3>
-          <div class="notice">
-            This information comes from a public data lookup and therefore may not be wholly accurate. Unless you are able to verify and corroborate an
-            individual's identity, do not assume that a real name match is concrete proof of anything.
-          </div>
-          <div v-if="lookup.fullName"><strong>Real Name:</strong> {{ lookup.fullName }}</div>
-          <div v-if="lookup.details">
-            <span v-if="lookup.details.gender"><strong>Gender:</strong> {{ lookup.details.gender }}</span>
-            <span v-if="lookup.details.gender && lookup.details.age"> · </span>
-            <span v-if="lookup.details.age"> <strong>Age:</strong> {{ lookup.details.age.range || lookup.details.age }} </span>
-          </div>
-          <div v-if="lookup.details && Object.values(lookup.details.profiles).length">
-            <strong>Social(s): </strong>
-            <span v-for="(social, key) in lookup.details.profiles" :key="key">
-              <a :href="social.url" target="_blank">{{ social.service | capitalize }}</a>
-              &nbsp;
-            </span>
-          </div>
-        </div>
-
         <div v-if="user.id"><strong>User ID:</strong> {{ user.id }}</div>
         <div v-if="user.name">
           <strong>Username(s):</strong> {{ user.name }}<span v-if="user.nameAlt && user.nameAlt !== user.name">, {{ user.nameAlt }}</span>
@@ -35,8 +14,10 @@
           <span v-if="user.emailAlt && user.emailAlt !== user.email">, {{ user.emailAlt }}</span>
           <span v-if="user.emailAlt2 && user.emailAlt2 !== user.email && user.emailAlt2 !== user.emailAlt">, {{ user.emailAlt2 }}</span>
         </div>
-        <div v-if="user.socialTwitter || user.socialJabber || user.socialSkype || user.socialAim || user.socialMsn || user.socialIcq || user.socialYahoo">
-          <strong>Social(s):</strong>
+        <div
+          class="user-socials"
+          v-if="user.socialTwitter || user.socialJabber || user.socialSkype || user.socialAim || user.socialMsn || user.socialIcq || user.socialYahoo"
+        >
           <ul>
             <li v-if="user.socialTwitter">
               <strong>Twitter:</strong>
@@ -67,31 +48,50 @@
         <div v-if="user.lastLogin"><strong>Last Login:</strong> {{ user.lastLogin | dateConv }}</div>
         <div v-if="user.password"><strong>Password:</strong> {{ user.password | truncate(32) }}</div>
         <div v-if="user.salt"><strong>Password Salt:</strong> {{ user.salt }}</div>
+        <div v-if="(user.ideologyAlt || user.bio || user.signature) && user.signature"><br /></div>
+        <div v-if="user.ideologyAlt || user.bio">
+          <strong>Profile:</strong>
+          <div v-if="user.ideologyAlt" v-html="user.ideologyAlt"></div>
+          <div v-if="user.bio" v-html="$utils.bbcode(user.bio)"></div>
+        </div>
+        <div v-if="(user.ideologyAlt || user.bio) && user.signature"><br /></div>
+        <div v-if="user.signature">
+          <strong>Signature:</strong>
+          <div v-html="$utils.bbcode(user.signature)"></div>
+        </div>
       </div>
       <div class="third">
         <div v-if="lookup && lookup.details && lookup.details.photos.length">
-          <img id="user-photo" :src="lookup.details.photos[0].value" />
+          <img class="user-photo" :src="lookup.details.photos[0].value" />
         </div>
 
         <div v-if="user.photo && user.photo.startsWith('ht')">
-          <img id="user-photo" :src="user.photo" />
+          <img class="user-photo" :src="user.photo" />
         </div>
 
         <div v-if="user.photoAlt && user.photoAlt.startsWith('ht') && user.photoAlt !== user.photo">
-          <img id="user-photoAlt" :src="user.photoAlt" />
+          <img class="user-photo" :src="user.photoAlt" />
         </div>
       </div>
     </div>
-    <div>
-      <div v-if="user.ideologyAlt || user.bio">
-        <strong>Profile:</strong>
-        <div v-if="user.ideologyAlt" v-html="user.ideologyAlt"></div>
-        <div v-if="user.bio" v-html="$utils.bbcode(user.bio)"></div>
+    <div v-if="lookup" class="card">
+      <h3>Unverified Identity Match</h3>
+      <div v-if="lookup.fullName"><strong>Real Name:</strong> {{ lookup.fullName }}</div>
+      <div v-if="lookup.details">
+        <span v-if="lookup.details.gender"><strong>Gender:</strong> {{ lookup.details.gender }}</span>
+        <span v-if="lookup.details.gender && lookup.details.age"> · </span>
+        <span v-if="lookup.details.age"> <strong>Age:</strong> {{ lookup.details.age.range || lookup.details.age }} </span>
       </div>
-      <div v-if="(user.ideologyAlt || user.bio) && user.signature"><br /></div>
-      <div v-if="user.signature">
-        <strong>Signature:</strong>
-        <div v-html="$utils.bbcode(user.signature)"></div>
+      <div v-if="lookup.details && Object.values(lookup.details.profiles).length">
+        <strong>Social(s): </strong>
+        <span v-for="(social, key) in lookup.details.profiles" :key="key">
+          <a :href="social.url" target="_blank">{{ social.service | capitalize }}</a>
+          &nbsp;
+        </span>
+      </div>
+      <div class="notice">
+        This information comes from a public records lookup and therefore may not be wholly accurate. Unless you are able to verify and corroborate an
+        individual's identity, do not assume that an identity match is concrete proof of anything.
       </div>
     </div>
   </section>
@@ -116,7 +116,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       setTimeout(() => {
-        this.$utils.zoom(document.querySelector('#user-photo'))
+        this.$utils.zoom(document.querySelector('.user-photo'))
       }, 1000)
     })
   }
@@ -127,19 +127,30 @@ export default {
 #meta
   width 100%
 
-#user-photo
+.user-photo
   width 100%
 
+.user-socials
+  ul
+    margin 0
+    padding 0
+    list-style-type none
+
+  li
+    margin 0
+    padding 0
+
 .card
-  margin-bottom 1em
+  margin-top 2em
   padding 1em
 
   h3
+    margin-bottom 1em
     padding 0
     color red
 
   .notice
-    margin 1em 0
+    margin 1em 0 0
     padding 1em
     background-color #FBE9E9
     color black
