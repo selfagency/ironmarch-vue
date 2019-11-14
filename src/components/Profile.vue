@@ -82,12 +82,13 @@
         <span v-if="lookup.details.gender && lookup.details.age"> · </span>
         <span v-if="lookup.details.age"> <strong>Age:</strong> {{ lookup.details.age.range || lookup.details.age }} </span>
       </div>
-      <div v-if="lookup.details && Object.values(lookup.details.profiles).length">
-        <strong>Social(s): </strong>
-        <span v-for="(social, key) in lookup.details.profiles" :key="key">
-          <a :href="social.url" target="_blank">{{ social.service | capitalize }}</a>
-          &nbsp;
-        </span>
+      <div v-if="lookup.details && Object.values(lookup.details.profiles).length" class="user-socials">
+        <ul>
+          <li v-for="(social, key) in lookup.details.profiles" :key="key">
+            <strong>{{ social.service | capitalize }}</strong
+            >: <a :href="social.url" target="_blank">{{ social.url }}</a>
+          </li>
+        </ul>
       </div>
       <div class="notice">
         This information comes from a public records lookup and therefore may not be wholly accurate. Unless you are able to verify and corroborate an
