@@ -15,8 +15,8 @@
           <span v-if="user.emailAlt2 && user.emailAlt2 !== user.email && user.emailAlt2 !== user.emailAlt">, {{ user.emailAlt2 }}</span>
         </div>
         <div
-          class="user-socials"
           v-if="user.socialTwitter || user.socialJabber || user.socialSkype || user.socialAim || user.socialMsn || user.socialIcq || user.socialYahoo"
+          class="user-socials"
         >
           <ul>
             <li v-if="user.socialTwitter">

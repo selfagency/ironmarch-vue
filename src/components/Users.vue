@@ -17,14 +17,16 @@
         </td>
         <td valign="top" class="none fourth-800">
           <span v-if="user.lookup && user.lookup.fullName">{{ user.lookup.fullName }}</span>
-          <span v-if="user.nameAlt">{{ user.nameAlt | truncate(25) }}</span>
+          <span v-if="user.nameAlt && user.nameAlt !== user.name">{{ user.nameAlt | truncate(25) }}</span>
+          <span v-if="user.nameAlt2 && user.nameAlt !== user.nameAlt">{{ user.nameAlt2 | truncate(25) }}</span>
         </td>
         <td valign="top" class="none fourth-800">
-          {{ user.email | truncate(25) }} <span v-if="user.emailAlt">{{ user.emailAlt | truncate(25) }}</span>
+          {{ user.email | truncate(25) }}
+          <span v-if="user.emailAlt && user.emailAlt !== user.email">{{ user.emailAlt | truncate(25) }}</span>
+          <span v-if="user.emailAlt2 && user.emailAlt2 !== user.emailAlt">{{ user.emailAlt2 | truncate(25) }}</span>
         </td>
         <td valign="top" class="half fourth-800">
-          <div v-if="user.geo">{{ user.geo.city }}, {{ user.geo.region_name }}, {{ user.geo.country_code }}</div>
-          <div v-else-if="user.timezone">{{ user.timezone }}</div>
+          <div v-if="user.geo && user.geo.city !== null">{{ user.geo.city }}, {{ user.geo.region_name }}, {{ user.geo.country_code }}</div>
         </td>
       </tr>
     </table>
