@@ -7,7 +7,8 @@ const model = () => {
     current: {},
     messages: [],
     posts: [],
-    users: []
+    users: [],
+    meta: {}
   }
 }
 
@@ -18,7 +19,11 @@ export default {
   },
   mutations: {
     CONTENT_ADD(state, { method, content }) {
-      content.length ? state[`${method}s`].push(...content) : state[`${method}s`].push(content)
+      if (method === 'meta') {
+        state.meta = content
+      } else {
+        content.length ? state[`${method}s`].push(...content) : state[`${method}s`].push(content)
+      }
     },
     CURRENT_SET(state, content) {
       state.current = content
@@ -56,9 +61,21 @@ export default {
         dispatch('error', err.message, { root: true })
       }
     },
-    addContent({ commit, dispatch }, method, content) {
+    async getMeta({ dispatch, state }) {
+      try {
+        if (!Object.values(state.meta).length) {
+          const content = await get('meta', { data: 'all' })
+          dispatch('addContent', { method: 'meta', content })
+        }
+      } catch (err) {
+        Console.error(err)
+        dispatch('loading', null, { root: true })
+        dispatch('error', err.message, { root: true })
+      }
+    },
+    addContent({ commit, dispatch }, { method, content }) {
       if (method === 'message') method = 'msg'
-      if (content) commit('CONTENT_ADD', method, content)
+      if (content) commit('CONTENT_ADD', { method, content })
     },
     setCurrent({ commit }, content) {
       commit('CURRENT_SET', content)

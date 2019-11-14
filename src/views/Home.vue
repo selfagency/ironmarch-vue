@@ -8,11 +8,19 @@
         <li>Locations</li>
       </ul>
     </div>
+
+    <div v-if="meta" class="full">
+      <locales :locales="meta.locales"></locales>
+      <meta-data :meta="meta"></meta-data>
+    </div>
   </main>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
+
+import Locales from '../components/Locales.vue'
+import MetaData from '../components/MetaData.vue'
 
 export default {
   name: 'Home',
@@ -43,8 +51,19 @@ export default {
       ]
     }
   },
+  components: {
+    Locales,
+    MetaData
+  },
   computed: {
-    ...mapState(['siteUrl', 'logo'])
+    ...mapState(['siteUrl', 'logo']),
+    ...mapState('content', ['meta'])
+  },
+  created() {
+    this.getMeta()
+  },
+  methods: {
+    ...mapActions('content', ['getMeta'])
   }
 }
 </script>

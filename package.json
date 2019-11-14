@@ -27,6 +27,7 @@
     "smartquotes": "^2.3.1",
     "string-strip-html": "^4.3.6",
     "truncate": "^2.1.0",
+    "viser-vue": "^2.4.7",
     "vue": "^2.6.10",
     "vue-a11y-utils": "^0.6.2",
     "vue-debounce": "^2.1.0",

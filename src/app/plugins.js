@@ -3,8 +3,8 @@ import Toasted from 'vue-toasted'
 import vueDebounce from 'vue-debounce'
 import VueMeta from 'vue-meta'
 import VueScrollTo from 'vue-scrollto'
-import VueViewports from 'vue-viewports'
-import breakpoints from '../data/breakpoints.json'
+// import VueViewports from 'vue-viewports'
+// import breakpoints from '../data/breakpoints.json'
 
 const plugins = Vue => {
   // if (window.debug) Vue.use(require('vue-axe'))
@@ -20,7 +20,7 @@ const plugins = Vue => {
     position: 'bottom-right',
     duration: '5000'
   })
-  Vue.use(VueViewports, breakpoints)
+  // Vue.use(VueViewports, breakpoints)
 }
 
 export default plugins
