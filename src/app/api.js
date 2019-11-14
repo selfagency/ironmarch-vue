@@ -1,7 +1,7 @@
 import ky from 'ky'
 import queryString from 'query-string'
 
-const get = async (method, params) => {
+const get = async (method, params = {}) => {
   const prefixUrl = 'https://ironmarch-api.now.sh/api'
   if (method === 'message') method = 'msg'
   if (params.user === null) delete params.user

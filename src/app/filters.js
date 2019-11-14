@@ -45,6 +45,10 @@ const filters = Vue => {
   Vue.filter('quotes', str => {
     return smartquotes(str)
   })
+
+  Vue.filter('strHtml', (str, opts) => {
+    return stripHtml(str, opts)
+  })
 }
 
 export default filters

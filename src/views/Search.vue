@@ -16,7 +16,7 @@
           </div>
         </div>
 
-        <users v-if="results.users.data.length" :users="results.users" :search="true"></users>
+        <users v-if="results.users.data.length" :users="results.users"></users>
         <messages v-if="results.messages.data.length" :msgs="results.messages.data" :search="true" :is-more="results.messages.isMore"></messages>
         <posts v-if="results.posts.data.length" :posts="results.posts" :search="true"></posts>
       </div>

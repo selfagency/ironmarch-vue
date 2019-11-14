@@ -5,10 +5,8 @@ import get from '../../app/api'
 const model = () => {
   return {
     current: {},
-    messages: [],
-    posts: [],
-    users: [],
-    meta: {}
+    meta: {},
+    cache: {}
   }
 }
 
@@ -18,15 +16,14 @@ export default {
     return model()
   },
   mutations: {
-    CONTENT_ADD(state, { method, content }) {
-      if (method === 'meta') {
-        state.meta = content
-      } else {
-        content.length ? state[`${method}s`].push(...content) : state[`${method}s`].push(content)
-      }
-    },
     CURRENT_SET(state, content) {
       state.current = content
+    },
+    META_SET(state, content) {
+      state.meta = content
+    },
+    CACHE(state, { hash, content }) {
+      state.cache[hash] = content
     }
   },
   actions: {
@@ -37,23 +34,20 @@ export default {
 
         dispatch('loading', null, { root: true })
 
-        content = state[`${method}s`].filter(item => {
-          return item.hash === hash
-        })[0]
-
-        if (!content) {
+        if (state.cache[hash]) {
+          content = state.cache[hash]
+        } else {
           content = await get(method, params)
-          content.hash = hash
 
           if (method === 'message' && params.id) {
             content.title = content.thread.content
             content.thread = await get('thread', { id: content.threadId })
           }
 
-          dispatch('addContent', { method, content })
+          dispatch('addToCache', { hash, content })
         }
 
-        dispatch('setCurrent', content)
+        dispatch(method === 'meta' ? 'setMeta' : 'setCurrent', content)
         dispatch('loading', null, { root: true })
       } catch (err) {
         Console.error(err)
@@ -61,24 +55,14 @@ export default {
         dispatch('error', err.message, { root: true })
       }
     },
-    async getMeta({ dispatch, state }) {
-      try {
-        if (!Object.values(state.meta).length) {
-          const content = await get('meta', { data: 'all' })
-          dispatch('addContent', { method: 'meta', content })
-        }
-      } catch (err) {
-        Console.error(err)
-        dispatch('loading', null, { root: true })
-        dispatch('error', err.message, { root: true })
-      }
-    },
-    addContent({ commit, dispatch }, { method, content }) {
-      if (method === 'message') method = 'msg'
-      if (content) commit('CONTENT_ADD', { method, content })
+    addToCache({ commit }, { hash, content }) {
+      commit('CACHE', { hash, content })
     },
     setCurrent({ commit }, content) {
       commit('CURRENT_SET', content)
+    },
+    setMeta({ commit }, content) {
+      commit('META_SET', content)
     }
   }
 }

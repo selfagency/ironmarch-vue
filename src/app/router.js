@@ -35,10 +35,7 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes,
-  afterEach() {
-    Vue._vm.$scrollTo('#app')
-  }
+  routes
 })
 
 export default router

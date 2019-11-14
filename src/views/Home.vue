@@ -10,7 +10,8 @@
     </div>
 
     <div v-if="meta" class="full">
-      <locales :locales="meta.locales"></locales>
+      <locales v-if="meta.locales" :locales="meta.locales"></locales>
+      <!-- <users v-if="current.data && current.data.length" :users="current"></users> -->
       <meta-data :meta="meta"></meta-data>
     </div>
   </main>
@@ -21,6 +22,7 @@ import { mapActions, mapState } from 'vuex'
 
 import Locales from '../components/Locales.vue'
 import MetaData from '../components/MetaData.vue'
+// import Users from '../components/Users.vue'
 
 export default {
   name: 'Home',
@@ -54,16 +56,19 @@ export default {
   components: {
     Locales,
     MetaData
+    // Users
   },
   computed: {
     ...mapState(['siteUrl', 'logo']),
-    ...mapState('content', ['meta'])
+    ...mapState('content', ['meta', 'current'])
   },
   created() {
-    this.getMeta()
+    this.getPage({ method: 'meta', params: { data: 'all' } })
+    // this.getUser({ params: { identity: true } })
   },
   methods: {
-    ...mapActions('content', ['getMeta'])
+    ...mapActions('content', ['getPage'])
+    // ...mapActions('user', ['getUser'])
   }
 }
 </script>

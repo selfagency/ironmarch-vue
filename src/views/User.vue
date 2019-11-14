@@ -78,14 +78,11 @@ export default {
   },
   methods: {
     ...mapActions('user', ['getUser']),
-    ...mapActions(['loading']),
     hasStatus(s) {
       return s.length && Object.values(s[0]).length
     },
     get() {
-      this.loading()
       this.getUser({ params: { id: this.$route.params.id } })
-      this.loading()
     }
   }
 }

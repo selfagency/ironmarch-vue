@@ -52,10 +52,6 @@ export default {
     MapBox
   },
   props: {
-    search: {
-      type: Boolean,
-      default: false
-    },
     users: {
       type: Object,
       default() {
@@ -65,6 +61,7 @@ export default {
   },
   methods: {
     ...mapActions('search', ['more'])
+    // ...mapActions('user', ['moreUsers'])
   }
 }
 </script>

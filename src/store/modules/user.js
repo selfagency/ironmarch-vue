@@ -53,56 +53,66 @@ export default {
         dispatch('loading', null, { root: true })
         dispatch('resetUser')
 
-        content = rootState.content.users.filter(item => {
-          return item.hash === hash
-        })[0]
-
-        if (!content) {
-          ;[content, posts, msgs] = await Promise.all([
-            get('user', params),
-            get('post', { user: params.id, limit, offset: state['posts'].offset }),
-            get('msg', { user: params.id, limit, offset: state['messages'].offset })
-          ])
+        if (rootState.content.cache[hash]) {
+          content = rootState.content.cache[hash]
+          msgs = content.msgs
+          posts = content.posts
+          content = content.content
+        } else {
+          if (params && params.id) {
+            ;[content, posts, msgs] = await Promise.all([
+              get('user', params),
+              get('post', { user: params.id, limit, offset: state['posts'].offset }),
+              get('msg', { user: params.id, limit, offset: state['messages'].offset })
+            ])
+            dispatch('content/addToCache', { hash, content: { content, posts, msgs } }, { root: true })
+          } else {
+            content = await get('user', { ...params, limit: 10, offset: 0 })
+            dispatch('content/addToCache', { hash, content }, { root: true })
+          }
         }
+
+        if (Array.isArray(content)) {
+          dispatch('content/setCurrent', { data: [...content], isMore: true }, { root: true })
+        } else {
+          if (Object.values(content).length) {
+            dispatch('setProfile', { method: 'user', content: content })
+            dispatch('addContent', { method: 'statuse', content: content.statuses })
+          }
+
+          if (posts) {
+            dispatch('addContent', { method: 'post', content: posts })
+            if (posts.length < 10) dispatch('noMore', { method: 'post' })
+          }
+
+          if (msgs) {
+            dispatch('addContent', { method: 'message', content: msgs })
+            if (msgs.length < 10) dispatch('noMore', { method: 'message' })
+          }
+        }
+        dispatch('loading', null, { root: true })
       } catch (err) {
         Console.error(err)
         dispatch('loading', null, { root: true })
         dispatch('error', err.message, { root: true })
-      } finally {
-        if (Object.values(content).length) {
-          content.hash = hash
-          dispatch('setProfile', { method: 'user', content: content })
-          dispatch('addContent', { method: 'statuse', content: content.statuses })
-          dispatch('content/addContent', { method: 'user', content: [content] }, { root: true })
-        }
-        if (posts) {
-          dispatch('addContent', { method: 'post', content: posts })
-          if (posts.length < 10) dispatch('noMore', { method: 'post' })
-        }
-        if (msgs) {
-          dispatch('addContent', { method: 'message', content: msgs })
-          if (msgs.length < 10) dispatch('noMore', { method: 'message' })
-        }
-        dispatch('loading', null, { root: true })
       }
     },
     async getMore({ dispatch, state }, { method, params }) {
       try {
         const limit = 10
-
         dispatch('offset', { method, limit })
         dispatch('loading', null, { root: true })
-
         const content = await get(method, { user: params.user, limit, offset: state[`${method}s`].offset })
-
         content ? dispatch('addContent', { method, content }) : dispatch('noMore', { method })
-
         dispatch('loading', null, { root: true })
       } catch (err) {
         Console.error(err)
         dispatch('loading', null, { root: true })
         dispatch('error', err.message, { root: true })
       }
+    },
+    async moreUsers({ dispatch, rootState }) {
+      content = await get('user', { ...params, limit: 10, offset: rootState.current.offset })
     },
     addContent({ commit, dispatch }, method, content) {
       if (method === 'user') {

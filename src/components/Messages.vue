@@ -1,5 +1,5 @@
 <template>
-  <section v-if="msgs.length && Object.values(msgs[0]).length" id="messages">
+  <section v-if="msgs.length && Object.values(msgs[0]).length" id="messages" class="full">
     <h2>{{ thread ? thread : 'Messages' | quotes }}</h2>
     <table>
       <tr class="flex">

@@ -7,7 +7,7 @@
         <ul>
           <li v-for="(fb, key) in facebook" :key="key">
             <strong>
-              <router-link :to="{ name: 'user', params: { id: fb.id } }" target="_blank">{{ fb.name }}</router-link> →
+              <router-link :to="{ name: 'user', params: { id: fb.id } }">{{ fb.name }}</router-link> →
             </strong>
             <a :href="fb.fb" target="_blank">Profile</a>
           </li>
@@ -19,7 +19,7 @@
         <ul>
           <li v-for="(tw, key) in twitter" :key="key">
             <strong>
-              <router-link :to="{ name: 'user', params: { id: tw.id } }" target="_blank">{{ tw.name }}</router-link> →
+              <router-link :to="{ name: 'user', params: { id: tw.id } }">{{ tw.name }}</router-link> →
             </strong>
             <a :href="tw.tw" target="_blank">Profile</a>
           </li>
@@ -31,7 +31,7 @@
         <ul>
           <li v-for="(li, key) in linkedin" :key="key">
             <strong>
-              <router-link :to="{ name: 'user', params: { id: li.id } }" target="_blank">{{ li.name }}</router-link> →
+              <router-link :to="{ name: 'user', params: { id: li.id } }">{{ li.name }}</router-link> →
             </strong>
             <a :href="li.li" target="_blank">Profile</a>
           </li>

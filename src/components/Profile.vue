@@ -116,7 +116,11 @@ export default {
   mounted() {
     this.$nextTick(() => {
       setTimeout(() => {
-        this.$utils.zoom(document.querySelector('.user-photo'))
+        this.$utils.zoom(document.querySelectorAll('.user-photo'))
+        const spans = document.querySelectorAll('span')
+        spans.forEach(span => {
+          span.style.removeProperty('font-size')
+        })
       }, 1000)
     })
   },

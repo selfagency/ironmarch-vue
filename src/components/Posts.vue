@@ -1,5 +1,5 @@
 <template>
-  <section v-if="Object.values(posts.data[0]).length" id="posts">
+  <section v-if="Object.values(posts.data[0]).length" id="posts" class="full">
     <h2>Posts</h2>
     <table>
       <tr class="header flex">
