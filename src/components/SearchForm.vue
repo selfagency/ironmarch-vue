@@ -14,7 +14,7 @@
         />
       </div>
       <div class="fourth">
-        <button id="search-button" type="submit" @click="search">
+        <button id="search-button" type="submit" @click.prevent="$emit('search')">
           Search
         </button>
       </div>
@@ -50,11 +50,7 @@ export default {
     if (!this.focused) this.toggleFocus(true)
   },
   methods: {
-    ...mapActions('search', ['setTerms', 'toggleFocus']),
-    search(e) {
-      e.preventDefault()
-      this.$emit('search')
-    }
+    ...mapActions('search', ['setTerms', 'toggleFocus'])
   }
 }
 </script>

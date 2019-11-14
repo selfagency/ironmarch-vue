@@ -67,13 +67,9 @@ export default {
     }
   },
   actions: {
-    async search({ commit, state, dispatch }, event) {
+    async search({ commit, state, dispatch }) {
       try {
-        if (event) {
-          event.preventDefault()
-          window.history.pushState({ q: state.params.terms }, `Search for '${state.params.terms}'`, `/search?q=${state.params.terms}`)
-        }
-
+        window.history.pushState({ q: state.params.terms }, `Search for '${state.params.terms}'`, `/search?q=${state.params.terms}`)
         dispatch('toggleModal')
         dispatch('deleteResults')
         dispatch('setActive')

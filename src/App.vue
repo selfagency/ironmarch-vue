@@ -69,7 +69,7 @@ export default {
   margin 0 auto
   padding 2em
   width 100%
-  font-size 0.8em
+  font-size 0.85em
   font-family Avenir, Arial, Helvetica, sans-serif
 
 main
