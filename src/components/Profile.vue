@@ -1,7 +1,7 @@
 <template>
   <section v-if="user && Object.values(user).length" id="meta">
     <div class="flex">
-      <div class="two-third">
+      <div :class="{ 'two-third': hasPhoto(user), full: !hasPhoto(user) }">
         <div v-if="user.id"><strong>User ID:</strong> {{ user.id }}</div>
         <div v-if="user.name">
           <strong>Username(s):</strong> {{ user.name }}<span v-if="user.nameAlt && user.nameAlt !== user.name">, {{ user.nameAlt }}</span>
@@ -60,7 +60,7 @@
           <div v-html="$utils.bbcode(user.signature)"></div>
         </div>
       </div>
-      <div class="third">
+      <div v-if="hasPhoto(user)" class="third">
         <div v-if="lookup && lookup.details && lookup.details.photos.length">
           <img class="user-photo" :src="lookup.details.photos[0].value" />
         </div>
@@ -119,6 +119,15 @@ export default {
         this.$utils.zoom(document.querySelector('.user-photo'))
       }, 1000)
     })
+  },
+  methods: {
+    hasPhoto(user) {
+      return (
+        (user.lookup && user.lookup.details && user.lookup.details.photos.length) ||
+        (user.photo && user.photo.startsWith('ht')) ||
+        (user.photoAlt && user.photoAlt.startsWith('ht') && user.photoAlt !== user.photo)
+      )
+    }
   }
 }
 </script>
