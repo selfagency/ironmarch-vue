@@ -27,6 +27,9 @@
         </td>
         <td valign="top" class="half fourth-800">
           <div v-if="user.geo && user.geo.city !== null">{{ user.geo.city }}, {{ user.geo.region_name }}, {{ user.geo.country_code }}</div>
+          <div v-if="user.geoAlt && user.geoAlt.city !== null && user.geoAlt.city !== user.geo.city">
+            {{ user.geoAlt.city }}, {{ user.geoAlt.region_name }}, {{ user.geoAlt.country_code }}
+          </div>
         </td>
       </tr>
     </table>

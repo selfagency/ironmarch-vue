@@ -35,7 +35,7 @@ const filters = Vue => {
 
   Vue.filter('truncate', (str, ln) => {
     if (!str) return ''
-    return truncate(breakup(stripHtml(str)), ln)
+    return truncate(breakup(stripHtml(str)), ln).trim()
   })
 
   Vue.filter('dateConv', date => {

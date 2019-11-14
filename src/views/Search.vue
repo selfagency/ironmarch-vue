@@ -48,7 +48,7 @@ export default {
   name: 'Search',
   metaInfo() {
     return {
-      title: this.params.terms,
+      title: this.params.terms ? `Search for '${this.params.terms}'` : 'Search',
       meta: [
         {
           property: 'title',

@@ -71,8 +71,9 @@ export default {
       try {
         if (event) {
           event.preventDefault()
-          window.location.assign(`/search?q=${state.params.terms}`)
+          window.history.pushState({ q: state.params.terms }, `Search for '${state.params.terms}'`, `/search?q=${state.params.terms}`)
         }
+
         dispatch('toggleModal')
         dispatch('deleteResults')
         dispatch('setActive')

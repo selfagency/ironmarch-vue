@@ -10,6 +10,22 @@
         </div>
       </mgl-popup>
     </mgl-marker>
+
+    <mgl-marker
+      v-for="(user, key) in users"
+      v-show="user.geo.city !== user.geoAlt.city"
+      :key="key + 'Alt'"
+      :coordinates="[user.geoAlt.longitude, user.geoAlt.latitude]"
+    >
+      <mgl-popup>
+        <div>
+          <strong>{{ user.name }}</strong>
+          <div v-if="user.lookup && user.lookup.fullName">{{ user.lookup.fullName }}</div>
+          <div v-if="user.geoAlt">{{ user.geoAlt.city }}, {{ user.geoAlt.region_name }}, {{ user.geoAlt.country_code }}</div>
+          <router-link :to="{ name: 'user', params: { id: user.id } }">View profile</router-link>
+        </div>
+      </mgl-popup>
+    </mgl-marker>
     <mgl-navigation-control position="top-right" />
   </mgl-map>
 </template>

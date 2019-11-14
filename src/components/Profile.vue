@@ -85,8 +85,7 @@
       <div v-if="lookup.details && Object.values(lookup.details.profiles).length" class="user-socials">
         <ul>
           <li v-for="(social, key) in lookup.details.profiles" :key="key">
-            <strong>{{ social.service | capitalize }}</strong
-            >: <a :href="social.url" target="_blank">{{ social.url }}</a>
+            <strong>{{ social.service | capitalize }}:</strong> <a :href="social.url" target="_blank">{{ social.url }}</a>
           </li>
         </ul>
       </div>
