@@ -21,8 +21,7 @@
           {{ ref(ip) | truncate(28) }}
         </td>
         <td class="none third-800">
-          {{ ip.geo.location.country_flag_emoji }} {{ ip.geo.city }}, {{ ip.geo.region_code }},
-          {{ ip.geo.country_code }}
+          {{ ip.geo.city }}, {{ ip.geo.region_code }}, {{ ip.geo.country_code }}
         </td>
       </tr>
     </table>
