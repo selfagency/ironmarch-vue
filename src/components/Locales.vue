@@ -12,7 +12,7 @@
             <th class="two-third">City</th>
             <th class="count third">Users</th>
           </tr>
-          <tr v-for="(city, key) in locales.cities.slice(0, 25)" :key="key">
+          <tr v-for="(city, key) in locales.cities.slice(0, 10)" :key="key">
             <td>
               {{ city[0] }}
             </td>
@@ -29,7 +29,7 @@
             <th class="two-third">Region</th>
             <th class="count third">Users</th>
           </tr>
-          <tr v-for="(region, key) in locales.regions.slice(0, 25)" :key="key">
+          <tr v-for="(region, key) in locales.regions.slice(0, 10)" :key="key">
             <td>
               {{ region[0] }}
             </td>
@@ -46,7 +46,7 @@
             <th class="two-third">Country</th>
             <th class="count third">Users</th>
           </tr>
-          <tr v-for="(country, key) in locales.countries.slice(0, 25)" :key="key">
+          <tr v-for="(country, key) in locales.countries.slice(0, 10)" :key="key">
             <td>
               {{ country[0] }}
             </td>
