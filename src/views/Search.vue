@@ -39,7 +39,7 @@
       </div>
 
       <div v-if="!loading && !active && noResults" key="pre-search" class="card">
-        <strong>Use the form above to search:</strong>
+        <h3>Use the form above to search:</h3>
         <ul>
           <li>Full-text of posts, messages, and user bios</li>
           <li>User names and email addresses</li>
@@ -138,14 +138,14 @@ export default {
     width 100%
 
   .card
+    background-color rgb(250, 250, 250)
     padding 2em 4em
-    width 100%
     text-align center
 
     ul
       margin 0.5em auto
       padding 0
-      max-width 320px
+      max-width 300px
       width 100%
       text-align left
 

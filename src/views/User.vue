@@ -29,12 +29,14 @@
     >
     </messages>
     <posts v-if="posts.data.length" :posts="posts" :is-more="posts.isMore" :user="profile"></posts>
+    <comments></comments>
   </main>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
 
+import Comments from '../components/Comments.vue'
 import IpTable from '../components/IpTable.vue'
 import Messages from '../components/Messages.vue'
 import Posts from '../components/Posts.vue'
@@ -71,6 +73,7 @@ export default {
     }
   },
   components: {
+    Comments,
     IpTable,
     Messages,
     Posts,
