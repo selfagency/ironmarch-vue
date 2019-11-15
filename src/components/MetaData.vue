@@ -89,9 +89,9 @@
           </tr>
           <tr v-for="(di, key) in discord" :key="key">
             <td valign="top">
-              <router-link :to="{ name: 'user', params: { id: di.user.id } }">{{
-                di.user.name
-              }}</router-link>
+              <router-link :to="{ name: 'user', params: { id: di.user.id } }">
+                {{ di.user.name }}
+              </router-link>
             </td>
             <td class="link" valign="top">
               <a :href="di.url" target="_blank">

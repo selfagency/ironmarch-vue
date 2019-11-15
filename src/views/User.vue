@@ -41,7 +41,7 @@
     >
     </messages>
     <posts v-if="posts.data.length" :posts="posts" :is-more="posts.isMore" :user="profile"> </posts>
-    <dossier v-if="profile.dossier" :dossier="profile.dossier" key="dossier"></dossier>
+    <dossier v-if="profile.dossier" key="dossier" :dossier="profile.dossier"></dossier>
     <comments></comments>
   </main>
 </template>

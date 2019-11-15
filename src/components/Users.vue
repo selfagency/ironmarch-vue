@@ -22,12 +22,15 @@
             </div>
             {{ user.lookup.fullName }}
           </span>
-          <span v-if="user.nameAlt && user.nameAlt !== user.name">{{
-            user.nameAlt | truncate(25)
-          }}</span>
-          <span v-if="user.nameAlt2 && user.nameAlt !== user.nameAlt">{{
-            user.nameAlt2 | truncate(25)
-          }}</span>
+          <span v-if="user.nameAlt && user.nameAlt !== user.name">
+            <div v-if="user.dossier" v-tooltip="'Identity verified'" class="icon">
+              <unicon name="shield-check" fill="green" width="18" height="18"></unicon>
+            </div>
+            {{ user.nameAlt | truncate(25) }}
+          </span>
+          <span v-if="user.nameAlt2 && user.nameAlt !== user.nameAlt">
+            {{ user.nameAlt2 | truncate(25) }}
+          </span>
         </td>
         <td valign="top" class="none fourth-800">
           {{ user.email | truncate(25) }}
