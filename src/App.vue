@@ -42,6 +42,11 @@ export default {
     }
   },
   created() {
+    if (window.location.host == 'ironmarch-web.now.sh') {
+      const newUrl = window.location.href.replace('ironmarch-web.now.sh', 'ironmarch.exposed')
+      window.history.push(newUrl)
+    }
+
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'ERROR') {
         if (this.loading) this.$store.dispatch('loading')
