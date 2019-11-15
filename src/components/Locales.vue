@@ -1,9 +1,6 @@
 <template>
   <div id="locales">
-    <h2>
-      <div class="icon"><unicon name="map-marker-alt" fill="block" width="20" height="20" /></div>
-      Top Locations Of Forum Users
-    </h2>
+    <icon-header text="Top Locations of Forum Users" icon="map-marker-alt"></icon-header>
     <div v-if="locales" id="locales" class="flex">
       <div v-if="locales.cities" class="full third-800">
         <h3>Cities</h3>
@@ -76,11 +73,6 @@ export default {
 
 <style lang="stylus" scoped>
 #locales
-  h2
-    .icon
-      float left
-      margin 0.1em 0.2em 0 0
-
   table
     width 100%
 

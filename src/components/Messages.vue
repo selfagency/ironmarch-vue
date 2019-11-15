@@ -1,9 +1,6 @@
 <template>
   <section v-if="Object.values(msgs[0]).length" id="messages" class="full">
-    <h2>
-      <div class="icon"><unicon name="envelopes" fill="#000" height="22" width="22"></unicon></div>
-      <span>{{ thread ? thread : 'Messages' | quotes }}</span>
-    </h2>
+    <icon-header :text="thread ? thread : 'Messages'" icon="envelopes"></icon-header>
     <table>
       <tr class="flex">
         <th class="none third-800">Meta</th>
@@ -122,11 +119,6 @@ export default {
 <style lang="stylus" scoped>
 #messages
   margin-top 4em
-
-  h2
-    .icon
-      float left
-      margin 0.1em 0.3em 0 0
 
   table
     width 100%

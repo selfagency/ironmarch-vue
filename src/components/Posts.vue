@@ -1,9 +1,6 @@
 <template>
   <section v-if="Object.values(posts.data[0]).length" id="posts" class="full">
-    <h2>
-      <div class="icon"><unicon name="notes" fill="#000" height="22" width="22"></unicon></div>
-      <span>Posts</span>
-    </h2>
+    <icon-header text="Posts" icon="notes"></icon-header>
     <table>
       <tr class="header flex">
         <th class="none third-800">Meta</th>
@@ -91,11 +88,6 @@ export default {
 <style lang="stylus" scoped>
 #posts
   margin-top 4em
-
-  h2
-    .icon
-      float left
-      margin 0.125em 0.2em 0 0
 
   table
     width 100%

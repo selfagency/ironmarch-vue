@@ -16,8 +16,10 @@ import {
   uniMultiply,
   uniNotes,
   uniSearchAlt,
+  uniShieldCheck,
   uniShieldExclamation,
   uniTopArrowToTop,
+  uniUserCircle,
   uniUserSquare,
   uniUsersAlt
 } from 'vue-unicons/src/icons'
@@ -33,8 +35,10 @@ Unicon.add([
   uniMultiply,
   uniNotes,
   uniSearchAlt,
+  uniShieldCheck,
   uniShieldExclamation,
   uniTopArrowToTop,
+  uniUserCircle,
   uniUserSquare,
   uniUsersAlt
 ])

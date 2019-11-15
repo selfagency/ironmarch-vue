@@ -23,6 +23,12 @@
         </div>
         <div v-if="hasSocial" class="user-socials">
           <ul>
+            <li v-if="user.socialFacebook">
+              <strong>Facebook: </strong>
+              <a :href="user.socialFacebook" target="_blank">
+                {{ user.socialFacebook }}
+              </a>
+            </li>
             <li v-if="user.socialTwitter">
               <strong>Twitter: </strong>
               <a :href="user.socialTwitter" target="_blank">
@@ -72,12 +78,12 @@
       </div>
     </div>
     <div v-if="lookup" class="card">
-      <h3>
-        <div v-tooltip="'Potential identity match'" class="icon">
-          <unicon name="shield-exclamation" fill="red" width="18" height="18" />
-        </div>
-        <span>Unverified Identity Match</span>
-      </h3>
+      <icon-header
+        v-tooltip="'Potential identity match'"
+        text="Unverified Identity Match"
+        icon="shield-exclamation"
+        color="red"
+      ></icon-header>
       <div v-if="lookup.fullName"><strong>Real Name:</strong> {{ lookup.fullName }}</div>
       <div v-if="lookup.details">
         <span v-if="lookup.details.gender">
@@ -100,10 +106,20 @@
         </ul>
       </div>
       <div class="notice">
-        This information comes from a public records lookup and therefore may not be wholly
-        accurate. Unless you are able to verify and corroborate an individual's identity, do not
-        assume that an identity match is concrete proof of anything.
+        <p>
+          This information comes from a public records lookup and therefore may not be wholly
+          accurate. Unless you are able to verify and corroborate an individual's identity, do not
+          assume that an identity match is concrete proof of anything.
+        </p>
       </div>
+    </div>
+    <div v-if="user.dossier" class="card verified">
+      <icon-header text="Identity Verified" icon="shield-check" color="green"></icon-header>
+      <p>
+        This individual's identity has been verified by independent investigators. Scroll down or
+        click
+        <strong>Dossier</strong> above to read their report.
+      </p>
     </div>
   </section>
 </template>
@@ -125,6 +141,7 @@ export default {
     },
     hasSocial() {
       return (
+        this.user.socialFacebook ||
         this.user.socialTwitter ||
         this.user.socialJabber ||
         this.user.socialSkype ||
@@ -179,14 +196,14 @@ export default {
   margin-top 2em
   padding 1em
 
-  h3
+  h2
     margin-bottom 1em
     padding 0
     color red
 
-  .icon
-    float left
-    margin 0.2em 0.2em 0 0
+  &.verified
+    h2
+      color green
 
   .notice
     margin 1em 0 0

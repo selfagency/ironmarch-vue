@@ -143,7 +143,7 @@ export default {
       commit('SET_PROFILE', content)
     },
     offset({ commit }, { method, limit }) {
-      commit('OFFSET', method, limit)
+      commit('OFFSET', { method, limit })
     },
     resetUser({ commit }, method) {
       commit('RESET_USER', method)

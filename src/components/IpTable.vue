@@ -1,9 +1,6 @@
 <template>
   <div id="ips">
-    <h2>
-      <div class="icon"><unicon name="map-pin" fill="#000" height="24" width="24"></unicon></div>
-      <span>Known IP Addresses</span>
-    </h2>
+    <icon-header text="Known IP Addresses" icon="map-pin"></icon-header>
     <table v-if="ipData">
       <tr class="flex">
         <th class="none third-800">IP</th>
@@ -67,11 +64,6 @@ export default {
 #ips
   margin-top 2em
   width 100%
-
-  h2
-    .icon
-      float left
-      margin 0.1em 0.2em 0 0
 
   table
     width 100%

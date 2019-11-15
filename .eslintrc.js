@@ -91,6 +91,7 @@ module.exports = {
     'vue/no-v-html': ['off'],
     'vue/singleline-html-element-content-newline': ['off'],
     'wrap-iife': ['error', 'inside'],
-    'vue-a11y/click-events-have-key-events': ['off']
+    'vue-a11y/click-events-have-key-events': ['off'],
+    'vue-a11y/label-has-for': ['off']
   }
 }

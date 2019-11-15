@@ -1,9 +1,6 @@
 <template>
   <section v-if="Object.values(users.data[0]).length" id="users">
-    <h2>
-      <div class="icon"><unicon name="users-alt" fill="#000" height="24" width="24"></unicon></div>
-      <span>Users</span>
-    </h2>
+    <icon-header text="Users" icon="users-alt"></icon-header>
     <map-box :users="users.data"></map-box>
     <table>
       <tr class="flex">

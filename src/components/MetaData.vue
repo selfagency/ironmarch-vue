@@ -1,9 +1,6 @@
 <template>
   <div v-if="Object.values(meta).length" id="metadata">
-    <h2>
-      <div class="icon"><unicon name="user-square" fill="block" width="20" height="20" /></div>
-      Uncovered Social Media Profiles
-    </h2>
+    <icon-header text="Uncovered Social Media Profiles" icon="user-square"></icon-header>
     <div class="flex">
       <div v-if="meta.facebook" id="facebook" class="full third-800">
         <h3>Facebook</h3>
@@ -16,7 +13,7 @@
             <td valign="top">
               <router-link :to="{ name: 'user', params: { id: fb.id } }">{{ fb.name }}</router-link>
             </td>
-            <td class="link"  valign="top">
+            <td class="link" valign="top">
               <a :href="fb.fb" target="_blank">
                 <unicon name="external-link-alt" fill="#0074d9" width="18" height="18" />
               </a>
@@ -92,7 +89,9 @@
           </tr>
           <tr v-for="(di, key) in discord" :key="key">
             <td valign="top">
-              <router-link :to="{ name: 'user', params: { id: di.user.id } }">{{ di.user.name }}</router-link>
+              <router-link :to="{ name: 'user', params: { id: di.user.id } }">{{
+                di.user.name
+              }}</router-link>
             </td>
             <td class="link" valign="top">
               <a :href="di.url" target="_blank">
@@ -186,11 +185,6 @@ export default {
 
 <style lang="stylus" scoped>
 #metadata
-  h2
-    .icon
-      float left
-      margin 0.1em 0.2em 0 0
-
   table
     width 100%
 
@@ -203,8 +197,7 @@ export default {
       svg
         margin-bottom -0.2em
 
-  #discord td.link,
-  #skype td.link
+  #discord td.link, #skype td.link
     height 33px
 
   .more
