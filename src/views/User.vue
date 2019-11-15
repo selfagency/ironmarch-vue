@@ -6,6 +6,9 @@
       <div id="user-nav" class="full half-500">
         #
         <ul>
+          <li role="link" @click="$scrollTo('#ips')">
+            IPs
+          </li>
           <li v-if="hasStatus(statuses.data)" role="link" @click="$scrollTo('#statuses')">
             Statuses
           </li>
@@ -14,6 +17,9 @@
           </li>
           <li v-if="posts.data.length" role="link" @click="$scrollTo('#posts')">
             Posts
+          </li>
+          <li role="link" @click="$scrollTo('#comments')">
+            Comments
           </li>
         </ul>
       </div>

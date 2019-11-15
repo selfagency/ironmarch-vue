@@ -27,6 +27,7 @@ export default {
 
 <style lang="stylus" scoped>
 #comments
+  margin-top 2em
   width 100%
 
   h2
