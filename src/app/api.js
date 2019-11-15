@@ -2,8 +2,8 @@ import ky from 'ky'
 import queryString from 'query-string'
 
 const get = async (method, params = {}) => {
-  // const prefixUrl = 'https://api.ironmarch.exposed/api'
-  const prefixUrl = 'http://localhost:3000/api'
+  const prefixUrl = 'https://api.ironmarch.exposed/api'
+  // const prefixUrl = 'http://localhost:3000/api'
   if (method === 'message') method = 'msg'
   if (params.user === null) delete params.user
   const query = `${method}?${queryString.stringify(params)}`
