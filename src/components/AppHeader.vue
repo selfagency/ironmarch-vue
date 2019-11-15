@@ -31,4 +31,7 @@ export default {
 nav
   z-index 200
   min-width 375px
+
+  .logo
+    margin-right 1em
 </style>

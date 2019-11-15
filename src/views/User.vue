@@ -6,13 +6,20 @@
       <div id="user-nav" class="full half-500">
         #
         <ul>
-          <li v-if="hasStatus(statuses.data)" role="link" @click="$scrollTo('#statuses')">Statuses</li>
-          <li v-if="messages.data.length" role="link" @click="$scrollTo('#messages')">Messages</li>
-          <li v-if="posts.data.length" role="link" @click="$scrollTo('#posts')">Posts</li>
+          <li v-if="hasStatus(statuses.data)" role="link" @click="$scrollTo('#statuses')">
+            Statuses
+          </li>
+          <li v-if="messages.data.length" role="link" @click="$scrollTo('#messages')">
+            Messages
+          </li>
+          <li v-if="posts.data.length" role="link" @click="$scrollTo('#posts')">
+            Posts
+          </li>
         </ul>
       </div>
     </div>
     <profile :user="profile"></profile>
+    <ip-table :ip-data="profile.ips"></ip-table>
     <statuses :statuses="statuses.data"></statuses>
     <messages :msgs="messages.data" :is-more="messages.isMore" :user="profile"></messages>
     <posts :posts="posts" :is-more="posts.isMore" :user="profile"></posts>
@@ -22,6 +29,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 
+import IpTable from '../components/IpTable.vue'
 import Messages from '../components/Messages.vue'
 import Posts from '../components/Posts.vue'
 import Profile from '../components/Profile.vue'
@@ -57,6 +65,7 @@ export default {
     }
   },
   components: {
+    IpTable,
     Messages,
     Posts,
     Profile,

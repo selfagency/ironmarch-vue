@@ -4,20 +4,33 @@
       <div v-if="hasResults" key="results">
         <div class="meta flex">
           <div class="full half-500">
-            <h1 v-if="active">{{ active !== 'null' ? `Results for '${active}'` : 'Browsing all data' | quotes }}</h1>
+            <h1 v-if="active">
+              {{ active !== 'null' ? `Results for '${active}'` : 'Browsing all data' | quotes }}
+            </h1>
           </div>
           <div v-if="hasResults" id="search-nav" class="full half-500">
             #
             <ul>
-              <li v-if="results.users.data.length" role="link" @click="$scrollTo('#users')">Users</li>
-              <li v-if="results.messages.data.length" role="link" @click="$scrollTo('#messages')">Messages</li>
-              <li v-if="results.posts.data.length" role="link" @click="$scrollTo('#posts')">Posts</li>
+              <li v-if="results.users.data.length" role="link" @click="$scrollTo('#users')">
+                Users
+              </li>
+              <li v-if="results.messages.data.length" role="link" @click="$scrollTo('#messages')">
+                Messages
+              </li>
+              <li v-if="results.posts.data.length" role="link" @click="$scrollTo('#posts')">
+                Posts
+              </li>
             </ul>
           </div>
         </div>
 
         <users v-if="results.users.data.length" :users="results.users"></users>
-        <messages v-if="results.messages.data.length" :msgs="results.messages.data" :search="true" :is-more="results.messages.isMore"></messages>
+        <messages
+          v-if="results.messages.data.length"
+          :msgs="results.messages.data"
+          :search="true"
+          :is-more="results.messages.isMore"
+        ></messages>
         <posts v-if="results.posts.data.length" :posts="results.posts" :search="true"></posts>
       </div>
 
@@ -82,10 +95,18 @@ export default {
     ...mapState('search', ['results', 'active', 'params']),
     ...mapState(['siteUrl', 'logo', 'loading']),
     hasResults() {
-      return this.results.posts.data.length || this.results.messages.data.length || this.results.users.data.length
+      return (
+        this.results.posts.data.length ||
+        this.results.messages.data.length ||
+        this.results.users.data.length
+      )
     },
     noResults() {
-      return !this.results.posts.data.length && !this.results.messages.data.length && !this.results.users.data.length
+      return (
+        !this.results.posts.data.length &&
+        !this.results.messages.data.length &&
+        !this.results.users.data.length
+      )
     }
   },
   created() {

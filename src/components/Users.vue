@@ -1,6 +1,9 @@
 <template>
   <section v-if="Object.values(users.data[0]).length" id="users">
-    <h2>Users</h2>
+    <h2>
+      <div class="icon"><unicon name="users-alt" fill="#000" height="24" width="24"></unicon></div>
+      <span>Users</span>
+    </h2>
     <map-box :users="users.data"></map-box>
     <table>
       <tr class="flex">
@@ -16,19 +19,31 @@
           </router-link>
         </td>
         <td valign="top" class="none fourth-800">
-          <span v-if="user.lookup && user.lookup.fullName">{{ user.lookup.fullName }}</span>
-          <span v-if="user.nameAlt && user.nameAlt !== user.name">{{ user.nameAlt | truncate(25) }}</span>
-          <span v-if="user.nameAlt2 && user.nameAlt !== user.nameAlt">{{ user.nameAlt2 | truncate(25) }}</span>
+          <span v-if="user.lookup && user.lookup.fullName">
+            <div v-tooltip="'Potential identity match'" class="icon">
+              <unicon name="shield-exclamation" fill="red" width="18" height="18" />
+            </div>
+            {{ user.lookup.fullName }}
+          </span>
+          <span v-if="user.nameAlt && user.nameAlt !== user.name">{{
+            user.nameAlt | truncate(25)
+          }}</span>
+          <span v-if="user.nameAlt2 && user.nameAlt !== user.nameAlt">{{
+            user.nameAlt2 | truncate(25)
+          }}</span>
         </td>
         <td valign="top" class="none fourth-800">
           {{ user.email | truncate(25) }}
-          <span v-if="user.emailAlt && user.emailAlt !== user.email">{{ user.emailAlt | truncate(25) }}</span>
-          <span v-if="user.emailAlt2 && user.emailAlt2 !== user.emailAlt">{{ user.emailAlt2 | truncate(25) }}</span>
+          <span v-if="user.emailAlt && user.emailAlt !== user.email">{{
+            user.emailAlt | truncate(25)
+          }}</span>
+          <span v-if="user.emailAlt2 && user.emailAlt2 !== user.emailAlt">{{
+            user.emailAlt2 | truncate(25)
+          }}</span>
         </td>
         <td valign="top" class="half fourth-800">
-          <div v-if="user.geo && user.geo.city !== null">{{ user.geo.city }}, {{ user.geo.region_name }}, {{ user.geo.country_code }}</div>
-          <div v-if="user.geoAlt && user.geoAlt.city !== null && user.geoAlt.city !== user.geo.city">
-            {{ user.geoAlt.city }}, {{ user.geoAlt.region_name }}, {{ user.geoAlt.country_code }}
+          <div v-if="user.geo && user.geo.city !== null">
+            {{ user.geo.city }}, {{ user.geo.region_code }}, {{ user.geo.country_code }}
           </div>
         </td>
       </tr>
@@ -70,12 +85,21 @@ export default {
 #users
   margin-top 4em
 
+  h2
+    .icon
+      float left
+      margin 0.1em 0.2em 0 0
+
   table
     width 100%
 
     .flex
       margin 0
       width 100%
+
+  .icon
+    float left
+    margin 0.1em 0.2em 0 0
 
   .more
     display flex

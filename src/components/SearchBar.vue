@@ -11,11 +11,11 @@
     <div id="search-toggle" class="none-600" @click="searchToggle">
       <transition-group name="zoom" mode="out-in">
         <div v-show="modal" key="close">
-          <inline-svg :src="close" width="25" height="25"></inline-svg>
+          <unicon name="multiply" fill="#0074d9" width="25" height="25" />
         </div>
 
         <div v-show="!modal" key="open">
-          <inline-svg :src="open" width="25" height="25"></inline-svg>
+          <unicon name="search-alt" fill="#0074d9" width="25" height="25" />
         </div>
       </transition-group>
     </div>
@@ -25,8 +25,8 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import SearchForm from './SearchForm.vue'
-import open from '../assets/search.svg'
-import close from '../assets/close.svg'
+import open from '../assets/icons/search.svg'
+import close from '../assets/icons/close.svg'
 
 export default {
   name: 'SearchBar',
@@ -47,7 +47,8 @@ export default {
   },
   created() {
     this.$store.subscribeAction(action => {
-      if (action.type === 'search/search' && this.$route.name !== 'search') this.$router.push({ name: 'search' })
+      if (action.type === 'search/search' && this.$route.name !== 'search')
+        this.$router.push({ name: 'search' })
     })
   },
   methods: {

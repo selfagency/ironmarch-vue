@@ -4,7 +4,8 @@
       <div :class="{ 'two-third': hasPhoto(user), full: !hasPhoto(user) }">
         <div v-if="user.id"><strong>User ID:</strong> {{ user.id }}</div>
         <div v-if="user.name">
-          <strong>Username(s):</strong> {{ user.name }}<span v-if="user.nameAlt && user.nameAlt !== user.name">, {{ user.nameAlt }}</span>
+          <strong>Username(s):</strong> {{ user.name }}
+          <span v-if="user.nameAlt && user.nameAlt !== user.name">, {{ user.nameAlt }}</span>
         </div>
         <div v-if="user.tagline"><strong>Tagline:</strong> <span v-html="user.tagline"></span></div>
         <div v-if="user.ideology"><strong>Ideology:</strong> {{ user.ideology }}</div>
@@ -12,15 +13,29 @@
         <div v-if="user.email">
           <strong>Email(s):</strong> {{ user.email }}
           <span v-if="user.emailAlt && user.emailAlt !== user.email">, {{ user.emailAlt }}</span>
-          <span v-if="user.emailAlt2 && user.emailAlt2 !== user.email && user.emailAlt2 !== user.emailAlt">, {{ user.emailAlt2 }}</span>
+          <span
+            v-if="
+              user.emailAlt2 && user.emailAlt2 !== user.email && user.emailAlt2 !== user.emailAlt
+            "
+          >
+            , {{ user.emailAlt2 }}
+          </span>
         </div>
         <div
-          v-if="user.socialTwitter || user.socialJabber || user.socialSkype || user.socialAim || user.socialMsn || user.socialIcq || user.socialYahoo"
+          v-if="
+            user.socialTwitter ||
+              user.socialJabber ||
+              user.socialSkype ||
+              user.socialAim ||
+              user.socialMsn ||
+              user.socialIcq ||
+              user.socialYahoo
+          "
           class="user-socials"
         >
           <ul>
             <li v-if="user.socialTwitter">
-              <strong>Twitter:</strong>
+              <strong>Twitter: </strong>
               <a :href="user.socialTwitter" target="_blank">
                 {{ user.socialTwitter }}
               </a>
@@ -33,28 +48,23 @@
             <li v-if="user.socialIcq"><strong>ICQ:</strong> {{ user.socialIcq }}</li>
           </ul>
         </div>
-        <div v-if="user.ip">
-          <strong>IP(s):</strong> {{ user.ip }}<span v-if="user.ipAlt && user.ipAlt !== user.ip">, {{ user.ipAlt }}</span>
-        </div>
-        <div v-if="user.geo">
-          <strong>Geolocation(s):</strong> {{ user.geo.city }}, {{ user.geo.region_name }}, {{ user.geo.country_code
-          }}<span v-if="user.geoAlt && user.geoAlt.city !== user.geo.city && user.geoAlt.city !== null">
-            ; {{ user.geoAlt.city }}, {{ user.geoAlt.region_name }}, {{ user.geoAlt.country_code }}
-          </span>
-        </div>
         <div v-if="user.location"><strong>Location:</strong> {{ user.location }}</div>
         <div v-if="user.timezone"><strong>Time Zone:</strong> {{ user.timezone }}</div>
         <div v-if="user.joined"><strong>Joined:</strong> {{ user.joined | dateConv }}</div>
-        <div v-if="user.lastLogin"><strong>Last Login:</strong> {{ user.lastLogin | dateConv }}</div>
-        <div v-if="user.password"><strong>Password:</strong> {{ user.password | truncate(32) }}</div>
+        <div v-if="user.lastLogin">
+          <strong>Last Login:</strong> {{ user.lastLogin | dateConv }}
+        </div>
+        <div v-if="user.password">
+          <strong>Password:</strong> {{ user.password | truncate(32) }}
+        </div>
         <div v-if="user.salt"><strong>Password Salt:</strong> {{ user.salt }}</div>
-        <div v-if="(user.ideologyAlt || user.bio || user.signature) && user.signature"><br /></div>
-        <div v-if="user.ideologyAlt || user.bio">
+        <div v-if="(user.bioAlt || user.bio || user.signature) && user.signature"><br /></div>
+        <div v-if="user.bioAlt || user.bio">
           <strong>Profile:</strong>
-          <div v-if="user.ideologyAlt" v-html="user.ideologyAlt"></div>
+          <div v-if="user.bioAlt" v-html="user.bioAlt"></div>
           <div v-if="user.bio" v-html="$utils.bbcode(user.bio)"></div>
         </div>
-        <div v-if="(user.ideologyAlt || user.bio) && user.signature"><br /></div>
+        <div v-if="(user.bioAlt || user.bio) && user.signature"><br /></div>
         <div v-if="user.signature">
           <strong>Signature:</strong>
           <div v-html="$utils.bbcode(user.signature)"></div>
@@ -62,36 +72,48 @@
       </div>
       <div v-if="hasPhoto(user)" class="third">
         <div v-if="lookup && lookup.details && lookup.details.photos.length">
-          <img class="user-photo" :src="lookup.details.photos[0].value" />
+          <img class="user-photo" :src="lookup.details.photos[0].value" :alt="lookup.fullName" />
         </div>
-
         <div v-if="user.photo && user.photo.startsWith('ht')">
-          <img class="user-photo" :src="user.photo" />
+          <img class="user-photo" :src="user.photo" :alt="user.name" />
         </div>
-
         <div v-if="user.photoAlt && user.photoAlt.startsWith('ht') && user.photoAlt !== user.photo">
-          <img class="user-photo" :src="user.photoAlt" />
+          <img class="user-photo" :src="user.photoAlt" :alt="user.name" />
         </div>
       </div>
     </div>
     <div v-if="lookup" class="card">
-      <h3>Unverified Identity Match</h3>
+      <h3>
+        <div v-tooltip="'Potential identity match'" class="icon">
+          <unicon name="shield-exclamation" fill="red" width="18" height="18" />
+        </div>
+        <span>Unverified Identity Match</span>
+      </h3>
       <div v-if="lookup.fullName"><strong>Real Name:</strong> {{ lookup.fullName }}</div>
       <div v-if="lookup.details">
-        <span v-if="lookup.details.gender"><strong>Gender:</strong> {{ lookup.details.gender }}</span>
+        <span v-if="lookup.details.gender">
+          <strong>Gender:</strong> {{ lookup.details.gender }}
+        </span>
         <span v-if="lookup.details.gender && lookup.details.age"> · </span>
-        <span v-if="lookup.details.age"> <strong>Age:</strong> {{ lookup.details.age.range || lookup.details.age }} </span>
+        <span v-if="lookup.details.age">
+          <strong>Age:</strong> {{ lookup.details.age.range || lookup.details.age }}
+        </span>
       </div>
-      <div v-if="lookup.details && Object.values(lookup.details.profiles).length" class="user-socials">
+      <div
+        v-if="lookup.details && Object.values(lookup.details.profiles).length"
+        class="user-socials"
+      >
         <ul>
           <li v-for="(social, key) in lookup.details.profiles" :key="key">
-            <strong>{{ social.service | capitalize }}:</strong> <a :href="social.url" target="_blank">{{ social.url }}</a>
+            <strong>{{ social.service | capitalize }}:</strong>
+            <a :href="social.url" target="_blank">{{ social.url }}</a>
           </li>
         </ul>
       </div>
       <div class="notice">
-        This information comes from a public records lookup and therefore may not be wholly accurate. Unless you are able to verify and corroborate an
-        individual's identity, do not assume that an identity match is concrete proof of anything.
+        This information comes from a public records lookup and therefore may not be wholly
+        accurate. Unless you are able to verify and corroborate an individual's identity, do not
+        assume that an identity match is concrete proof of anything.
       </div>
     </div>
   </section>
@@ -161,6 +183,10 @@ export default {
     margin-bottom 1em
     padding 0
     color red
+
+  .icon
+    float left
+    margin 0.2em 0.2em 0 0
 
   .notice
     margin 1em 0 0

@@ -17,6 +17,9 @@ const model = () => {
     },
     statuses: {
       data: []
+    },
+    ips: {
+      showMore: false
     }
   }
 }
@@ -28,7 +31,9 @@ export default {
   },
   mutations: {
     CONTENT_ADD(state, { method, content }) {
-      content.length ? state[`${method}s`].data.push(...content) : state[`${method}s`].data.push(content)
+      content.length
+        ? state[`${method}s`].data.push(...content)
+        : state[`${method}s`].data.push(content)
     },
     SET_PROFILE(state, { content }) {
       state.profile = content
@@ -41,6 +46,9 @@ export default {
     },
     NO_MORE(state, { method }) {
       state[`${method}s`].isMore = false
+    },
+    SHOW_IPS(state) {
+      state.ips.showMore = !state.ips.showMore
     }
   },
   actions: {
@@ -65,7 +73,11 @@ export default {
               get('post', { user: params.id, limit, offset: state['posts'].offset }),
               get('msg', { user: params.id, limit, offset: state['messages'].offset })
             ])
-            dispatch('content/addToCache', { hash, content: { content, posts, msgs } }, { root: true })
+            dispatch(
+              'content/addToCache',
+              { hash, content: { content, posts, msgs } },
+              { root: true }
+            )
           } else {
             content = await get('user', { ...params, limit: 10, offset: 0 })
             dispatch('content/addToCache', { hash, content }, { root: true })
@@ -102,7 +114,11 @@ export default {
         const limit = 10
         dispatch('offset', { method, limit })
         dispatch('loading', null, { root: true })
-        const content = await get(method, { user: params.user, limit, offset: state[`${method}s`].offset })
+        const content = await get(method, {
+          user: params.user,
+          limit,
+          offset: state[`${method}s`].offset
+        })
         content ? dispatch('addContent', { method, content }) : dispatch('noMore', { method })
         dispatch('loading', null, { root: true })
       } catch (err) {
@@ -126,14 +142,18 @@ export default {
     setProfile({ commit }, content) {
       commit('SET_PROFILE', content)
     },
-    offset({ commit }, method, limit) {
+    offset({ commit }, { method, limit }) {
       commit('OFFSET', method, limit)
     },
     resetUser({ commit }, method) {
       commit('RESET_USER', method)
     },
     noMore({ commit }, method) {
+      if (method === 'msg') method = 'message'
       commit('NO_MORE', method)
+    },
+    showIps({ commit }) {
+      commit('SHOW_IPS')
     }
   }
 }

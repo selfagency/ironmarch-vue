@@ -10,16 +10,23 @@
       </ul>
       <div class="twitter">
         <a href="https://twitter.com/jewishworker" target="_blank">
-          <img src="https://img.shields.io/twitter/follow/jewishworker?style=social" alt="Follow Jewish Worker on Twitter" />
+          <img
+            src="https://img.shields.io/twitter/follow/jewishworker?style=social"
+            alt="Follow Jewish Worker on Twitter"
+          />
         </a>
       </div>
       <ul>
         <li><strong>Source Code</strong></li>
-        <li><a href="https://gitlab.com/jewishworker/ironmarch-web" target="_blank">Frontend</a></li>
+        <li>
+          <a href="https://gitlab.com/jewishworker/ironmarch-web" target="_blank">Frontend</a>
+        </li>
         <li><a href="https://gitlab.com/jewishworker/ironmarch-api" target="_blank">Backend</a></li>
         <li><a href="https://gitlab.com/jewishworker/ironmarch-data" target="_blank">Data</a></li>
       </ul>
-      <div class="privacy">This website does not collect or track any information about its visitors.</div>
+      <div class="privacy">
+        This website does not collect or track any information about its visitors.
+      </div>
     </div>
   </footer>
 </template>

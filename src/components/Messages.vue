@@ -1,6 +1,9 @@
 <template>
   <section v-if="msgs.length && Object.values(msgs[0]).length" id="messages" class="full">
-    <h2>{{ thread ? thread : 'Messages' | quotes }}</h2>
+    <h2>
+      <div class="icon"><unicon name="envelopes" fill="#000" height="22" width="22"></unicon></div>
+      <span>{{ thread ? thread : 'Messages' | quotes }}</span>
+    </h2>
     <table>
       <tr class="flex">
         <th class="none third-800">Meta</th>
@@ -21,8 +24,10 @@
             <small>{{ msg.date | dateConv }}</small>
             <br />
             <small>
-              <router-link :to="{ name: 'message', params: { id: msg.id }, hash: `#msg-${msg.id}` }">
-                Link
+              <router-link
+                :to="{ name: 'message', params: { id: msg.id }, hash: `#msg-${msg.id}` }"
+              >
+                <unicon name="link" fill="#0074d9" height="12" width="12"></unicon>
               </router-link>
             </small>
           </div>
@@ -31,7 +36,9 @@
           <div v-if="trunc" class="content">
             {{ content(msg) }}
             <div class="read-more">
-              <router-link :to="{ name: 'message', params: { id: msg.id }, hash: `#msg-${msg.id}` }">
+              <router-link
+                :to="{ name: 'message', params: { id: msg.id }, hash: `#msg-${msg.id}` }"
+              >
                 More &raquo;
               </router-link>
             </div>
@@ -42,7 +49,7 @@
     </table>
 
     <div v-if="isMore" class="more" role="none">
-      <button @click="search ? more('message') : getMore({ method: 'message', params: { user: user.id } })">
+      <button @click="doSearch">
         More messages
       </button>
     </div>
@@ -102,6 +109,11 @@ export default {
     ...mapActions('search', ['more']),
     content(msg) {
       return this.trunc ? this.$options.filters.truncate(msg.content, 255) : msg.content
+    },
+    doSearch() {
+      this.search
+        ? this.more('message')
+        : this.getMore({ method: 'message', params: { user: user.id } })
     }
   }
 }
@@ -110,6 +122,11 @@ export default {
 <style lang="stylus" scoped>
 #messages
   margin-top 4em
+
+  h2
+    .icon
+      float left
+      margin 0.1em 0.3em 0 0
 
   table
     width 100%

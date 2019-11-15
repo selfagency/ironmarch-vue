@@ -1,6 +1,9 @@
 <template>
   <section v-if="statuses.length && Object.values(statuses[0]).length" id="statuses" class="full">
-    <h2>Statuses</h2>
+    <h2>
+      <div class="icon"><unicon name="comment" fill="#000" height="22" width="22"></unicon></div>
+      <span>Statuses</span>
+    </h2>
     <table>
       <tr class="flex">
         <th class="third">Date</th>
@@ -33,6 +36,11 @@ export default {
 <style lang="stylus" scoped>
 #statuses
   margin-top 4em
+
+  h2
+    .icon
+      float left
+      margin 0.125em 0.2em 0 0
 
   table
     width 100%

@@ -1,11 +1,11 @@
 <template>
-  <div id="to-top" @click="toTop">
-    <inline-svg :src="arrow"></inline-svg>
+  <div id="to-top" v-tooltip="'Back to Top'" @click="toTop">
+    <unicon name="top-arrow-to-top" fill="#fff" width="32" height="32" />
   </div>
 </template>
 
 <script>
-import arrow from '../assets/to-top.svg'
+import arrow from '../assets/icons/to-top.svg'
 
 export default {
   name: 'ToTop',
@@ -27,10 +27,11 @@ export default {
   position fixed
   right 1em
   bottom 1em
-  width 2em
-  height 2em
+  display block
+  padding 0.5em
+  width 3.2em
+  height 3.2em
+  border-radius 15%
+  background-color rgba(0, 0, 0, 0.25)
   cursor pointer
-
-  svg
-    fill rgba(0, 0, 0, 0.25)
 </style>

@@ -4,7 +4,6 @@ module.exports = {
     browser: true,
     commonjs: true,
     es6: true,
-    es2017: true,
     jest: true,
     jquery: true,
     serviceworker: true,
@@ -20,7 +19,7 @@ module.exports = {
     'security',
     'standard',
     'vue',
-    // 'vue-a11y',
+    'vue-a11y',
     'fp',
     '@getify/proper-arrows',
     'unicorn'
@@ -28,7 +27,7 @@ module.exports = {
   extends: [
     'plugin:jest/recommended',
     'plugin:security/recommended',
-    // 'plugin:vue-a11y/base',
+    'plugin:vue-a11y/base',
     '@vue/prettier',
     'plugin:vue/recommended',
     'plugin:you-dont-need-lodash-underscore/compatible'
@@ -51,8 +50,8 @@ module.exports = {
     }
   ],
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-console': ['warn'],
+    'no-debugger': ['warn'],
     'callback-return': ['error'],
     'handle-callback-err': ['error'],
     indent: ['off'],
@@ -91,6 +90,7 @@ module.exports = {
     'vue/max-attributes-per-line': ['off'],
     'vue/no-v-html': ['off'],
     'vue/singleline-html-element-content-newline': ['off'],
-    'wrap-iife': ['error', 'inside']
+    'wrap-iife': ['error', 'inside'],
+    'vue-a11y/click-events-have-key-events': ['off']
   }
 }

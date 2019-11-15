@@ -1,5 +1,7 @@
 <template>
-  <div class="go-back" @click="$router.go(-1)">&laquo; Back</div>
+  <div class="go-back" @click="$router.go(-1)">
+    &laquo; Back
+  </div>
 </template>
 
 <script>

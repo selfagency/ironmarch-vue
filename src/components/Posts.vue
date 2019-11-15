@@ -1,6 +1,9 @@
 <template>
   <section v-if="Object.values(posts.data[0]).length" id="posts" class="full">
-    <h2>Posts</h2>
+    <h2>
+      <div class="icon"><unicon name="notes" fill="#000" height="22" width="22"></unicon></div>
+      <span>Posts</span>
+    </h2>
     <table>
       <tr class="header flex">
         <th class="none third-800">Meta</th>
@@ -15,7 +18,11 @@
           <br />
           <small>{{ post.date | dateConv }}</small>
           <br />
-          <small><router-link :to="{ name: 'post', params: { id: post.id } }">Link</router-link></small>
+          <small>
+            <router-link :to="{ name: 'post', params: { id: post.id } }">
+              <unicon name="link" fill="#0074d9" height="12" width="12"></unicon>
+            </router-link>
+          </small>
         </td>
         <td valign="top" :class="{ wide }" class="full two-third-600">
           <div class="content">
@@ -32,7 +39,7 @@
     </table>
 
     <div v-if="posts.isMore" class="more" role="none">
-      <button @click="search ? more('post') : getMore({ method: 'post', params: { user: user.id } })">
+      <button @click="doSearch">
         More posts
       </button>
     </div>
@@ -73,7 +80,10 @@ export default {
   },
   methods: {
     ...mapActions('user', ['getMore']),
-    ...mapActions('search', ['more'])
+    ...mapActions('search', ['more']),
+    doSearch() {
+      this.search ? this.more('post') : this.getMore({ method: 'post', params: { user: user.id } })
+    }
   }
 }
 </script>
@@ -81,6 +91,11 @@ export default {
 <style lang="stylus" scoped>
 #posts
   margin-top 4em
+
+  h2
+    .icon
+      float left
+      margin 0.125em 0.2em 0 0
 
   table
     width 100%
