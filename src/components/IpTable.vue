@@ -8,16 +8,16 @@
         <th class="none third-800">Location</th>
       </tr>
       <tr v-for="(ip, key) in ipsFilter" :key="key" class="flex">
-        <td class="none third-800">
+        <td class="full third-800">
           <a :href="ip.whois.net.ref.$" target="_blank">
             {{ ip.ip | truncate(28) }}
             <unicon name="external-link-alt" fill="#0074d9" width="12" height="12" />
           </a>
         </td>
-        <td class="none third-800">
+        <td class="full third-800">
           {{ ref(ip) | truncate(28) }}
         </td>
-        <td class="none third-800">
+        <td class="full third-800">
           {{ ip.geo.city }}, {{ ip.geo.region_code }}, {{ ip.geo.country_code }}
         </td>
       </tr>
