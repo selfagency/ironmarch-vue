@@ -97,6 +97,9 @@ img
 .read-more
   float right
 
+.card
+  position static
+
 #loading
   position fixed
   top 0

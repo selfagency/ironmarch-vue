@@ -1,6 +1,6 @@
 import { converter } from 'bbfy'
 import md5 from 'md5-hash'
-import mediumZoom from 'medium-zoom'
+// import mediumZoom from 'medium-zoom'
 
 const footerOffset = () => {
   setTimeout(() => {
@@ -16,8 +16,8 @@ const utils = Vue => {
   Vue.prototype.$utils = {
     bbcode: converter(),
     footerOffset,
-    hash: md5,
-    zoom: mediumZoom
+    hash: md5
+    // zoom: mediumZoom
   }
 }
 

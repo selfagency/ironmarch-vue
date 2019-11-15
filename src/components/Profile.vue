@@ -67,13 +67,17 @@
       </div>
       <div v-if="hasPhoto(user)" class="third">
         <div v-if="lookup && lookup.details && lookup.details.photos.length">
-          <img class="user-photo" :src="lookup.details.photos[0].value" :alt="lookup.fullName" />
+          <img-zoom
+            class="user-photo"
+            :src="lookup.details.photos[0].value"
+            :alt="lookup.fullName"
+          />
         </div>
         <div v-if="user.photo && user.photo.startsWith('ht')">
-          <img class="user-photo" :src="user.photo" :alt="user.name" />
+          <img-zoom class="user-photo" :src="user.photo" :alt="user.name" />
         </div>
         <div v-if="user.photoAlt && user.photoAlt.startsWith('ht') && user.photoAlt !== user.photo">
-          <img class="user-photo" :src="user.photoAlt" :alt="user.name" />
+          <img-zoom class="user-photo" :src="user.photoAlt" :alt="user.name" />
         </div>
       </div>
     </div>
@@ -155,7 +159,6 @@ export default {
   mounted() {
     this.$nextTick(() => {
       setTimeout(() => {
-        this.$utils.zoom(document.querySelectorAll('.user-photo'))
         const spans = document.querySelectorAll('span')
         spans.forEach(span => {
           span.style.removeProperty('font-size')
@@ -180,7 +183,7 @@ export default {
   width 100%
 
 .user-photo
-  width 100%
+  margin-bottom 1em
 
 .user-socials
   ul

@@ -13,9 +13,6 @@ export default {
       type: String,
       default: ''
     }
-  },
-  mounted() {
-    this.$utils.zoom(document.querySelectorAll('img'))
   }
 }
 </script>
