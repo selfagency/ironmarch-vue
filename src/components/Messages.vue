@@ -1,5 +1,5 @@
 <template>
-  <section v-if="msgs.length && Object.values(msgs[0]).length" id="messages" class="full">
+  <section v-if="Object.values(msgs[0]).length" id="messages" class="full">
     <h2>
       <div class="icon"><unicon name="envelopes" fill="#000" height="22" width="22"></unicon></div>
       <span>{{ thread ? thread : 'Messages' | quotes }}</span>

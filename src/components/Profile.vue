@@ -21,18 +21,7 @@
             , {{ user.emailAlt2 }}
           </span>
         </div>
-        <div
-          v-if="
-            user.socialTwitter ||
-              user.socialJabber ||
-              user.socialSkype ||
-              user.socialAim ||
-              user.socialMsn ||
-              user.socialIcq ||
-              user.socialYahoo
-          "
-          class="user-socials"
-        >
+        <div v-if="hasSocial" class="user-socials">
           <ul>
             <li v-if="user.socialTwitter">
               <strong>Twitter: </strong>
@@ -105,7 +94,7 @@
       >
         <ul>
           <li v-for="(social, key) in lookup.details.profiles" :key="key">
-            <strong>{{ social.service | capitalize }}:</strong>
+            <strong>{{ social.service | capitalize }}: </strong>
             <a :href="social.url" target="_blank">{{ social.url }}</a>
           </li>
         </ul>
@@ -133,6 +122,17 @@ export default {
   computed: {
     lookup() {
       return this.user.lookup
+    },
+    hasSocial() {
+      return (
+        this.user.socialTwitter ||
+        this.user.socialJabber ||
+        this.user.socialSkype ||
+        this.user.socialAim ||
+        this.user.socialMsn ||
+        this.user.socialIcq ||
+        this.user.socialYahoo
+      )
     }
   },
   mounted() {

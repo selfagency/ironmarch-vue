@@ -1,5 +1,5 @@
 <template>
-  <section v-if="statuses.length && Object.values(statuses[0]).length" id="statuses" class="full">
+  <section v-if="Object.values(statuses[0]).length" id="statuses" class="full">
     <h2>
       <div class="icon"><unicon name="comment" fill="#000" height="22" width="22"></unicon></div>
       <span>Statuses</span>
