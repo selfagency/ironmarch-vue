@@ -28,8 +28,10 @@ export default {
     ZoomImage: posed.img({
       zoomedOut: {
         position: 'static',
-        width: '100%',
+        'max-width': '90vw',
+        'max-height': '80vh',
         height: 'auto',
+        width: '100%',
         transition,
         flip: true
       },
@@ -40,7 +42,8 @@ export default {
         right: 0,
         bottom: 0,
         transition,
-        flip: true
+        flip: true,
+        width: 'auto'
       }
     })
   },

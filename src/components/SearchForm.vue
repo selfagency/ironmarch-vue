@@ -61,7 +61,6 @@ fieldset
 
 #search-bar
   align-items center
-  padding-top 0.125em
   width 100%
 
   &.flex
@@ -70,7 +69,11 @@ fieldset
     .three-fourth
       padding-left 0
 
+  input
+    font-size 16px
+
   #search-button
+    font-size 16px
     min-width 70px
     width 100%
 </style>

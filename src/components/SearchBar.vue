@@ -87,7 +87,10 @@ export default {
   #search-toggle div
     position absolute
     top 0.6em
-    right 0.6em
+    right 1.4em
+    display flex
+    align-items center
+    justify-content center
     width 25px
     height 25px
     cursor pointer

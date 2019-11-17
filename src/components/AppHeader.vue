@@ -3,7 +3,7 @@
     <nav>
       <router-link class="brand" :to="{ name: 'home' }">
         <div class="logo"><inline-svg :src="logo"></inline-svg></div>
-        <div>Iron March Exposed</div>
+        <h1>Iron March Exposed</h1>
       </router-link>
 
       <search-bar></search-bar>
@@ -32,12 +32,17 @@ nav
   z-index 200
   min-width 375px
 
+  h1
+    font-size 1.4em
+
   .brand
     display flex
     flex-direction row
     justify-content center
     align-items center
+    max-width 65%
 
   .logo
-    width 40px
+    min-width 40px
+    max-width 40px
 </style>

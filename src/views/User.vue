@@ -150,7 +150,7 @@ h1
 #user-nav
   display flex
   justify-content flex-end
-  align-items center
+  align-items flex-start
 
   ul
     margin 0
@@ -162,9 +162,6 @@ h1
       padding 0 0 0 1em
       font-weight bold
       cursor pointer
-
-  span
-    margin-top -0.2em
 
 #statuses, #posts, #messages
   margin-top 4em
