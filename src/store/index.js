@@ -7,7 +7,7 @@ import content from './modules/content'
 import search from './modules/search'
 import user from './modules/user'
 
-import logo from '../assets/ironmarch.jpg'
+import logo from '../assets/ironmarch.svg'
 
 Vue.use(Vuex)
 const vuexLocal = new VuexPersistence({

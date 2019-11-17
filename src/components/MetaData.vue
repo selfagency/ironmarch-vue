@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Object.values(meta).length" id="metadata">
+  <section v-if="Object.values(meta).length" id="metadata">
     <icon-header text="Uncovered Social Media Profiles" icon="user-square"></icon-header>
     <div class="flex">
       <div v-if="meta.facebook" id="facebook" class="full third-800">
@@ -132,7 +132,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -185,6 +185,8 @@ export default {
 
 <style lang="stylus" scoped>
 #metadata
+  margin-top 4em
+
   table
     width 100%
 

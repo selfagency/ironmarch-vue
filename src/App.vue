@@ -81,7 +81,7 @@ export default {
 main
   display flex
   flex-direction column
-  justify-content center
+  justify-content flex-start
   align-items center
   margin 3em auto 230px
   min-height 75vh

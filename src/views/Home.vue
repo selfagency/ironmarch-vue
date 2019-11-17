@@ -1,14 +1,10 @@
 <template>
   <main id="home">
-    <div class="card">
-      <h3>Use the form above to search:</h3>
-      <ul>
-        <li>Full-text of posts, messages, and user bios</li>
-        <li>User names and email addresses</li>
-        <li>Locations</li>
-      </ul>
+    <div class="header">
+      <h1>Iron March Exposed</h1>
+      <div class="icon"><inline-svg :src="logo"></inline-svg></div>
     </div>
-
+    <search-card></search-card>
     <div v-if="meta" class="full">
       <locales v-if="meta.locales" :locales="meta.locales"></locales>
       <!-- <users v-if="current.data && current.data.length" :users="current"></users> -->
@@ -22,6 +18,7 @@ import { mapActions, mapState } from 'vuex'
 
 import Locales from '../components/Locales.vue'
 import MetaData from '../components/MetaData.vue'
+import SearchCard from '../components/SearchCard.vue'
 // import Users from '../components/Users.vue'
 
 export default {
@@ -55,7 +52,8 @@ export default {
   },
   components: {
     Locales,
-    MetaData
+    MetaData,
+    SearchCard
     // Users
   },
   computed: {
@@ -74,15 +72,21 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.card
-  background-color rgb(250, 250, 250)
-  padding 2em 4em
-  text-align center
+.header
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+  padding 3em 0
+  width 100%
 
-  ul
-    margin 0.5em auto
-    padding 0
+  h1
+    text-align center
+
+  .icon
+    padding 2em
     max-width 300px
-    width 100%
-    text-align left
+
+    svg
+      width 100%
 </style>

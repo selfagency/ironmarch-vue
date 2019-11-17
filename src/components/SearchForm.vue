@@ -56,12 +56,21 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+fieldset
+  margin-inline-start 0
+
 #search-bar
   align-items center
-  margin-top 0.1em
+  padding-top 0.125em
   width 100%
 
+  &.flex
+    margin 0
+
+    .three-fourth
+      padding-left 0
+
   #search-button
-    min-width 90px
+    min-width 70px
     width 100%
 </style>

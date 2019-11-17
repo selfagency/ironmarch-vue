@@ -38,13 +38,8 @@
         <p>No results to display.</p>
       </div>
 
-      <div v-if="!loading && !active && noResults" key="pre-search" class="card">
-        <h3>Use the form above to search:</h3>
-        <ul>
-          <li>Full-text of posts, messages, and user bios</li>
-          <li>User names and email addresses</li>
-          <li>Locations</li>
-        </ul>
+      <div v-if="!loading && !active && noResults" key="pre-search">
+        <search-card></search-card>
       </div>
     </transition-group>
   </main>
@@ -55,6 +50,7 @@ import { mapState, mapActions } from 'vuex'
 
 import Posts from '../components/Posts.vue'
 import Messages from '../components/Messages.vue'
+import SearchCard from '../components/SearchCard.vue'
 import Users from '../components/Users.vue'
 
 export default {
@@ -89,6 +85,7 @@ export default {
   components: {
     Posts,
     Messages,
+    SearchCard,
     Users
   },
   computed: {
@@ -138,8 +135,8 @@ export default {
     width 100%
 
   .card
-    background-color rgb(250, 250, 250)
     padding 2em 4em
+    background-color rgb(250, 250, 250)
     text-align center
 
     ul

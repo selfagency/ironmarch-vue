@@ -5,7 +5,11 @@
         <search-form :placeholder="placeholder" @search="search"></search-form>
       </form>
       <form v-else id="search-form" key="bar" class="none full-600">
-        <search-form :placeholder="placeholder" @search="search"></search-form>
+        <search-form
+          v-if="$route.path !== '/' && !($route.path === '/search' && !active)"
+          :placeholder="placeholder"
+          @search="search"
+        ></search-form>
       </form>
     </transition-group>
     <div id="search-toggle" class="none-600" @click="searchToggle">
@@ -43,7 +47,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('search', ['modal'])
+    ...mapState('search', ['modal', 'active'])
   },
   created() {
     this.$store.subscribeAction(action => {
@@ -62,6 +66,8 @@ export default {
 
 <style lang="stylus" scoped>
 #search
+  width 100%
+
   .modal
     position fixed
     top 3em
@@ -69,7 +75,8 @@ export default {
     z-index 100
     display flex
     justify-content center
-    align-items center
+    align-items flex-start
+    padding-top 4em
     width 100vw
     height calc(100vh - 3em)
     background-color #ccc

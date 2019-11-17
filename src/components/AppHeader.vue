@@ -2,8 +2,8 @@
   <header>
     <nav>
       <router-link class="brand" :to="{ name: 'home' }">
-        <img :src="logo" class="logo" alt="Iron March logo" />
-        <span>Iron March Forum Leak</span>
+        <div class="logo"><inline-svg :src="logo"></inline-svg></div>
+        <div>Iron March Exposed</div>
       </router-link>
 
       <search-bar></search-bar>
@@ -32,6 +32,12 @@ nav
   z-index 200
   min-width 375px
 
+  .brand
+    display flex
+    flex-direction row
+    justify-content center
+    align-items center
+
   .logo
-    margin-right 1em
+    width 40px
 </style>
