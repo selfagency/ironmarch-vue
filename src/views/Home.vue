@@ -86,6 +86,7 @@ export default {
   .icon
     padding 2em
     max-width 300px
+    width 100%
 
     svg
       width 100%
