@@ -31,9 +31,7 @@ export default {
   },
   mutations: {
     CONTENT_ADD(state, { method, content }) {
-      content.length
-        ? state[`${method}s`].data.push(...content)
-        : state[`${method}s`].data.push(content)
+      content.length ? state[`${method}s`].data.push(...content) : state[`${method}s`].data.push(content)
     },
     SET_PROFILE(state, { content }) {
       state.profile = content
@@ -73,11 +71,7 @@ export default {
               get('post', { user: params.id, limit, offset: state['posts'].offset }),
               get('msg', { user: params.id, limit, offset: state['messages'].offset })
             ])
-            dispatch(
-              'content/addToCache',
-              { hash, content: { content, posts, msgs } },
-              { root: true }
-            )
+            dispatch('content/addToCache', { hash, content: { content, posts, msgs } }, { root: true })
           } else {
             content = await get('user', { ...params, limit: 10, offset: 0 })
             dispatch('content/addToCache', { hash, content }, { root: true })

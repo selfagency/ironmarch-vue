@@ -5,10 +5,7 @@ module.exports = {
     commonjs: true,
     es6: true,
     jest: true,
-    jquery: true,
-    serviceworker: true,
-    webextensions: true,
-    worker: true
+    serviceworker: true
   },
   plugins: [
     'jest',
@@ -21,16 +18,15 @@ module.exports = {
     'vue',
     'vue-a11y',
     'fp',
-    '@getify/proper-arrows',
-    'unicorn'
+    '@getify/proper-arrows'
   ],
   extends: [
+    'plugin:prettier/recommended',
     'plugin:jest/recommended',
     'plugin:security/recommended',
     'plugin:vue-a11y/base',
     '@vue/prettier',
-    'plugin:vue/recommended',
-    'plugin:you-dont-need-lodash-underscore/compatible'
+    'plugin:vue/recommended'
   ],
   parserOptions: {
     allowImportExportEverywhere: true,
@@ -68,6 +64,7 @@ module.exports = {
       }
     ],
     'no-useless-escape': ['off'],
+    'prettier/prettier': ['warn'],
     quotes: ['warn', 'single'],
     'require-jsdoc': [
       'off',

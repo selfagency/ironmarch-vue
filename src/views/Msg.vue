@@ -1,12 +1,7 @@
 <template>
   <main id="message">
     <go-back></go-back>
-    <messages
-      :msgs="current.thread"
-      :trunc="false"
-      :thread="current.title"
-      :is-more="false"
-    ></messages>
+    <messages :msgs="current.thread" :trunc="false" :thread="current.title" :is-more="false"></messages>
   </main>
 </template>
 

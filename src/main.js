@@ -10,7 +10,7 @@ import plugins from './app/plugins'
 import router from './app/router'
 import store from './store'
 import utils from './app/utils'
-import './app/serviceWorker'
+import './app/regWorker'
 
 // config
 window.debug = process.env.NODE_ENV !== 'production'

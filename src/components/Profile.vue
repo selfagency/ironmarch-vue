@@ -13,11 +13,7 @@
         <div v-if="user.email">
           <strong>Email(s):</strong> {{ user.email }}
           <span v-if="user.emailAlt && user.emailAlt !== user.email">, {{ user.emailAlt }}</span>
-          <span
-            v-if="
-              user.emailAlt2 && user.emailAlt2 !== user.email && user.emailAlt2 !== user.emailAlt
-            "
-          >
+          <span v-if="user.emailAlt2 && user.emailAlt2 !== user.email && user.emailAlt2 !== user.emailAlt">
             , {{ user.emailAlt2 }}
           </span>
         </div>
@@ -46,12 +42,8 @@
         <div v-if="user.location"><strong>Location:</strong> {{ user.location }}</div>
         <div v-if="user.timezone"><strong>Time Zone:</strong> {{ user.timezone }}</div>
         <div v-if="user.joined"><strong>Joined:</strong> {{ user.joined | dateConv }}</div>
-        <div v-if="user.lastLogin">
-          <strong>Last Login:</strong> {{ user.lastLogin | dateConv }}
-        </div>
-        <div v-if="user.password">
-          <strong>Password:</strong> {{ user.password | truncate(32) }}
-        </div>
+        <div v-if="user.lastLogin"><strong>Last Login:</strong> {{ user.lastLogin | dateConv }}</div>
+        <div v-if="user.password"><strong>Password:</strong> {{ user.password | truncate(32) }}</div>
         <div v-if="user.salt"><strong>Password Salt:</strong> {{ user.salt }}</div>
         <div v-if="(user.bioAlt || user.bio || user.signature) && user.signature"><br /></div>
         <div v-if="user.bioAlt || user.bio">
@@ -67,11 +59,7 @@
       </div>
       <div v-if="hasPhoto(user)" class="third">
         <div v-if="lookup && lookup.details && lookup.details.photos.length">
-          <img-zoom
-            class="user-photo"
-            :src="lookup.details.photos[0].value"
-            :alt="lookup.fullName"
-          />
+          <img-zoom class="user-photo" :src="lookup.details.photos[0].value" :alt="lookup.fullName" />
         </div>
         <div v-if="user.photo && user.photo.startsWith('ht')">
           <img-zoom class="user-photo" :src="user.photo" :alt="user.name" />
@@ -90,18 +78,13 @@
       ></icon-header>
       <div v-if="lookup.fullName"><strong>Real Name:</strong> {{ lookup.fullName }}</div>
       <div v-if="lookup.details">
-        <span v-if="lookup.details.gender">
-          <strong>Gender:</strong> {{ lookup.details.gender }}
-        </span>
+        <span v-if="lookup.details.gender"> <strong>Gender:</strong> {{ lookup.details.gender }} </span>
         <span v-if="lookup.details.gender && lookup.details.age"> · </span>
         <span v-if="lookup.details.age">
           <strong>Age:</strong> {{ lookup.details.age.range || lookup.details.age }}
         </span>
       </div>
-      <div
-        v-if="lookup.details && Object.values(lookup.details.profiles).length"
-        class="user-socials"
-      >
+      <div v-if="lookup.details && Object.values(lookup.details.profiles).length" class="user-socials">
         <ul>
           <li v-for="(social, key) in lookup.details.profiles" :key="key">
             <strong>{{ social.service | capitalize }}: </strong>
@@ -111,17 +94,16 @@
       </div>
       <div class="notice">
         <p>
-          This information comes from a public records lookup and therefore may not be wholly
-          accurate. Unless you are able to verify and corroborate an individual's identity, do not
-          assume that an identity match is concrete proof of anything.
+          This information comes from a public records lookup and therefore may not be wholly accurate. Unless you are
+          able to verify and corroborate an individual's identity, do not assume that an identity match is concrete
+          proof of anything.
         </p>
       </div>
     </div>
     <div v-if="user.dossier" class="card verified">
       <icon-header text="Identity Verified" icon="shield-check" color="green"></icon-header>
       <p>
-        This individual's identity has been verified by independent investigators. Scroll down or
-        click
+        This individual's identity has been verified by independent investigators. Scroll down or click
         <strong>Dossier</strong> above to read their report.
       </p>
     </div>

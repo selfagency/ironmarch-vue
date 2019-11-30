@@ -23,7 +23,7 @@ export default {
   metaInfo() {
     return {
       titleTemplate: '%s · Iron March Forum Leak',
-      link: [{ rel: 'canonical', href: `https://iron-march-web.now.sh${this.$route.path}` }]
+      link: [{ rel: 'canonical', href: `https://www.ironmarch.exposed${this.$route.path}` }]
     }
   },
   components: {
@@ -42,11 +42,6 @@ export default {
     }
   },
   created() {
-    if (window.location.host == 'ironmarch-web.now.sh') {
-      const newUrl = window.location.href.replace('ironmarch-web.now.sh', 'ironmarch.exposed')
-      window.location.assign(newUrl)
-    }
-
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'ERROR') {
         if (this.loading) this.$store.dispatch('loading')

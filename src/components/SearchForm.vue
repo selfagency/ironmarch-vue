@@ -73,7 +73,7 @@ fieldset
     font-size 16px
 
   #search-button
-    font-size 16px
     min-width 70px
     width 100%
+    font-size 16px
 </style>

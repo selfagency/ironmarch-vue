@@ -34,12 +34,8 @@
         </td>
         <td valign="top" class="none fourth-800">
           {{ user.email | truncate(25) }}
-          <span v-if="user.emailAlt && user.emailAlt !== user.email">{{
-            user.emailAlt | truncate(25)
-          }}</span>
-          <span v-if="user.emailAlt2 && user.emailAlt2 !== user.emailAlt">{{
-            user.emailAlt2 | truncate(25)
-          }}</span>
+          <span v-if="user.emailAlt && user.emailAlt !== user.email">{{ user.emailAlt | truncate(25) }}</span>
+          <span v-if="user.emailAlt2 && user.emailAlt2 !== user.emailAlt">{{ user.emailAlt2 | truncate(25) }}</span>
         </td>
         <td valign="top" class="half fourth-800">
           <div v-if="user.geo && user.geo.city !== null">

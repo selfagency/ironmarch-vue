@@ -1,6 +1,5 @@
 import { converter } from 'bbfy'
 import md5 from 'md5-hash'
-// import mediumZoom from 'medium-zoom'
 
 const footerOffset = () => {
   setTimeout(() => {

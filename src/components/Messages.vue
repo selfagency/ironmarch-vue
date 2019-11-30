@@ -21,9 +21,7 @@
             <small>{{ msg.date | dateConv }}</small>
             <br />
             <small>
-              <router-link
-                :to="{ name: 'message', params: { id: msg.id }, hash: `#msg-${msg.id}` }"
-              >
+              <router-link :to="{ name: 'message', params: { id: msg.id }, hash: `#msg-${msg.id}` }">
                 <unicon name="link" fill="#0074d9" height="12" width="12"></unicon>
               </router-link>
             </small>
@@ -33,9 +31,7 @@
           <div v-if="trunc" class="content">
             {{ content(msg) }}
             <div class="read-more">
-              <router-link
-                :to="{ name: 'message', params: { id: msg.id }, hash: `#msg-${msg.id}` }"
-              >
+              <router-link :to="{ name: 'message', params: { id: msg.id }, hash: `#msg-${msg.id}` }">
                 More &raquo;
               </router-link>
             </div>
@@ -108,9 +104,7 @@ export default {
       return this.trunc ? this.$options.filters.truncate(msg.content, 255) : msg.content
     },
     doSearch() {
-      this.search
-        ? this.more('message')
-        : this.getMore({ method: 'message', params: { user: user.id } })
+      this.search ? this.more('message') : this.getMore({ method: 'message', params: { user: user.id } })
     }
   }
 }

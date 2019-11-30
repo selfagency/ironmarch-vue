@@ -17,9 +17,7 @@
         <td class="full third-800">
           {{ ref(ip) | truncate(28) }}
         </td>
-        <td class="full third-800">
-          {{ ip.geo.city }}, {{ ip.geo.region_code }}, {{ ip.geo.country_code }}
-        </td>
+        <td class="full third-800">{{ ip.geo.city }}, {{ ip.geo.region_code }}, {{ ip.geo.country_code }}</td>
       </tr>
     </table>
 

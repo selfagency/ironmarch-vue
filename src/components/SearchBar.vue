@@ -51,8 +51,7 @@ export default {
   },
   created() {
     this.$store.subscribeAction(action => {
-      if (action.type === 'search/search' && this.$route.name !== 'search')
-        this.$router.push({ name: 'search' })
+      if (action.type === 'search/search' && this.$route.name !== 'search') this.$router.push({ name: 'search' })
     })
   },
   methods: {
@@ -89,8 +88,8 @@ export default {
     top 0.6em
     right 1.4em
     display flex
-    align-items center
     justify-content center
+    align-items center
     width 25px
     height 25px
     cursor pointer

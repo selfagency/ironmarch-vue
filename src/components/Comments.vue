@@ -3,8 +3,7 @@
     <icon-header text="Notes &amp; Comments" icon="comment-alt-message"></icon-header>
     <div>
       <p>
-        <strong>Notice:</strong> Submissions that contain addresses and telephone numbers will be
-        redacted or rejected.
+        <strong>Notice:</strong> Submissions that contain addresses and telephone numbers will be redacted or rejected.
       </p>
     </div>
     <div id="commento"></div>

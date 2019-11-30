@@ -33,13 +33,7 @@
 
     <ip-table v-if="profile.ips.length" :ip-data="profile.ips"></ip-table>
     <statuses v-if="statuses.data.length" :statuses="statuses.data"></statuses>
-    <messages
-      v-if="messages.data.length"
-      :msgs="messages.data"
-      :is-more="messages.isMore"
-      :user="profile"
-    >
-    </messages>
+    <messages v-if="messages.data.length" :msgs="messages.data" :is-more="messages.isMore" :user="profile"> </messages>
     <posts v-if="posts.data.length" :posts="posts" :is-more="posts.isMore" :user="profile"> </posts>
     <dossier v-if="profile.dossier" key="dossier" :dossier="profile.dossier"></dossier>
     <comments></comments>

@@ -37,7 +37,7 @@ export default {
   width 100%
 
   form
-    margin 0 0
+    margin 0
     padding 0
     width 100%
 
