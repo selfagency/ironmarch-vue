@@ -22,7 +22,11 @@
           <a href="https://gitlab.com/jewishworker/ironmarch-web" target="_blank">Frontend</a>
         </li>
         <li><a href="https://gitlab.com/jewishworker/ironmarch-api" target="_blank">Backend</a></li>
-        <li><a href="https://gitlab.com/jewishworker/ironmarch-data" target="_blank">Data</a></li>
+        <li>
+          <a href="https://app.blackhole.run/#lhPJK0wufT1MXMfQyxHy1ovzHYCeLzviajx65idcbHXU" target="_blank">
+            Data
+          </a>
+        </li>
       </ul>
       <div class="privacy">
         This website does not collect or track any information about its visitors.
