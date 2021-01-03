@@ -8,24 +8,12 @@
       <div id="user-nav" class="full half-500">
         <span>#</span>
         <ul>
-          <li role="link" @click="$scrollTo('#ips')">
-            IPs
-          </li>
-          <li v-if="hasStatus(statuses.data)" role="link" @click="$scrollTo('#statuses')">
-            Statuses
-          </li>
-          <li v-if="messages.data.length" role="link" @click="$scrollTo('#messages')">
-            Messages
-          </li>
-          <li v-if="posts.data.length" role="link" @click="$scrollTo('#posts')">
-            Posts
-          </li>
-          <li v-if="profile.dossier" role="link" @click="$scrollTo('#dossier')">
-            Dossier
-          </li>
-          <li role="link" @click="$scrollTo('#comments')">
-            Comments
-          </li>
+          <li role="link" @click="$scrollTo('#ips')">IPs</li>
+          <li v-if="hasStatus(statuses.data)" role="link" @click="$scrollTo('#statuses')">Statuses</li>
+          <li v-if="messages.data.length" role="link" @click="$scrollTo('#messages')">Messages</li>
+          <li v-if="posts.data.length" role="link" @click="$scrollTo('#posts')">Posts</li>
+          <li v-if="profile.dossier" role="link" @click="$scrollTo('#dossier')">Dossier</li>
+          <li role="link" @click="$scrollTo('#comments')">Comments</li>
         </ul>
       </div>
     </div>
@@ -36,14 +24,12 @@
     <messages v-if="messages.data.length" :msgs="messages.data" :is-more="messages.isMore" :user="profile"> </messages>
     <posts v-if="posts.data.length" :posts="posts" :is-more="posts.isMore" :user="profile"> </posts>
     <dossier v-if="profile.dossier" key="dossier" :dossier="profile.dossier"></dossier>
-    <comments></comments>
   </main>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
 
-import Comments from '../components/Comments.vue'
 import Dossier from '../components/Dossier.vue'
 import IpTable from '../components/IpTable.vue'
 import Messages from '../components/Messages.vue'
@@ -81,7 +67,6 @@ export default {
     }
   },
   components: {
-    Comments,
     Dossier,
     IpTable,
     Messages,
