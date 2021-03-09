@@ -79,7 +79,7 @@ export default {
     ...mapActions('user', ['getMore']),
     ...mapActions('search', ['more']),
     doSearch() {
-      this.search ? this.more('post') : this.getMore({ method: 'post', params: { user: user.id } })
+      this.search ? this.more('post') : this.getMore({ method: 'post', params: { user: this.user.id } })
     }
   }
 }

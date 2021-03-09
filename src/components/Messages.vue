@@ -104,7 +104,7 @@ export default {
       return this.trunc ? this.$options.filters.truncate(msg.content, 255) : msg.content
     },
     doSearch() {
-      this.search ? this.more('message') : this.getMore({ method: 'message', params: { user: user.id } })
+      this.search ? this.more('message') : this.getMore({ method: 'message', params: { user: this.user.id } })
     }
   }
 }
